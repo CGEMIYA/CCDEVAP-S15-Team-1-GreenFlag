@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Wheel - Kilig Lines</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="wheelstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="logo-text" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                Green Flag~
+            </div>
+        </div>
+        <div class="nav-center">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-btn">🌙</button>
+            <div class="auth-links">
+                <span>Login</span> |
+                <span>Sign Up</span>
+            </div>
+            <button class="admin-quick-btn" onclick="window.location.href='admin.html'">
+                Admin View
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="user-avatar-placeholder"></div>
+            <div class="user-info">
+                <p class="user-name">Account Name</p>
+                <p class="user-email">Email Address</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="window.location.href='index.html'">Home</li>
+            <li onclick="window.location.href='homepage_extended.html'">Saved Spots</li>
+            <li>Forums</li>
+            <li class="verified-only">Coin Flip</li>
+            <li class="verified-only" style="display: block; color: var(--accent-green);">✨ Spin The Wheel</li>
+            <li class="toggle-verification-mock" onclick="toggleVerificationMock()">🔄 Toggle Verified UI</li>
+        </ul>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-settings')">Settings</li>
+            <li onclick="switchView('view-account')">My Account</li>
+            <li>About Us</li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="container">
+        <div class="wheel-page-wrapper">
+            <h1>💫 Spin &amp; Say</h1>
+            <p class="subtitle">Cheesy lines to make your partner <span style="color: #f43f5e;">❤️</span> melt</p>
+
+            <div class="wheel-container">
+                <canvas id="wheelCanvas" width="600" height="600"></canvas>
+                <button class="spin-btn-center" id="spinBtn">
+                    <span class="icon">🎡</span>
+                    SPIN
+                </button>
+            </div>
+
+            <div class="result-display">
+                <div class="result-text" id="resultText">
+                    <span class="emoji-big">💕</span>
+                    <span id="resultMessage">Ready to spin!</span>
+                </div>
+            </div>
+
+            <div class="wheel-actions">
+                <button class="btn-spin" id="spinBtnAlt">
+                    <i class="fa-solid fa-arrow-rotate-right"></i> Spin!
+                </button>
+                <button class="btn-reset" id="resetBtn">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+                <button class="btn-back" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+            </div>
+
+            <div class="history-section">
+                <h3><i class="fa-regular fa-clock"></i> Recent Lines</h3>
+                <div class="history-list" id="historyList">
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Spin to see some kilig lines!</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="wheel.js"></script>
+</body>
+</html>

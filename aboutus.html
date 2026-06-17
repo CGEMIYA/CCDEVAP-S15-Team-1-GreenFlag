@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Green Flag</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="logo-text" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                Green Flag~
+            </div>
+        </div>
+        <div class="nav-center">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-btn">🌙</button>
+            <div class="auth-links">
+                <span>Login</span> |
+                <span>Sign Up</span>
+            </div>
+            <button class="admin-quick-btn" onclick="window.location.href='admin.html'">
+                Admin View
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="user-avatar-placeholder"></div>
+            <div class="user-info">
+                <p class="user-name">Account Name</p>
+                <p class="user-email">Email Address</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="window.location.href='index.html'">Home</li>
+            <li onclick="window.location.href='homepage_extended.html'">Saved Spots</li>
+            <li>Forums</li>
+            <li class="verified-only" onclick="window.location.href='coinflip.html'">Coin Flip</li>
+            <li class="verified-only" onclick="window.location.href='wheel.html'">Spin The Wheel</li>
+            <li class="toggle-verification-mock" onclick="toggleVerificationMock()">🔄 Toggle Verified UI</li>
+        </ul>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-settings')">Settings</li>
+            <li onclick="switchView('view-account')">My Account</li>
+            <li style="color: var(--accent-green);" onclick="window.location.href='about.html'">About Us</li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="container">
+        <div class="about-wrapper">
+            <div class="about-header">
+                <h1>About Green Flag</h1>
+            </div>
+
+            <div class="about-content">
+                <div class="about-section">
+                    <p>
+                        Green Flag helps you find the best spots. Whether you're looking for a romantic date place, a quiet study spot, or somewhere to chill 
+                        with friends.
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <p>
+                        We rate places based on ambiance, price, noise level, and overall vibe. 
+                        Real people leave real reviews so you always know what you're getting into.
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <p>
+                        We also have fun stuff like a spinning wheel with cheesy pickup lines and 
+                        a coin flip for when you can't make up your mind.
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <p>
+                        Made with 💚 by people who just want to help you make better memories.
+                    </p>
+                </div>
+
+                <div class="about-footer">
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                    <p class="copyright">© 2026 Green Flag</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

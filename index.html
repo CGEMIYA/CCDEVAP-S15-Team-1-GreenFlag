@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Flag</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar" id="main-nav">
+        <div class="nav-left">
+            <button class="menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <span class="logo-text" id="logo-home">Green Flag~</span>
+        </div>
+        <div class="nav-center">
+            <input type="text" placeholder="Search..." class="search-bar">
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-btn">🌙</button>
+            <div class="auth-links">
+                <span class="login-link">Login</span> | <span class="signup-link">Sign Up</span>
+            </div>
+            <button class="admin-quick-btn" onclick="window.location.href='admin.html'">Admin View</button>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="user-avatar-placeholder"></div>
+            <div class="user-info">
+                <p class="user-name">Account Name</p>
+                <p class="user-email">Email Address</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-home')">Home</li>
+            <li onclick="window.location.href='homepage_extended.html'">Saved Spots</li>
+            <li>Forums</li>
+            <li class="verified-only" onclick="window.location.href='coinflip.html'">Coin Flip</li>
+            <li class="verified-only" onclick="window.location.href='wheel.html'">Spin The Wheel (For kilig lines~)</li>
+            <li class="toggle-verification-mock" onclick="toggleVerificationMock()">🔄 Toggle Verified UI</li>
+        </ul>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-settings')">Settings</li>
+            <li onclick="switchView('view-account')">My Account</li>
+            <li onclick="window.location.href='aboutus.html'">About Us</li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="container">
+
+        <section id="view-home" class="spa-view active-view">
+            <div class="section-header">
+                <h2>Popular Now</h2>
+                <span class="view-all-link" onclick="window.location.href='homepage_extended.html' ">View All</span>
+            </div>
+            
+            <div class="carousel-container">
+                <button class="carousel-arrow left-arrow">‹</button>
+                <div class="carousel-track">
+                    <div class="spot-card">
+                        <div class="image-wireframe-box">✕</div>
+                        <div class="card-details">
+                            <h3>Spot</h3>
+                            <p class="location">location</p>
+                            <p class="short-desc">short desc. OR [tags]</p>
+                            <p class="metrics">[rating]<br>[price]</p>
+                        </div>
+                    </div>
+                    <div class="spot-card" onclick="goToSpot('ArchersPlace')">
+                        <div class="image-wireframe-box">✕</div>
+                        <div class="card-details">
+                            <h3>Archer’s Place</h3>
+                            <p class="location">Taft Ave.</p>
+                            <p class="tags"><span>[Cafe]</span><span>[Workspace]</span><span>[Photobooth]</span></p>
+                            <p class="metrics">4.7★ (57)<br>$$$</p>
+                        </div>
+                    </div>
+                    <div class="spot-card" onclick="goToSpot('CafeMasa')">
+                        <div class="image-wireframe-box">✕</div>
+                        <div class="card-details">
+                            <h3>Cafe Masa</h3>
+                            <p class="location">Taft Ave.</p>
+                            <p class="tags"><span>[Cafe]</span><span>[Workspace]</span><span>[Chill]</span></p>
+                            <p class="metrics">4.9★ (57)<br>$$</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-arrow right-arrow">›</button>
+            </div>
+        </section>
+
+        <section id="view-settings" class="spa-view">
+            <div class="settings-container">
+                <div class="settings-tabs">
+                    <button class="settings-tab-btn active" onclick="switchSettingsTab('email')">Change Email</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('password')">Password</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('general')">General</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('theme')">Theme</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('notifications')">Notifications</button>
+                </div>
+
+                <!-- CHANGE EMAIL TAB -->
+                <div id="tab-email" class="settings-tab-content active">
+                    <h3>Change Email</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>CURRENT EMAIL:</label>
+                            <input type="email" id="current-email" placeholder="user@example.com" value="user@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>NEW EMAIL:</label>
+                            <input type="email" id="new-email" placeholder="Enter new email">
+                        </div>
+                        <div class="form-group">
+                            <label>CONFIRM EMAIL:</label>
+                            <input type="email" id="confirm-email" placeholder="Confirm new email">
+                        </div>
+                        <button class="btn-primary" onclick="updateEmail()">UPDATE EMAIL</button>
+                    </div>
+                </div>
+
+                <!-- CHANGE PASSWORD TAB -->
+                <div id="tab-password" class="settings-tab-content">
+                    <h3>Change Password</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>CURRENT PASSWORD:</label>
+                            <input type="password" id="current-password" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>NEW PASSWORD:</label>
+                            <input type="password" id="new-password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>CONFIRM PASSWORD:</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn-primary" onclick="updatePassword()">UPDATE PASSWORD</button>
+                    </div>
+                </div>
+
+                <!-- GENERAL SETTINGS TAB -->
+                <div id="tab-general" class="settings-tab-content">
+                    <h3>General Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>DISPLAY NAME:</label>
+                            <input type="text" id="display-name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>BIO:</label>
+                            <textarea id="bio" placeholder="Tell us about yourself" rows="4"></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="keep-public" checked>
+                                <span>KEEP PROFILE PUBLIC</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="show-activity" checked>
+                                <span>SHOW ACTIVITY STATUS</span>
+                            </label>
+                        </div>
+                        <button class="btn-primary" onclick="saveGeneral()">SAVE CHANGES</button>
+                    </div>
+                </div>
+
+                <!-- THEME SETTINGS TAB -->
+                <div id="tab-theme" class="settings-tab-content">
+                    <h3>Theme Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>APPEARANCE:</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="theme-mode" value="light" id="mode-light">
+                                    <span>LIGHT MODE</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-mode" value="dark" id="mode-dark">
+                                    <span>DARK MODE</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-mode" value="system" id="mode-system" checked>
+                                    <span>SYSTEM DEFAULT</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ACCENT COLOR:</label>
+                            <div class="color-picker">
+                                <button class="color-option" style="background-color: #22c55e;" onclick="selectAccentColor('#22c55e')" data-color="#22c55e"></button>
+                                <button class="color-option" style="background-color: #3b82f6;" onclick="selectAccentColor('#3b82f6')" data-color="#3b82f6"></button>
+                                <button class="color-option" style="background-color: #f59e0b;" onclick="selectAccentColor('#f59e0b')" data-color="#f59e0b"></button>
+                                <button class="color-option" style="background-color: #ec4899;" onclick="selectAccentColor('#ec4899')" data-color="#ec4899"></button>
+                                <button class="color-option" style="background-color: #a855f7;" onclick="selectAccentColor('#a855f7')" data-color="#a855f7"></button>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="applyTheme()">APPLY THEME</button>
+                    </div>
+                </div>
+
+                <!-- NOTIFICATIONS TAB -->
+                <div id="tab-notifications" class="settings-tab-content">
+                    <h3>Notification Preferences</h3>
+                    <div class="settings-form">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-reviews" checked>
+                                <span>EMAIL NOTIFICATIONS FOR NEW REVIEWS</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-replies" checked>
+                                <span>EMAIL NOTIFICATIONS FOR REPLIES TO MY COMMENTS</span>
+                            </label>
+                        </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-push" checked>
+                                <span>PUSH NOTIFICATIONS ON NEW MESSAGES</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>EMAIL FREQUENCY:</label>
+                            <select id="email-frequency">
+                                <option value="instant">Instant</option>
+                                <option value="daily">Daily Digest</option>
+                                <option value="weekly">Weekly Digest</option>
+                                <option value="monthly">Monthly Digest</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="saveNotifications()">SAVE PREFERENCES</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-account" class="spa-view">
+            <div class="account-wrapper">
+                <div class="account-left">
+                    <div class="account-avatar"></div>
+                    <h2 class="account-name">ACCOUNT NAME</h2>
+                    <p class="account-email">EMAIL</p>
+                </div>
+                <div class="account-right">
+                    <h3 class="bio-title">Bio</h3>
+                    <div class="bio-box"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

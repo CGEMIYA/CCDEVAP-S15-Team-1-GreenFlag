@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Flag - View All</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome (optional for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+            <button class="menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo-text" id="logo-home" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                Green Flag~
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="nav-right">
+
+            <button class="theme-toggle" id="theme-btn">
+                🌙
+            </button>
+
+            <div class="auth-links">
+                <span>Login</span> |
+                <span>Sign Up</span>
+            </div>
+
+            <button class="admin-quick-btn" onclick="window.location.href='admin.html'">
+                Admin View
+            </button>
+
+        </div>
+
+    </nav>
+
+    <!-- SIDEBAR COPY -->
+
+    <div class="sidebar" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="user-avatar-placeholder"></div>
+            <div class="user-info">
+                <p class="user-name">Account Name</p>
+                <p class="user-email">Email Address</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="window.location.href='index.html'">Home</li>
+            <li onclick="window.location.href='homepage_extended.html'">Saved Spots</li>
+            <li>Forums</li>
+            <li class="verified-only">Coin Flip</li>
+            <li class="verified-only">Spin The Wheel (For kilig lines~)</li>
+            <li class="toggle-verification-mock" onclick="toggleVerificationMock()">🔄 Toggle Verified UI</li>
+        </ul>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-settings')">Settings</li>
+            <li onclick="switchView('view-account')">My Account</li>
+            <li>About Us</li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <div class="container">
+
+        <section class="section-header">
+            <h2>Best</h2>
+            <span class="view-all-link" onclick="window.location.href='index.html'">Popular Now</span>
+        </section>
+
+        <div class="spot-list">
+
+            <!-- ==========================================
+                 SANTOS GARDEN
+            =========================================== -->
+
+            <div class="list-card" style="cursor: pointer;" onclick="goToSpot('SantosGarden')">
+
+                <div class="list-image">
+                    ✕
+                </div>
+
+                <div class="list-content">
+
+                    <h3>Santos Garden</h3>
+
+                    <p class="location">
+                        Taft Ave.
+                    </p>
+
+                    <div class="list-meta">
+                        <span>⭐ 5.0 (22)</span>
+                        <span>$$$$</span>
+                    </div>
+
+                    <p class="description">
+                        🚩 420 • Free date spot far from traffic.
+                    </p>
+
+                    <div class="tags">
+                        <span>Romantic</span>
+                        <span>Couple Photos</span>
+                        <span>Ambiance</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 CAFE MASA
+            =========================================== -->
+
+            <div class="list-card" style="cursor: pointer;" onclick="goToSpot('CafeMasa')">
+
+                <div class="list-image">
+                    ✕
+                </div>
+
+                <div class="list-content">
+
+                    <h3>Cafe Masa</h3>
+
+                    <p class="location">
+                        Taft Ave.
+                    </p>
+
+                    <div class="list-meta">
+                        <span>⭐ 4.1 (34)</span>
+                        <span>$$$</span>
+                    </div>
+
+                    <p class="description">
+                        🚩 190 • Cafe to lock in for finals.
+                    </p>
+
+                    <div class="tags">
+                        <span>Cafe</span>
+                        <span>Quiet</span>
+                        <span>Workspace</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 ARCHER'S PLACE
+            =========================================== -->
+
+            <div class="list-card" style="cursor: pointer;" onclick="goToSpot('ArchersPlace')">
+
+                <div class="list-image">
+                    ✕
+                </div>
+
+                <div class="list-content">
+
+                    <h3>Archer's Place</h3>
+
+                    <p class="location">
+                        Taft Ave.
+                    </p>
+
+                    <div class="list-meta">
+                        <span>⭐ 4.7 (57)</span>
+                        <span>$$$</span>
+                    </div>
+
+                    <p class="description">
+                        🚩 190 • Cool place to bring your friends.
+                    </p>
+
+                    <div class="tags">
+                        <span>Quiet</span>
+                        <span>Hangout</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 DEATH TO ALADEEN
+            =========================================== -->
+
+            <div class="list-card" style="cursor: pointer;" onclick="goToSpot('DeathToAladeen')">
+
+                <div class="list-image">
+                    ✕
+                </div>
+
+                <div class="list-content">
+
+                    <h3>Death to Aladeen</h3>
+
+                    <p class="location">
+                        Taft Ave.
+                    </p>
+
+                    <div class="list-meta">
+                        <span>⭐ 4.2 (67)</span>
+                        <span>$$</span>
+                    </div>
+
+                    <p class="description">
+                        🚩 72 • Cheap Arab food.
+                    </p>
+
+                    <div class="tags">
+                        <span>Restaurant</span>
+                        <span>Ambient</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
