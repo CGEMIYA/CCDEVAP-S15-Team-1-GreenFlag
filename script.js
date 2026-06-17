@@ -47,6 +47,154 @@ themeBtn.addEventListener('click', () => {
 // Bind system home navigation triggers directly onto interactive items
 document.getElementById('logo-home').addEventListener('click', () => switchView('view-home'));
 
+// SPOT DETAILS PLACEHOLDER DATA
+const spotsData = {
+    "archers-place": {
+        title: "Archer's Place",
+        location: "Taft Ave.",
+        rating: "4.7* (57)",
+        price: "$$$",
+        description: "Cool place to bring your friends. Clean environment, rapid connectivity. Perfect for standard group projects.",
+        tags: ["Quiet", "Hangout"],
+        hours: "Open - 8:00AM until 10:00PM",
+        noise: "Low",
+        privacy: "Medium"
+    },
+        "cafe-masa": {
+        title: "Cafe Masa",
+        location: "Taft Ave.",
+        rating: "4.1★ (34)",
+        price: "$$$",
+        description: "Cafe to lock in for finals... quiet corners, decent wifi, and good food to keep you going.",
+        tags: ["Cafe", "Quiet", "Workspace"],
+        hours: "Open - 9:00AM until 10:00PM",
+        noise: "Low",
+        privacy: "Medium"
+    },
+    "santos-garden": {
+        title: "Santos Garden",
+        location: "Taft Ave.",
+        rating: "5.0★ (22)",
+        price: "$$$$",
+        description: "Free date spot far from traffic. Spacious, well-lit, and great for an evening walk before dinner.",
+        tags: ["Romantic", "Couple Photos", "Ambiance"],
+        hours: "Open - 6:00AM until 9:00PM",
+        noise: "Low",
+        privacy: "High"
+    },
+    "death-to-aladeen": {
+        title: "Death to Aladeen",
+        location: "Taft Ave.",
+        rating: "4.2★ (67)",
+        price: "$$",
+        description: "Cheap Arab food. Fast service, generous portions, good for a quick solo meal or a casual group lunch.",
+        tags: ["Restaurant", "Ambient"],
+        hours: "Open - 10:00AM until 9:00PM",
+        noise: "Medium",
+        privacy: "Low"
+    }
+}
+
+// INDIVIDUAL SPOT DETAILS
+function goToSpot(spotName) {
+    window.location.href = "indiv_spot.html?spot=" + spotName;
+}
+
+function loadSpotData() {
+    let title = document.getElementById('title');
+    if (title == null) {
+        return;
+    }
+
+    let params = new URLSearchParams(window.location.search);
+    let spotName = params.get('spot');
+
+    if (spotName == "CafeMasa") {
+        document.getElementById('title').innerHTML = "Cafe Masa";
+        document.getElementById('location').innerHTML = "Taft Ave.";
+        document.getElementById('rating').innerHTML = "4.4* (34)";
+        document.getElementById('price').innerHTML = "$$";
+        document.getElementById('description').innerHTML = "Cafe to lock in for finals... quiet corners, decent wifi, and good food to keep you going.";
+        document.getElementById('tags').innerHTML = "<span>[Cafe]</span> <span>[Quiet]</span> <span>[Workspace]</span>";
+    } 
+    else if (spotName == "ArchersPlace") {
+        document.getElementById('title').innerHTML = "Archer's Place";
+        document.getElementById('location').innerHTML = "Taft Ave.";
+        document.getElementById('rating').innerHTML = "4.7* (57)";
+        document.getElementById('price').innerHTML = "$$$";
+        document.getElementById('description').innerHTML = "Cool place to bring your friends. Clean environment, rapid connectivity. Perfect for standard group projects.";
+        document.getElementById('tags').innerHTML = "<span>[Quiet]</span> <span>[Hangout]</span>";
+    }
+    else if (spotName == "SantosGarden") {
+        document.getElementById('title').innerHTML = "Santos Garden";
+        document.getElementById('location').innerHTML = "Taft Ave.";
+        document.getElementById('rating').innerHTML = "5.0* (22)";
+        document.getElementById('price').innerHTML = "$$$$";
+        document.getElementById('description').innerHTML = "Free date spot far from traffic. Spacious, well-lit, and great for an evening walk before dinner.";
+        document.getElementById('tags').innerHTML = "<span>[Romantic]</span> <span>[Couple Photos]</span>";
+    }
+    else if (spotName == "DeathToAladeen") {
+        document.getElementById('title').innerHTML = "Death To Aladeen";
+        document.getElementById('location').innerHTML = "Taft Ave.";
+        document.getElementById('rating').innerHTML = "3.9* (61)";
+        document.getElementById('price').innerHTML = "$$";
+        document.getElementById('description').innerHTML = "Cheap Arab food. Fast service, generous portions, good for a quick solo meal or a casual group lunch.";
+        document.getElementById('tags').innerHTML = "<span>[Restaurant]</span> <span>[Ambient]</span>";
+    }
+}
+
+window.onload = loadSpotData;
+
+// Ratings & Review
+let currRating = null;
+
+function selectGreenFlag() {
+    currRating = "green";
+    document.getElementById('green-flag-btn').classList.add('selected');
+    document.getElementById('red-flag-btn').classList.remove('selected');
+}
+
+function selectRedFlag() {
+    currRating = "red";
+    document.getElementById('red-flag-btn').classList.add('selected');
+    document.getElementById('green-flag-btn').classList.remove('selected');
+}
+
+function postReview() {
+    let reviewText = document.getElementById('new-review-text').value;
+
+    if (reviewText == "") {
+        alert("Please write a review first!");
+        return;
+    }
+
+    if (currRating == null) {
+        alert("Please select a Green Flag or a Red Flag!");
+        return;
+    }
+
+    let icon = "green-flag-icon";
+    if (currRating == "red") {
+        icon = "red-flag-icon";
+    }
+
+    let newComment = "<div class='comment-card'>";
+    newComment += "<p class='comment-author'>@current_user <span class='" + iconClass + "'>✕</span></p>";
+    newComment += "<p class='comment-text'>" + reviewText + "</p>";
+    newComment += "</div>";
+
+    let container = document.getElementById('comments-container');
+    container.innerHTML = newComment + container.innerHTML;
+
+    // Clear review
+    document.getElementById('new-review-text').value = "";
+    document.getElementById('green-flag-btn').classList.remove('selected');
+    document.getElementById('red-flag-btn').classList.remove('selected');
+    currRating = "";
+}
+
+
+
 // ==========================================================================
 // DYNAMIC ITEM DATA DISPATCH ENGINE
 // ==========================================================================
