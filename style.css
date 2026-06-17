@@ -23,7 +23,7 @@
 
 [data-theme="dark"] {
     --bg-primary: #102809;
-    --bg-secondary: rgb(41, 84, 43);
+    --bg-secondary: #ffffff;
     --bg-elements: #2d2d2d;
     --text-main: #ffffff;
     --text-muted: #aaaaaa;
@@ -61,9 +61,7 @@ body {
 .main-hero-wireframe,
 .thumb-wireframe,
 .large-wireframe-box,
-.rating-box-wireframe,
-.main-wireframe,
-.thumbnail {
+.rating-box-wireframe {
     background-color: var(--bg-elements);
     border: 1px solid var(--border-color);
     color: var(--text-muted);
@@ -527,188 +525,6 @@ body {
     font-weight: 600;
 }
 
-/**
- * INDIVIDUAL SPOT
- */
-
- .spot-detail-main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
-    margin-bottom: 35px;
- }
-
- .main-wireframe {
-    width: 100%;
-    height: 350px;
-    border-radius: 4px;
- }
-
- .thumbnail-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 15px;
- }
-
- .thumbnail {
-    height: 60px;
-    border-radius: 5px;
- }
-
- .side-info {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
- }
-
- .meta-specs {
-    display: flex;
-    font-size: 1rem;
-    flex-direction: column;
-    gap: 4px;
- }
-
- .description {
-    background-color: var(--bg-secondary);
-    padding: 15px;
-    border-radius: 5px;
- }
-
- .more-details {
-    font-size: 0.9rem;
-    color: var(--text-muted);
- }
-
- /* Review section */
- .reviews-section {
-    display: flex;
-    gap: 20px;
-    background: var(--bg-secondary);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    align-items: flex-end;
- }
-
- .review-input-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
- }
-
- .review-input-box textarea {
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-primary);
-    color: var(--text-main);
-    resize: none;    
- }
-
- .review-action-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
- }
-
- .rating-box {
-    display: flex;
-    gap: 8px;
- }
-
- .flag-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border-color);
-    background: var(--bg-elements);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-    opacity: 0.60;
-    padding: 0;
-    color: var(--text-main);
-    font-weight: bold;
-    font-size: 1.2rem;
- }
-
- /*.flag-btn img {} TO BE ADDED LATER*/
- .flag-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
- }
-
- .flag-btn.selected {
-    opacity: 1;
- }
-
- .green-flag.selected {
-    border-color: var(--accent-green);
- }
-
- .red-flag.selected {
-    border-color: var(--accent-red);
- }
-
- .green-flag-icon, .red-flag-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
- }
-
- .green-flag-icon {
-    background-color: var(--accent-green);
- }
-
- .red-flag-icon {
-    background-color: var(--accent-red);
- }
-
- .post-review-btn {
-    width: 80px;
-    padding: 8px 0;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    font-weight: bold;
-    cursor: pointer;
-    color: var(--text-main);
- }
-
- .comments-stream {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
- }
-
- .comment-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    padding: 10px 12px;
-    border-radius: 5px;
- }
-
- .comment-author {
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
- }
-
-
 /* Dark Mode Support */
 
 [data-theme="dark"] .list-card {
@@ -723,563 +539,208 @@ body {
 }
 
 /* ==========================================================================
-   VIEW SWITCHING & SPA VIEWS
+   VIEW 6: ADMIN CONTROL DASHBOARD MATRIX (COMPREHENSIVE LAYOUT)
    ========================================================================== */
-
-.spa-view {
-    display: none;
-    padding: 30px;
-    animation: fadeIn 0.3s ease;
+#view-admin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #e5e5e5;
+    z-index: 500; /* Overlays everything standard when viewed */
+    color: #333333;
 }
 
-.spa-view.active-view {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* ==========================================================================
-   SETTINGS PAGE STYLES
-   ========================================================================== */
-
-.settings-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--bg-secondary);
-    padding: 30px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-}
-
-.settings-container h2 {
-    margin-bottom: 30px;
-    font-size: 2rem;
-    color: var(--text-main);
-}
-
-.settings-section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.settings-section h3 {
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    color: var(--text-main);
-}
-
-.settings-section:last-of-type {
-    border-bottom: none;
-}
-
-.settings-item {
-    margin-bottom: 15px;
+.admin-wrapper {
     display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.settings-item label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    color: var(--text-main);
-    font-size: 1rem;
-}
-
-.settings-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--accent-green);
-}
-
-.settings-item select {
-    padding: 8px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-elements);
-    color: var(--text-main);
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.btn-settings-action {
-    display: block;
+    height: 100%;
     width: 100%;
-    padding: 12px 20px;
-    margin-bottom: 10px;
-    background-color: var(--accent-green);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.btn-settings-action:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    background-color: #16a34a;
-}
-
-.btn-save-settings {
-    width: 100%;
-    padding: 14px 20px;
-    background-color: var(--accent-green);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-save-settings:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    background-color: #16a34a;
-}
-
-/* ==========================================================================
-   ACCOUNT PAGE STYLES
-   ========================================================================== */
-
-.account-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--bg-secondary);
-    padding: 30px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-}
-
-.account-container h2 {
-    margin-bottom: 30px;
-    font-size: 2rem;
-    color: var(--text-main);
-}
-
-.account-section {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.account-section h3 {
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    color: var(--text-main);
-}
-
-.account-section:last-of-type {
-    border-bottom: none;
-}
-
-.account-field {
-    margin-bottom: 20px;
+.admin-sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    border-right: 1px solid #cccccc;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    padding: 20px;
+    gap: 20px;
 }
 
-.account-field label {
-    color: var(--text-main);
-    font-weight: 600;
+.admin-brand h2 {
+    font-style: italic;
+    font-weight: 900;
+}
+
+.admin-profile-quick {
+    display: flex;
+    gap: 15px;
+    font-size: 1.2rem;
+}
+
+.icon-placeholder {
+    position: relative;
+    cursor: pointer;
+}
+
+.badge-alert span {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: var(--accent-red);
+    color: white;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.admin-search-box input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.admin-nav-menu {
+    list-style: none;
+}
+
+.admin-nav-menu li {
+    padding: 10px;
+    border-radius: 4px;
+    background: #f0f0f0;
+    font-weight: bold;
     font-size: 0.95rem;
 }
 
-.account-field input,
-.account-field textarea {
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-elements);
-    color: var(--text-main);
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
+.admin-main-panel {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.account-field input:focus,
-.account-field textarea:focus {
-    outline: none;
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+.admin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.btn-save-account {
-    width: 100%;
-    padding: 14px 20px;
-    margin-bottom: 10px;
-    background-color: var(--accent-green);
-    color: white;
+.date-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+}
+
+.date-filters input {
     border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
 }
 
-.btn-save-account:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    background-color: #16a34a;
-}
-
-.btn-danger {
-    width: 100%;
-    padding: 12px 20px;
-    background-color: var(--accent-red);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-danger:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    background-color: #dc2626;
-}
-
-/* Dark theme adjustments */
-[data-theme="dark"] .settings-container,
-[data-theme="dark"] .account-container {
-    background: rgb(41, 84, 43);
-}
-
-.settings-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-}
-
-.settings-tabs {
+/* KPI Dash Cards */
+.kpi-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    border-bottom: 2px solid var(--border-color);
-    background: var(--bg-elements);
-}
-
-.settings-tab-btn {
-    padding: 16px 12px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #000000;
-    transition: all 0.3s ease;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -2px;
-}
-
-.settings-tab-btn:hover {
-    background-color: rgba(34, 197, 94, 0.1);
-    color: var(--accent-green);
-}
-
-.settings-tab-btn.active {
-    color: var(--accent-green);
-    border-bottom-color: var(--accent-green);
-    background-color: transparent;
-}
-
-.settings-tab-content {
-    display: none;
-    padding: 30px;
-    animation: fadeIn 0.3s ease;
-}
-
-.settings-tab-content.active {
-    display: block;
-}
-
-.settings-tab-content h3 {
-    font-size: 1.5rem;
-    color: #000000;
-    margin-bottom: 25px;
-    border-bottom: 2px solid var(--accent-green);
-    padding-bottom: 12px;
-}
-
-.settings-form {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.kpi-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.form-group label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #000000;
-    letter-spacing: 0.5px;
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"],
-.form-group input[type="tel"],
-.form-group textarea,
-.form-group select {
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-elements);
-    color: var(--text-main);
-    font-size: 0.95rem;
-    font-family: inherit;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
-}
-
-.checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    margin: 0;
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    accent-color: var(--accent-green);
-}
-
-.checkbox-group span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #000000;
-    letter-spacing: 0.3px;
-}
-
-.radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.radio-group label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    margin: 0;
-}
-
-.radio-group input[type="radio"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--accent-green);
-}
-
-.radio-group span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #000000;
-    letter-spacing: 0.3px;
-}
-
-.color-picker {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.color-option {
-    width: 50px;
-    height: 50px;
-    border: 3px solid transparent;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.color-option:hover {
-    transform: scale(1.1);
-    border-color: var(--text-main);
-}
-
-.btn-primary {
-    align-self: flex-start;
-    padding: 12px 30px;
-    background-color: var(--accent-green);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    background-color: #16a34a;
-}
-
-@media (max-width: 768px) {
-    .settings-tabs {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .settings-tab-btn {
-        font-size: 0.8rem;
-        padding: 12px 8px;
-    }
-}
-
-/* Dark theme settings */
-[data-theme="dark"] .settings-container {
-    background: rgb(41, 84, 43);
-}
-
-[data-theme="dark"] .settings-tabs {
-    background: rgb(30, 60, 32);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .settings-tab-btn {
-    color: #000000;
-}
-
-[data-theme="dark"] .settings-tab-btn:hover {
-    background-color: rgba(34, 197, 94, 0.15);
-}
-
-[data-theme="dark"] .settings-tab-content h3 {
-    color: #000000;
-}
-
-[data-theme="dark"] .form-group label {
-    color: #000000;
-}
-
-[data-theme="dark"] .checkbox-group span,
-[data-theme="dark"] .radio-group span {
-    color: #000000;
-}
-
-/* ==========================================================================
-   MY ACCOUNT PAGE STYLES
-   ========================================================================== */
-
-.account-wrapper {
-    display: flex;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-}
-
-.account-left {
-    flex: 0 0 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.account-avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background-color: var(--bg-elements);
-    border: 2px solid var(--border-color);
-}
-
-.account-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000000;
-    text-align: center;
-    margin: 0;
-}
-
-.account-email {
+.kpi-title {
     font-size: 0.9rem;
     color: #666666;
-    text-align: center;
-    margin: 0;
-    text-decoration: underline;
+    margin-bottom: 5px;
 }
 
-.account-right {
-    flex: 1;
+.kpi-value {
+    font-size: 1.6rem;
+    font-weight: bold;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trend {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.trend.positive { background: #e2f3e4; color: #2e7d32; }
+.trend.negative { background: #fde8e8; color: #c81e1e; }
+
+/* Dashboard Charts Grid Matrix */
+.charts-matrix {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+}
+
+.chart-wrapper-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.chart-wrapper-card h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #444444;
+}
+
+.chart-container-split {
+    display: flex;
+    align-items: center;
     gap: 15px;
 }
 
-.bio-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000000;
-    margin: 0;
+.canvas-holder {
+    width: 160px;
+    height: 160px;
 }
 
-.bio-box {
+.canvas-holder-polar {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+}
+
+.chart-legend-table {
     flex: 1;
-    min-height: 300px;
-    background-color: var(--bg-elements);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
 }
 
-@media (max-width: 768px) {
-    .account-wrapper {
-        flex-direction: column;
-        gap: 30px;
-        padding: 20px;
-    }
-    
-    .account-left {
-        flex: 0 0 auto;
-    }
+.chart-legend-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.chart-legend-table td {
+    padding: 6px 4px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.exit-admin-btn {
+    align-self: flex-start;
+    padding: 8px 16px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
