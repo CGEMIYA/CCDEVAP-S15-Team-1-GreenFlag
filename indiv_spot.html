@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Flag - Spot Details</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- NAV BAR COPY -->
+    <nav class="navbar">
+
+        <div class="nav-left">
+            <button class="menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo-text" id="logo-home" style="cursor: pointer;" onclick="window.location.href='homepage.html'">
+                Green Flag~
+            </div>
+        </div>
+
+        <div class="nav-center">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="nav-right">
+
+            <button class="theme-toggle" id="theme-btn">
+                🌙
+            </button>
+
+            <div class="auth-links">
+                <span>Login</span> |
+                <span>Sign Up</span>
+            </div>
+
+            <button class="admin-quick-btn">
+                Admin View
+            </button>
+        </div>
+    </nav>
+
+    <!-- SIDEBAR COPY -->
+    <div class="sidebar" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="user-avatar-placeholder"></div>
+            <div class="user-info">
+                <p class="user-name">Account Name</p>
+                <p class="user-email">Email Address</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="window.location.href='homepage.html'">Home</li>
+            <li onclick="window.location.href='homepage_extended.html'">Saved Spots</li>
+            <li>Forums</li>
+            <li class="verified-only">Coin Flip</li>
+            <li class="verified-only">Spin The Wheel (For kilig lines~)</li>
+            <li class="toggle-verification-mock" onclick="toggleVerificationMock()">🔄 Toggle Verified UI</li>
+        </ul>
+        <hr>
+        <ul class="sidebar-links">
+            <li onclick="switchView('view-settings')">Settings</li>
+            <li onclick="switchView('view-account')">My Account</li>
+            <li>About Us</li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- MAIN -->
+     <main class="container">
+        
+     </main>
+
+</body>
+</html>
