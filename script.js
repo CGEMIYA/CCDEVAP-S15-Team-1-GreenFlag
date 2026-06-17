@@ -265,3 +265,178 @@ document.getElementById('submit-review-btn').addEventListener('click', () => {
     commentsContainer.insertBefore(newCard, commentsContainer.firstChild);
     textarea.value = ""; // Flush review target text content clear
 });*/
+
+
+// SETTINGS & ACCOUNT MANAGEMENT
+
+function switchView(viewId) {
+
+    const allViews = document.querySelectorAll('.spa-view');
+
+    if (allViews.length === 0) {
+        window.location.href = 'homepage.html?view=' + viewId.replace('view-', '');
+        return;
+    }
+    allViews.forEach(view => view.classList.remove('active-view'));
+    const target = document.getElementById(viewId);
+    if (target) {
+
+        target.classList.add('active-view');
+    }
+}
+
+window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedView = params.get('view');
+    if (requestedView) {
+        switchView('view-' + requestedView);
+    }
+});
+
+function switchSettingsTab(tabName) {
+    
+    const allTabs = document.querySelectorAll('.settings-tab-content');
+    allTabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    
+    const allBtns = document.querySelectorAll('.settings-tab-btn');
+    allBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    
+    const selectedTab = document.getElementById(`tab-${tabName}`);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+    
+    
+    event.target.classList.add('active');
+}
+
+function updateEmail() {
+    const currentEmail = document.getElementById('current-email').value;
+    const newEmail = document.getElementById('new-email').value;
+    const confirmEmail = document.getElementById('confirm-email').value;
+    
+    if (!newEmail || !confirmEmail) {
+        alert('Please fill in all email fields');
+        return;
+    }
+    
+    if (newEmail !== confirmEmail) {
+        alert('New emails do not match');
+        return;
+    }
+    
+    localStorage.setItem('userEmail', newEmail);
+    alert('Email updated successfully!');
+    document.getElementById('new-email').value = '';
+    document.getElementById('confirm-email').value = '';
+}
+
+function updatePassword() {
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        alert('Please fill in all password fields');
+        return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+        alert('New passwords do not match');
+        return;
+    }
+    
+    localStorage.setItem('userPassword', newPassword);
+    alert('Password updated successfully!');
+    document.getElementById('current-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+}
+
+function saveGeneral() {
+    const general = {
+        displayName: document.getElementById('display-name').value,
+        bio: document.getElementById('bio').value,
+        keepPublic: document.getElementById('keep-public').checked,
+        showActivity: document.getElementById('show-activity').checked
+    };
+    
+    if (!general.displayName) {
+        alert('Please enter a display name');
+        return;
+    }
+    
+    localStorage.setItem('userGeneral', JSON.stringify(general));
+    alert('General settings saved!');
+}
+
+function applyTheme() {
+    const themeMode = document.querySelector('input[name="theme-mode"]:checked').value;
+    const accentColor = localStorage.getItem('accentColor') || '#22c55e';
+    
+    if (themeMode === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+    } else if (themeMode === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    
+    localStorage.setItem('themeMode', themeMode);
+    alert('Theme applied successfully!');
+}
+
+function selectAccentColor(color) {
+    localStorage.setItem('accentColor', color);
+    document.documentElement.style.setProperty('--accent-green', color);
+}
+
+function saveNotifications() {
+    const notifications = {
+        newReviews: document.getElementById('notify-reviews').checked,
+        replies: document.getElementById('notify-replies').checked,
+        marketing: document.getElementById('notify-marketing').checked,
+        pushMessages: document.getElementById('notify-push').checked,
+        emailFrequency: document.getElementById('email-frequency').value
+    };
+    
+    localStorage.setItem('userNotifications', JSON.stringify(notifications));
+    alert('Notification preferences saved!');
+}
+
+
+window.addEventListener('load', () => {
+    
+    const savedGeneral = localStorage.getItem('userGeneral');
+    if (savedGeneral) {
+        const general = JSON.parse(savedGeneral);
+        document.getElementById('display-name').value = general.displayName;
+        document.getElementById('bio').value = general.bio;
+        document.getElementById('keep-public').checked = general.keepPublic;
+        document.getElementById('show-activity').checked = general.showActivity;
+    }
+    
+    const savedNotifications = localStorage.getItem('userNotifications');
+    if (savedNotifications) {
+        const notif = JSON.parse(savedNotifications);
+        document.getElementById('notify-reviews').checked = notif.newReviews;
+        document.getElementById('notify-replies').checked = notif.replies;
+        document.getElementById('notify-marketing').checked = notif.marketing;
+        document.getElementById('notify-push').checked = notif.pushMessages;
+        document.getElementById('email-frequency').value = notif.emailFrequency;
+    }
+    
+    const savedTheme = localStorage.getItem('themeMode');
+    if (savedTheme) {
+        document.getElementById(`mode-${savedTheme}`).checked = true;
+    }
+    
+    const accentColor = localStorage.getItem('accentColor');
+    if (accentColor) {
+        document.documentElement.style.setProperty('--accent-green', accentColor);
+    }
+});

@@ -97,6 +97,171 @@
                 <button class="carousel-arrow right-arrow">›</button>
             </div>
         </section>
+
+        <section id="view-settings" class="spa-view">
+            <div class="settings-container">
+                <div class="settings-tabs">
+                    <button class="settings-tab-btn active" onclick="switchSettingsTab('email')">Change Email</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('password')">Password</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('general')">General</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('theme')">Theme</button>
+                    <button class="settings-tab-btn" onclick="switchSettingsTab('notifications')">Notifications</button>
+                </div>
+
+                <!-- CHANGE EMAIL TAB -->
+                <div id="tab-email" class="settings-tab-content active">
+                    <h3>Change Email</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>CURRENT EMAIL:</label>
+                            <input type="email" id="current-email" placeholder="user@example.com" value="user@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>NEW EMAIL:</label>
+                            <input type="email" id="new-email" placeholder="Enter new email">
+                        </div>
+                        <div class="form-group">
+                            <label>CONFIRM EMAIL:</label>
+                            <input type="email" id="confirm-email" placeholder="Confirm new email">
+                        </div>
+                        <button class="btn-primary" onclick="updateEmail()">UPDATE EMAIL</button>
+                    </div>
+                </div>
+
+                <!-- CHANGE PASSWORD TAB -->
+                <div id="tab-password" class="settings-tab-content">
+                    <h3>Change Password</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>CURRENT PASSWORD:</label>
+                            <input type="password" id="current-password" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>NEW PASSWORD:</label>
+                            <input type="password" id="new-password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>CONFIRM PASSWORD:</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn-primary" onclick="updatePassword()">UPDATE PASSWORD</button>
+                    </div>
+                </div>
+
+                <!-- GENERAL SETTINGS TAB -->
+                <div id="tab-general" class="settings-tab-content">
+                    <h3>General Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>DISPLAY NAME:</label>
+                            <input type="text" id="display-name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>BIO:</label>
+                            <textarea id="bio" placeholder="Tell us about yourself" rows="4"></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="keep-public" checked>
+                                <span>KEEP PROFILE PUBLIC</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="show-activity" checked>
+                                <span>SHOW ACTIVITY STATUS</span>
+                            </label>
+                        </div>
+                        <button class="btn-primary" onclick="saveGeneral()">SAVE CHANGES</button>
+                    </div>
+                </div>
+
+                <!-- THEME SETTINGS TAB -->
+                <div id="tab-theme" class="settings-tab-content">
+                    <h3>Theme Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>APPEARANCE:</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="theme-mode" value="light" id="mode-light">
+                                    <span>LIGHT MODE</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-mode" value="dark" id="mode-dark">
+                                    <span>DARK MODE</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="theme-mode" value="system" id="mode-system" checked>
+                                    <span>SYSTEM DEFAULT</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ACCENT COLOR:</label>
+                            <div class="color-picker">
+                                <button class="color-option" style="background-color: #22c55e;" onclick="selectAccentColor('#22c55e')" data-color="#22c55e"></button>
+                                <button class="color-option" style="background-color: #3b82f6;" onclick="selectAccentColor('#3b82f6')" data-color="#3b82f6"></button>
+                                <button class="color-option" style="background-color: #f59e0b;" onclick="selectAccentColor('#f59e0b')" data-color="#f59e0b"></button>
+                                <button class="color-option" style="background-color: #ec4899;" onclick="selectAccentColor('#ec4899')" data-color="#ec4899"></button>
+                                <button class="color-option" style="background-color: #a855f7;" onclick="selectAccentColor('#a855f7')" data-color="#a855f7"></button>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="applyTheme()">APPLY THEME</button>
+                    </div>
+                </div>
+
+                <!-- NOTIFICATIONS TAB -->
+                <div id="tab-notifications" class="settings-tab-content">
+                    <h3>Notification Preferences</h3>
+                    <div class="settings-form">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-reviews" checked>
+                                <span>EMAIL NOTIFICATIONS FOR NEW REVIEWS</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-replies" checked>
+                                <span>EMAIL NOTIFICATIONS FOR REPLIES TO MY COMMENTS</span>
+                            </label>
+                        </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="notify-push" checked>
+                                <span>PUSH NOTIFICATIONS ON NEW MESSAGES</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>EMAIL FREQUENCY:</label>
+                            <select id="email-frequency">
+                                <option value="instant">Instant</option>
+                                <option value="daily">Daily Digest</option>
+                                <option value="weekly">Weekly Digest</option>
+                                <option value="monthly">Monthly Digest</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="saveNotifications()">SAVE PREFERENCES</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-account" class="spa-view">
+            <div class="account-wrapper">
+                <div class="account-left">
+                    <div class="account-avatar"></div>
+                    <h2 class="account-name">ACCOUNT NAME</h2>
+                    <p class="account-email">EMAIL</p>
+                </div>
+                <div class="account-right">
+                    <h3 class="bio-title">Bio</h3>
+                    <div class="bio-box"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
 
