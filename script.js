@@ -116,6 +116,9 @@ function loadSpotData() {
         document.getElementById('price').innerHTML = "$$";
         document.getElementById('description').innerHTML = "Cafe to lock in for finals... quiet corners, decent wifi, and good food to keep you going.";
         document.getElementById('tags').innerHTML = "<span>[Cafe]</span> <span>[Quiet]</span> <span>[Workspace]</span>";
+        document.getElementById('hours').innerHTML = "Hours : Open - 9:00AM until 10:00PM";
+        document.getElementById('noise').innerHTML = "Noise Level : [ Low ]";
+        document.getElementById('privacy').innerHTML = "Privacy Level : [ Medium ]";
     } 
     else if (spotName == "ArchersPlace") {
         document.getElementById('title').innerHTML = "Archer's Place";
@@ -124,6 +127,9 @@ function loadSpotData() {
         document.getElementById('price').innerHTML = "$$$";
         document.getElementById('description').innerHTML = "Cool place to bring your friends. Clean environment, rapid connectivity. Perfect for standard group projects.";
         document.getElementById('tags').innerHTML = "<span>[Quiet]</span> <span>[Hangout]</span>";
+        document.getElementById('hours').innerHTML = "Hours : Open - 8:00AM until 10:00PM";
+        document.getElementById('noise').innerHTML = "Noise Level : [ Low ]";
+        document.getElementById('privacy').innerHTML = "Privacy Level : [ Medium ]";
     }
     else if (spotName == "SantosGarden") {
         document.getElementById('title').innerHTML = "Santos Garden";
@@ -132,6 +138,9 @@ function loadSpotData() {
         document.getElementById('price').innerHTML = "$$$$";
         document.getElementById('description').innerHTML = "Free date spot far from traffic. Spacious, well-lit, and great for an evening walk before dinner.";
         document.getElementById('tags').innerHTML = "<span>[Romantic]</span> <span>[Couple Photos]</span>";
+        document.getElementById('hours').innerHTML = "Hours : Open - 6:00AM until 9:00PM";
+        document.getElementById('noise').innerHTML = "Noise Level : [ Low ]";
+        document.getElementById('privacy').innerHTML = "Privacy Level : [ High ]";
     }
     else if (spotName == "DeathToAladeen") {
         document.getElementById('title').innerHTML = "Death To Aladeen";
@@ -140,6 +149,9 @@ function loadSpotData() {
         document.getElementById('price').innerHTML = "$$";
         document.getElementById('description').innerHTML = "Cheap Arab food. Fast service, generous portions, good for a quick solo meal or a casual group lunch.";
         document.getElementById('tags').innerHTML = "<span>[Restaurant]</span> <span>[Ambient]</span>";
+        document.getElementById('hours').innerHTML = "Hours : Open - 10:00AM until 9:00PM";
+        document.getElementById('noise').innerHTML = "Noise Level : [ Medium ]";
+        document.getElementById('privacy').innerHTML = "Privacy Level : [ Low ]";
     }
 }
 
@@ -179,7 +191,7 @@ function postReview() {
     }
 
     let newComment = "<div class='comment-card'>";
-    newComment += "<p class='comment-author'>@current_user <span class='" + iconClass + "'>✕</span></p>";
+    newComment += "<p class='comment-author'>@current_user <span class='" + icon + "'>✕</span></p>";
     newComment += "<p class='comment-text'>" + reviewText + "</p>";
     newComment += "</div>";
 
@@ -190,11 +202,11 @@ function postReview() {
     document.getElementById('new-review-text').value = "";
     document.getElementById('green-flag-btn').classList.remove('selected');
     document.getElementById('red-flag-btn').classList.remove('selected');
-    currRating = "";
+    currRating = null;
 }
 
 
-
+/*
 // ==========================================================================
 // DYNAMIC ITEM DATA DISPATCH ENGINE
 // ==========================================================================
@@ -235,6 +247,7 @@ document.getElementById('submit-review-btn').addEventListener('click', () => {
     const textarea = document.getElementById('new-review-text');
     const commentText = textarea.value.trim();
     
+
     if (commentText === "") {
         alert("Cannot post empty comment stream data!");
         return;
@@ -251,4 +264,4 @@ document.getElementById('submit-review-btn').addEventListener('click', () => {
     
     commentsContainer.insertBefore(newCard, commentsContainer.firstChild);
     textarea.value = ""; // Flush review target text content clear
-});
+});*/

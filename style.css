@@ -23,7 +23,7 @@
 
 [data-theme="dark"] {
     --bg-primary: #102809;
-    --bg-secondary: #ffffff;
+    --bg-secondary: rgb(41, 84, 43);
     --bg-elements: #2d2d2d;
     --text-main: #ffffff;
     --text-muted: #aaaaaa;
