@@ -1,7 +1,4 @@
 <?php
-// ==========================================
-// BACKEND LOGIC
-// ==========================================
 require_once 'config/database.php';
 
 $searchTerm = '';
@@ -53,9 +50,7 @@ $priceMap = [
 </head>
 <body>
 
-    <!-- ==========================================
-         NAVBAR (Copied from index.php)
-    =========================================== -->
+    <!-- NAVBAR COPIED FROM INDEX.PHP -->
     <header>
         <div class="left-nav">
             <button class="menu-btn" id="menuBtn">
@@ -84,9 +79,7 @@ $priceMap = [
         </div>
     </header>
 
-    <!-- ==========================================
-         SIDEBAR (Copied from index.php)
-    =========================================== -->
+    <!-- SIDEBAR COPIED FROM INDEX.PHP -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <aside class="sidebar" id="sidebar">
