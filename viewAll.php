@@ -38,6 +38,7 @@ $priceMap = [
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,6 +49,7 @@ $priceMap = [
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
 
     <!-- NAVBAR COPIED FROM INDEX.PHP -->
@@ -62,7 +64,8 @@ $priceMap = [
         </div>
 
         <form method="GET" action="viewAll.php" class="search-container">
-            <input type="text" id="searchInput" name="search" placeholder="Search spots..." autocomplete="off" value="<?php echo htmlspecialchars($searchTerm); ?>">
+            <input type="text" id="searchInput" name="search" placeholder="Search spots..." autocomplete="off"
+                value="<?php echo htmlspecialchars($searchTerm); ?>">
             <div class="search-results" id="searchResults"></div>
             <button type="submit" style="display: none;">Search</button>
         </form>
@@ -126,27 +129,33 @@ $priceMap = [
     <main>
         <div class="popular">
             <section class="section-header">
-                <h2><?php echo $searchTerm ? "Search Results for '" . htmlspecialchars($searchTerm) . "'" : "All Spots"; ?></h2>
+                <h2><?php echo $searchTerm ? "Search Results for '" . htmlspecialchars($searchTerm) . "'" : "All Spots"; ?>
+                </h2>
                 <a href="index.php">Popular Now</a>
             </section>
 
             <div class="cards-container" style="flex-wrap: wrap;">
                 <?php if (count($spots) > 0): ?>
                     <?php foreach ($spots as $spot): ?>
-                        <div class="card" onclick="window.location.href='spot.php?id=<?php echo htmlspecialchars($spot['id']); ?>'">
-                            
+                        <div class="card"
+                            onclick="window.location.href='spot.php?id=<?php echo htmlspecialchars($spot['id'] - 1); ?>'">
+
                             <?php if (!empty($spot['image'])): ?>
-                                <img src="<?php echo htmlspecialchars($spot['image']); ?>" alt="<?php echo htmlspecialchars($spot['name']); ?>">
+                                <img src="<?php echo htmlspecialchars($spot['image']); ?>"
+                                    alt="<?php echo htmlspecialchars($spot['name']); ?>">
                             <?php else: ?>
-                                <div style="width: 100%; height: 220px; display: flex; align-items: center; justify-content: center; background: #eee;">✕ No Image</div>
+                                <div
+                                    style="width: 100%; height: 220px; display: flex; align-items: center; justify-content: center; background: #eee;">
+                                    ✕ No Image</div>
                             <?php endif; ?>
 
                             <div class="card-content">
                                 <h3><?php echo htmlspecialchars($spot['name']); ?></h3>
                                 <p class="location">📍 <?php echo htmlspecialchars($spot['location']); ?></p>
-                                
+
                                 <div class="info">
-                                    <span>⭐ <?php echo htmlspecialchars($spot['avg_rating']); ?> (<?php echo htmlspecialchars($spot['review_count']); ?>)</span>
+                                    <span>⭐ <?php echo htmlspecialchars($spot['avg_rating']); ?>
+                                        (<?php echo htmlspecialchars($spot['review_count']); ?>)</span>
                                     <span><?php echo $priceMap[$spot['price']]; ?></span>
                                 </div>
                             </div>
@@ -163,11 +172,12 @@ $priceMap = [
         // Passes database array to your search.js file
         const spotsData = <?php echo json_encode($allSpots); ?>;
     </script>
-    
+
     <!-- Using the exact scripts from your index.php -->
     <script src="js/spots.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/sidebar.js"></script>
-    <script src="js/search.js"></script> 
+    <script src="js/search.js"></script>
 </body>
+
 </html>
