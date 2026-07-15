@@ -131,7 +131,7 @@
 
             <div class="section-header">
                 <h2>Popular Now</h2>
-                <a href="#">View All</a>
+                <a href="viewAll.php">View All</a>
             </div>
 
             <div class="carousel">
