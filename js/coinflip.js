@@ -5,82 +5,112 @@ document.addEventListener('DOMContentLoaded', () => {
     const flipBtn = document.getElementById('flipBtn');
     const resultBanner = document.getElementById('resultBanner');
     const playAgainBtn = document.getElementById('playAgainBtn');
-    const spotButtons = Array.from(document.querySelectorAll('.spot-option'));
+    const choiceButtons = Array.from(document.querySelectorAll('.choice-btn'));
+    const spotSelects = Array.from(document.querySelectorAll('.spot-select'));
 
     const state = {
-        player1: null,
-        player2: null,
+        player1: '',
+        player2: '',
         result: null,
-        flipped: false
+        flipped: false,
+        player1Place: '',
+        player2Place: ''
+    };
+
+    const getChoiceName = (value) => (value === 'heads' ? 'Heads' : 'Tails');
+    const getPlaceName = (player) => {
+        const select = spotSelects.find((item) => item.dataset.player === player);
+        const selectedOption = select?.selectedOptions[0];
+        return selectedOption?.dataset.name || selectedOption?.textContent || 'a place';
+    };
+
+    const resetPlaceSelectors = () => {
+        spotSelects.forEach((select) => {
+            select.value = '';
+        });
     };
 
     const updateSelectionUI = () => {
-        spotButtons.forEach((button) => {
+        choiceButtons.forEach((button) => {
             const player = button.dataset.player;
-            const spot = button.dataset.spot;
-            const isLocked = (player === 'player1' && state.player1) || (player === 'player2' && state.player2);
+            const otherPlayer = player === 'player1' ? 'player2' : 'player1';
+            const otherChoice = state[otherPlayer];
+            const thisChoice = button.dataset.choice;
 
-            if (isLocked && !state[player]) {
-                button.disabled = true;
-            } else {
-                button.disabled = false;
-            }
+            const isBlocked = Boolean(otherChoice) && otherChoice === thisChoice;
+            button.disabled = isBlocked;
+            button.classList.toggle('active', state[player] === thisChoice);
+        });
 
-            if (state[player] === spot) {
-                button.classList.add('selected');
-            } else {
-                button.classList.remove('selected');
-            }
+        spotSelects.forEach((select) => {
+            const player = select.dataset.player;
+            const otherPlayer = player === 'player1' ? 'player2' : 'player1';
+            const otherPlace = state[player === 'player1' ? 'player2Place' : 'player1Place'];
+            const selectedValue = select.value;
 
-            if (state.player1 && state.player2 && state.player1 !== state.player2) {
-                const opposite = player === 'player1' ? 'player2' : 'player1';
-                const lockedSpot = state[opposite];
-                if (lockedSpot === spot) {
-                    button.disabled = true;
+            Array.from(select.options).forEach((option) => {
+                if (!option.value) {
+                    return;
                 }
+
+                option.disabled = Boolean(otherPlace) && option.value === otherPlace;
+            });
+
+            if (selectedValue && select.querySelector(`option[value="${selectedValue}"]`)?.disabled) {
+                select.value = '';
             }
         });
 
-        if (state.player1 && state.player2) {
-            flipBtn.disabled = false;
-        } else {
-            flipBtn.disabled = true;
-        }
+        const bothReady = Boolean(state.player1) && Boolean(state.player2) && Boolean(state.player1Place) && Boolean(state.player2Place) && state.player1Place !== state.player2Place;
+        flipBtn.disabled = !bothReady;
 
-        if (state.player1) {
-            playerOneCard.classList.add('locked');
-        } else {
-            playerOneCard.classList.remove('locked');
-        }
-
-        if (state.player2) {
-            playerTwoCard.classList.add('locked');
-        } else {
-            playerTwoCard.classList.remove('locked');
-        }
+        playerOneCard.classList.toggle('locked', Boolean(state.player1));
+        playerTwoCard.classList.toggle('locked', Boolean(state.player2));
     };
 
-    spotButtons.forEach((button) => {
+    choiceButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            const { player, spot } = button.dataset;
-            const playerKey = player === 'player1' ? 'player1' : 'player2';
+            const player = button.dataset.player;
+            const key = player === 'player1' ? 'player1' : 'player2';
+            const choice = button.dataset.choice;
+            const otherPlayer = player === 'player1' ? 'player2' : 'player1';
 
-            if (state[playerKey]) {
+            if (state[otherPlayer] === choice) {
+                resultBanner.textContent = 'That side is already taken by the other player.';
                 return;
             }
 
-            if (state.player1 && state.player2) {
-                return;
-            }
-
-            if (state.player1 === spot || state.player2 === spot) {
-                return;
-            }
-
-            state[playerKey] = spot;
-            button.classList.add('selected');
+            state[key] = choice;
             updateSelectionUI();
-            resultBanner.innerHTML = `${player === 'player1' ? 'Player 1' : 'Player 2'} locked in ${spot}.`;
+            resultBanner.textContent = `${player === 'player1' ? 'Player 1' : 'Player 2'} locked in ${getChoiceName(choice)} for ${getPlaceName(player)}.`;
+        });
+    });
+
+    spotSelects.forEach((select) => {
+        select.addEventListener('change', () => {
+            const player = select.dataset.player;
+            const placeKey = player === 'player1' ? 'player1Place' : 'player2Place';
+            const otherPlaceKey = player === 'player1' ? 'player2Place' : 'player1Place';
+            const selectedValue = select.value;
+
+            if (!selectedValue) {
+                state[placeKey] = '';
+                updateSelectionUI();
+                resultBanner.textContent = `${player === 'player1' ? 'Player 1' : 'Player 2'} must choose a place.`;
+                return;
+            }
+
+            if (state[otherPlaceKey] === selectedValue) {
+                select.value = '';
+                state[placeKey] = '';
+                updateSelectionUI();
+                resultBanner.textContent = 'That place is already taken by the other player.';
+                return;
+            }
+
+            state[placeKey] = selectedValue;
+            updateSelectionUI();
+            resultBanner.textContent = `${player === 'player1' ? 'Player 1' : 'Player 2'} selected ${getPlaceName(player)}.`;
         });
     });
 
@@ -100,19 +130,19 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBanner.classList.remove('winner');
         resultBanner.textContent = 'The coin is spinning...';
 
-        const winningSpot = Math.random() < 0.5 ? 'heads' : 'tails';
+        const winningChoice = Math.random() < 0.5 ? 'heads' : 'tails';
+        const winningSpotName = getChoiceName(winningChoice);
+        const winner = state.player1 === winningChoice ? 'player1' : 'player2';
+        const winnerCard = winner === 'player1' ? playerOneCard : playerTwoCard;
+        const loserCard = winner === 'player1' ? playerTwoCard : playerOneCard;
 
         setTimeout(() => {
             coin.classList.remove('flipping');
-            coin.classList.add(winningSpot === 'heads' ? 'land-heads' : 'land-tails');
+            coin.classList.add(winningChoice === 'heads' ? 'land-heads' : 'land-tails');
 
-            const winner = state.player1 === winningSpot ? 'player1' : 'player2';
-            const winnerCard = winner === 'player1' ? playerOneCard : playerTwoCard;
-            const loserCard = winner === 'player1' ? playerTwoCard : playerOneCard;
-
-            state.result = winningSpot;
+            state.result = winningChoice;
             resultBanner.classList.add('winner');
-            resultBanner.innerHTML = `<strong>${winningSpot === 'heads' ? 'Heads' : 'Tails'} Wins!</strong><br>${winner === 'player1' ? 'Player 1' : 'Player 2'} takes the round.`;
+            resultBanner.innerHTML = `<strong>${winningSpotName} Wins!</strong><br>${winner === 'player1' ? 'Player 1' : 'Player 2'} takes the round for ${getPlaceName(winner)}.`;
             winnerCard.classList.add('winner');
             loserCard.classList.remove('winner');
             flipBtn.textContent = 'Flipped';
@@ -120,15 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     playAgainBtn.addEventListener('click', () => {
-        state.player1 = null;
-        state.player2 = null;
+        state.player1 = '';
+        state.player2 = '';
         state.result = null;
         state.flipped = false;
+        state.player1Place = '';
+        state.player2Place = '';
 
-        spotButtons.forEach((button) => {
-            button.classList.remove('selected');
+        choiceButtons.forEach((button) => {
             button.disabled = false;
+            button.classList.remove('active');
         });
+
+        resetPlaceSelectors();
 
         playerOneCard.classList.remove('winner', 'locked');
         playerTwoCard.classList.remove('winner', 'locked');
@@ -138,5 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
         flipBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Flip Coin';
         resultBanner.classList.remove('winner');
         resultBanner.textContent = 'Waiting for both players to lock in...';
+        updateSelectionUI();
     });
+
+    resetPlaceSelectors();
+    updateSelectionUI();
 });

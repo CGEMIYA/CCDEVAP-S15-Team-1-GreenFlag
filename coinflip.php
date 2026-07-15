@@ -1,3 +1,17 @@
+<?php
+require_once __DIR__ . '/config/database.php';
+
+$spots = [];
+
+try {
+    $stmt = $pdo->prepare("SELECT id, name FROM spots ORDER BY name ASC");
+    $stmt->execute();
+    $spots = $stmt->fetchAll();
+} catch (PDOException $e) {
+    $spots = [];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,15 +98,26 @@
                         </div>
                     </div>
 
-                    <div class="spot-options" role="group" aria-label="Player 1 spot selection">
-                        <button class="spot-option" data-player="player1" data-spot="heads" type="button">
-                            <span class="spot-icon">🪙</span>
-                            <span class="spot-name">Heads</span>
-                        </button>
-                        <button class="spot-option" data-player="player1" data-spot="tails" type="button">
-                            <span class="spot-icon">🪙</span>
-                            <span class="spot-name">Tails</span>
-                        </button>
+                    <div class="spot-picker">
+                        <label>Choose your side</label>
+                        <div class="choice-row" role="group" aria-label="Player 1 choices">
+                            <button class="choice-btn" type="button" data-player="player1" data-choice="heads">Heads</button>
+                            <button class="choice-btn" type="button" data-player="player1" data-choice="tails">Tails</button>
+                        </div>
+
+                        <label for="player1Spot">Choose a place</label>
+                        <select id="player1Spot" class="spot-select" data-player="player1">
+                            <option value="" selected disabled hidden>Select a place</option>
+                            <?php if (!empty($spots)) : ?>
+                                <?php foreach ($spots as $spot) : ?>
+                                    <option value="<?php echo (int) $spot['id']; ?>" data-name="<?php echo htmlspecialchars($spot['name'], ENT_QUOTES); ?>">
+                                        <?php echo htmlspecialchars($spot['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <option value="" disabled>No places available</option>
+                            <?php endif; ?>
+                        </select>
                     </div>
                 </article>
 
@@ -123,15 +148,26 @@
                         </div>
                     </div>
 
-                    <div class="spot-options" role="group" aria-label="Player 2 spot selection">
-                        <button class="spot-option" data-player="player2" data-spot="heads" type="button">
-                            <span class="spot-icon">🪙</span>
-                            <span class="spot-name">Heads</span>
-                        </button>
-                        <button class="spot-option" data-player="player2" data-spot="tails" type="button">
-                            <span class="spot-icon">🪙</span>
-                            <span class="spot-name">Tails</span>
-                        </button>
+                    <div class="spot-picker">
+                        <label>Choose your side</label>
+                        <div class="choice-row" role="group" aria-label="Player 2 choices">
+                            <button class="choice-btn" type="button" data-player="player2" data-choice="heads">Heads</button>
+                            <button class="choice-btn" type="button" data-player="player2" data-choice="tails">Tails</button>
+                        </div>
+
+                        <label for="player2Spot">Choose a place</label>
+                        <select id="player2Spot" class="spot-select" data-player="player2">
+                            <option value="" selected disabled hidden>Select a place</option>
+                            <?php if (!empty($spots)) : ?>
+                                <?php foreach ($spots as $spot) : ?>
+                                    <option value="<?php echo (int) $spot['id']; ?>" data-name="<?php echo htmlspecialchars($spot['name'], ENT_QUOTES); ?>">
+                                        <?php echo htmlspecialchars($spot['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <option value="" disabled>No places available</option>
+                            <?php endif; ?>
+                        </select>
                     </div>
                 </article>
             </div>
