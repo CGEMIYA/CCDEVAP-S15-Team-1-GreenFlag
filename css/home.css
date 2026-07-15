@@ -1,0 +1,204 @@
+/* ======================================================
+   GREEN FLAG
+   HOMEPAGE STYLES
+====================================================== */
+
+/* ===========================
+   MAIN
+=========================== */
+
+main {
+
+    width: 90%;
+
+    margin: 40px auto;
+
+}
+
+/* ===========================
+   POPULAR SECTION
+=========================== */
+
+.popular {
+
+    background: var(--navbar);
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+}
+
+/* ===========================
+   SECTION HEADER
+=========================== */
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 35px;
+
+}
+
+.section-header a {
+
+    color: var(--primary);
+
+    font-weight: bold;
+
+}
+
+.section-header a:hover {
+
+    text-decoration: underline;
+
+}
+
+/* ===========================
+   CAROUSEL
+=========================== */
+
+.carousel {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+.cards-container {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.card {
+
+    width: 100%;
+
+    max-width: 320px;
+
+}
+
+.card img {
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+}
+
+.card-content {
+
+    padding: 20px;
+
+}
+
+.card-content h3 {
+
+    margin-bottom: 10px;
+
+}
+
+.location {
+
+    color: var(--text-light);
+
+    margin-bottom: 15px;
+
+}
+
+.info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+}
+
+/* ===========================
+   OPTIONAL BADGES
+=========================== */
+
+.badge {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 25px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: .8rem;
+
+    font-weight: bold;
+
+}
+
+/* ===========================
+   CARD FOOTER
+=========================== */
+
+.card-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 20px;
+
+}
+
+/* ===========================
+   VIEW SPOT
+=========================== */
+
+.view-spot {
+
+    color: var(--primary);
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    transition: .25s;
+
+}
+
+.card:hover .view-spot {
+
+    opacity: 1;
+
+}

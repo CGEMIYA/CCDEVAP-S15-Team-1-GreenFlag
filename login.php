@@ -1,0 +1,194 @@
+<?php
+
+session_start();
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Green Flag</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/global.css">
+
+    <link rel="stylesheet" href="css/auth.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="left-nav">
+
+            <button class="menu-btn" onclick="window.location.href='index.php'">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </button>
+
+            <h1 class="logo">
+
+                Green<br>Flag
+
+            </h1>
+
+        </div>
+
+        <div class="right-nav">
+
+            <button id="themeToggle">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="auth-page">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+
+                <i class="fa-solid fa-seedling"></i>
+
+            </div>
+
+            <h1>
+
+                Welcome Back
+
+            </h1>
+
+            <p class="subtitle">
+
+                Login to review spots, save favorites,
+                and discover your next Green Flag.
+
+            </p>
+
+            <?php
+
+            if (isset($_SESSION["success"])) {
+
+                ?>
+
+                <div class="auth-success">
+
+                    <?= $_SESSION["success"]; ?>
+
+                </div>
+
+                <?php
+
+                unset($_SESSION["success"]);
+
+            }
+
+            ?>
+
+            <?php
+
+            if (isset($_SESSION["error"])) {
+
+                ?>
+
+                <div class="auth-error">
+
+                    <?= $_SESSION["error"] ?>
+
+                </div>
+
+                <?php
+
+                unset($_SESSION["error"]);
+
+            }
+
+            ?>
+            <form id="loginForm" action="process/login_process.php" method="POST">
+
+                <div class="input-group">
+
+                    <label>
+
+                        DLSU Email
+
+                    </label>
+
+                    <input type="email" id="email" name="email" placeholder="juan.delacruz@dlsu.edu.ph" required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>
+
+                        Password
+
+                    </label>
+
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                </div>
+
+                <a href="#" class="forgot-password">
+
+                    Forgot Password?
+
+                </a>
+
+                <button class="auth-btn" type="submit">
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <div class="auth-divider">
+
+                <span>OR</span>
+
+            </div>
+
+            <p class="bottom-text">
+
+                Don't have an account yet?
+
+            </p>
+
+            <button class="secondary-btn" onclick="window.location.href='register.php'">
+
+                Create Account
+
+            </button>
+
+        </div>
+
+    </main>
+
+    <script src="js/darkmode.js"></script>
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>
