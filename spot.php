@@ -115,7 +115,7 @@
                     Favorites
                 </a>
 
-                <a href="#">
+                <a href="coinflip.php">
                     <i class="fa-solid fa-coins"></i>
                     Coin Flip
                 </a>
