@@ -66,6 +66,6 @@
             <a href="index.php"><i class="fa-solid fa-house"></i> Home</a>
             <a href="#"><i class="fa-regular fa-heart"></i> Favorites</a>
             <a href="coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
-            <a href="#"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
+            <a href="aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
         </div>
     </aside>
