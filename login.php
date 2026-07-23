@@ -163,6 +163,18 @@ session_start();
 
             </form>
 
+            <div class="auth-link-row">
+
+                <a href="admin/login.php" class="admin-login-link">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Admin Login
+
+                </a>
+
+            </div>
+
             <div class="auth-divider">
 
                 <span>OR</span>

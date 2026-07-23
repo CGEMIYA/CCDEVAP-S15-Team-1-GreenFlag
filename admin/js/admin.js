@@ -1,40 +1,52 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-    new DataTable("#usersTable");
-
-});
-
 document.addEventListener("DOMContentLoaded", function () {
-    if(document.querySelector("#usersTable")){
+
+    if (document.querySelector("#usersTable")) {
         new DataTable("#usersTable");
     }
-});
 
-document.querySelectorAll(".viewBtn").forEach(button => {
+    document.querySelectorAll(".editBtn").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
 
-    button.addEventListener("click", function(){
+            const id = this.getAttribute("data-id");
 
-        let id = this.dataset.id;
+            fetch("actions/users/fetch.php?id=" + id)
+                .then(function (response) { return response.json(); })
+                .then(function (user) {
+                    document.getElementById("edit_id").value = user.id;
+                    document.getElementById("edit_full_name").value = user.full_name;
+                    document.getElementById("edit_email").value = user.email;
+                    document.getElementById("edit_role").value = user.role;
+                    document.getElementById("edit_status").value = user.status;
+                    document.getElementById("edit_password").value = "";
 
-        fetch("actions/users/fetch.php?id="+id)
-
-        .then(response => response.json())
-
-        .then(user => {
-
-            document.getElementById("view_id").textContent = user.id;
-            document.getElementById("view_name").textContent = user.full_name;
-            document.getElementById("view_email").textContent = user.email;
-            document.getElementById("view_role").textContent = user.role;
-            document.getElementById("view_status").textContent = user.status;
-            document.getElementById("view_created").textContent = user.created_at;
-
-            new bootstrap.Modal(
-                document.getElementById("viewUserModal")
-            ).show();
-
+                    var modal = new bootstrap.Modal(document.getElementById("editUserModal"));
+                    modal.show();
+                });
         });
+    });
 
+    document.querySelectorAll(".deleteBtn").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const id = this.getAttribute("data-id");
+
+            if (confirm("Delete this user?")) {
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "actions/users/delete.php";
+
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "id";
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
     });
 
 });

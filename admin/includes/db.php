@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "greendb"; // <-- Is this your actual database name?
+$database = "greenflag";
 
 $conn = mysqli_connect($host, $username, $password, $database);
 
@@ -11,4 +11,4 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-echo "Database Connected!";
+mysqli_set_charset($conn, "utf8mb4");

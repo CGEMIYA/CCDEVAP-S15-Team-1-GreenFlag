@@ -115,7 +115,7 @@
                 Coin Flip
             </a>
 
-            <a href="#">
+            <a href="aboutus.php">
                 <i class="fa-solid fa-circle-info"></i>
                 About Green Flag
             </a>

@@ -2,31 +2,28 @@
 
 require_once "../../includes/db.php";
 
-$full_name = $_POST['full_name'];
-$email = $_POST['email'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$role = $_POST['role'];
-$status = $_POST['status'];
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: ../../users.php");
+    exit();
+}
 
-$sql = "INSERT INTO users
-(full_name,email,password,role,status)
-VALUES
-(?,?,?,?,?)";
+$full_name = trim($_POST["full_name"] ?? "");
+$email = trim($_POST["email"] ?? "");
+$password = trim($_POST["password"] ?? "");
+$role = $_POST["role"] ?? "student";
+$status = $_POST["status"] ?? "pending";
 
-$stmt = mysqli_prepare($conn,$sql);
+if (empty($full_name) || empty($email) || empty($password)) {
+    header("Location: ../../users.php");
+    exit();
+}
 
-mysqli_stmt_bind_param(
-    $stmt,
-    "sssss",
-    $full_name,
-    $email,
-    $password,
-    $role,
-    $status
-);
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+$sql = "INSERT INTO users (full_name, email, password, role, status) VALUES (?, ?, ?, ?, ?)";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "sssss", $full_name, $email, $hashed_password, $role, $status);
 mysqli_stmt_execute($stmt);
 
 header("Location: ../../users.php");
-
-exit;
+exit();

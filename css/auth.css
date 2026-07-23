@@ -213,6 +213,44 @@ body.dark .auth-card {
 }
 
 /* ==========================
+   LINK ROWS
+========================== */
+
+.auth-link-row {
+
+    margin-top: 16px;
+
+    text-align: center;
+
+}
+
+.admin-login-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    color: var(--primary);
+
+    font-weight: 600;
+
+    font-size: .95rem;
+
+}
+
+.admin-login-link:hover {
+
+    color: var(--primary-hover);
+
+    text-decoration: underline;
+
+}
+
+/* ==========================
    BUTTONS
 ========================== */
 
@@ -361,6 +399,42 @@ body.dark .input-group input {
 body.dark .secondary-btn {
 
     border-color: var(--primary);
+
+}
+
+.admin-page .auth-card {
+
+    border: 1px solid rgba(46, 125, 50, .16);
+
+}
+
+.admin-page .auth-logo {
+
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary));
+
+}
+
+.admin-page .auth-badge {
+
+    display: inline-block;
+
+    margin-bottom: 16px;
+
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background: rgba(46, 125, 50, .12);
+
+    color: var(--primary);
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
 
 }
 
