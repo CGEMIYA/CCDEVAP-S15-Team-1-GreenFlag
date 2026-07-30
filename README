@@ -1,0 +1,69 @@
+# GreenFlag Web Application (Phase 2)
+
+Welcome to the **GreenFlag** web application. This is a PHP-based platform featuring a user-facing portal (including interactive features like a coin flip game) and a robust admin dashboard for managing users, spots, reviews, favorites, and analytics.
+
+---
+
+## Repository Structure Overview
+
+*   **`/` (Root):** User-facing frontend files (`index.php`, `aboutus.php`, `coinflip.php`, `login.php`, etc.).
+*   **`/admin`:** Admin panel and dashboard management tools (`spots.php`, `users.php`, `reviews.php`, `analytics.php`).
+*   **`/backend`:** Authentication and core processing scripts (`login.php`, `register.php`, `verify.php`).
+*   **`/config`:** Database connection settings.
+*   **`/css` & `/js`:** Global and page-specific stylesheets and scripts.
+*   **`CCDEVAP-S15-1-GreenFlag.sql`:** Database schema and seed data.
+
+---
+
+## System Requirements
+
+Before setting up the project, ensure you have the following installed on your machine:
+
+*   **PHP** (v7.4 or higher recommended)
+*   **MySQL / MariaDB** (v5.7 or higher)
+*   **Web Server** (Apache or Nginx - commonly bundled via **XAMPP**, **MAMP**, or **WampServer**)
+*   **Web Browser** (Chrome, Firefox, Edge, etc.)
+
+---
+
+## Installation & Setup Guide
+
+Follow these steps to get your local development environment up and running:
+
+### Step 1: Clone or Extract the Repository
+Place the project folder inside your web server's root directory:
+*   **XAMPP (Windows):** `C:/xampp/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
+*   **XAMPP (macOS):** `/Applications/XAMPP/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
+*   **MAMP (macOS):** `/Applications/MAMP/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
+
+### Step 2: Set Up the Database
+1. Start your **MySQL** server via your local stack controller (e.g., XAMPP Control Panel).
+2. Open your browser and navigate to **phpMyAdmin** (usually `http://localhost/phpmyadmin`).
+3. Create a new database named `greenflag` (or a name of your choice).
+4. Click on your newly created database, go to the **Import** tab.
+5. Choose the SQL file located at the root of this project: 
+   `CCDEVAP-S15-1-GreenFlag.sql`
+6. Click **Go** / **Import** to execute the queries and build the tables.
+
+### Step 3: Configure Database Connections
+You need to verify/update the database credentials in the configuration files to match your local database settings (Username, Password, and Database Name).
+
+Update the connection credentials in **both** of the following files:
+1.  **`config/database.php`** (for the user frontend)
+2.  **`backend/config/database.php`** (for the backend processes)
+3.  **`admin/includes/db.php`** (for the admin panel)
+
+*Example Database Configuration (`db.php` / `database.php`):*
+```php
+<?php
+$host = "localhost";
+$db_name = "greenflag";
+$username = "root"; // Default XAMPP username
+$password = "";     // Default XAMPP password (blank)
+
+try {
+    $conn = new PDO("mysql:host=" . $host . ";dbname=" . $db_name,$username, $password);$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $exception) {
+    echo "Connection error: " . $exception->getMessage();
+}
+?>

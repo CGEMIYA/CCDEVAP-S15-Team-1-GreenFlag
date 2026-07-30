@@ -1,0 +1,334 @@
+/* ======================================================
+   GREEN FLAG
+   RESPONSIVE STYLES
+====================================================== */
+
+
+/* ======================================================
+   LARGE LAPTOPS
+====================================================== */
+
+@media (max-width: 1200px) {
+
+    /* Search */
+
+    .search-container input,
+    .search-results {
+
+        width: 75%;
+
+    }
+
+    /* Homepage */
+
+    .cards-container {
+
+        gap: 20px;
+
+    }
+
+}
+
+
+/* ======================================================
+   TABLETS
+====================================================== */
+
+@media (max-width: 992px) {
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+
+    header {
+
+        flex-direction: column;
+
+        gap: 20px;
+
+        padding: 25px;
+
+    }
+
+    .left-nav,
+    .right-nav {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+    .search-container {
+
+        width: 100%;
+
+    }
+
+    .search-container input,
+    .search-results {
+
+        width: 100%;
+
+    }
+
+    /* ===========================
+       HOMEPAGE
+    =========================== */
+
+    main {
+
+        width: 95%;
+
+    }
+
+    .popular {
+
+        padding: 25px;
+
+    }
+
+    .carousel {
+
+        gap: 15px;
+
+    }
+
+    .cards-container {
+
+        gap: 15px;
+
+    }
+
+    .card {
+
+        max-width: 280px;
+
+    }
+
+    /* ===========================
+       SPOT PAGE
+    =========================== */
+
+    .spot-page {
+
+        flex-direction: column;
+
+    }
+
+    .gallery {
+
+        width: 100%;
+
+    }
+
+    .spot-info {
+
+        width: 100%;
+
+    }
+
+    .review-input {
+
+        flex-direction: column;
+
+    }
+
+    .post-panel {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width:768px) {
+
+    /* ===========================
+       TYPOGRAPHY
+    =========================== */
+
+    h1 {
+
+        font-size: 2rem;
+
+    }
+
+    h2 {
+
+        font-size: 1.6rem;
+
+    }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+
+    header {
+
+        padding: 20px;
+
+    }
+
+    .logo {
+
+        text-align: center;
+
+    }
+
+    .right-nav {
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+
+    }
+
+    /* ===========================
+       HOMEPAGE
+    =========================== */
+
+    .section-header {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        text-align: center;
+
+    }
+
+    .carousel {
+
+        flex-direction: column;
+
+    }
+
+    .cards-container {
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+    .card {
+
+        max-width: 100%;
+
+    }
+
+    .arrow {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+    /* ===========================
+       SPOT PAGE
+    =========================== */
+
+    #mainImage {
+
+        height: 280px;
+
+    }
+
+    .thumbnail-row {
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+    }
+
+    .thumb {
+
+        width: 80px;
+
+        height: 60px;
+
+    }
+
+    .rating {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+    .flag-buttons {
+
+        justify-content: center;
+
+    }
+
+}
+
+
+/* ======================================================
+   SMALL PHONES
+====================================================== */
+
+@media (max-width:480px) {
+
+    body {
+
+        font-size: 15px;
+
+    }
+
+    header {
+
+        padding: 15px;
+
+    }
+
+    .menu-btn,
+    #themeToggle {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+    .search-container input {
+
+        padding: 12px 18px;
+
+    }
+
+    .popular {
+
+        padding: 20px;
+
+    }
+
+    .card-content {
+
+        padding: 16px;
+
+    }
+
+    .review-left textarea {
+
+        height: 120px;
+
+    }
+
+    .postBtn {
+
+        width: 100%;
+
+    }
+
+}

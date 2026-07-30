@@ -1,0 +1,728 @@
+/* ======================================================
+   GREEN FLAG
+   GLOBAL STYLESHEET
+   Shared across ALL pages
+====================================================== */
+
+/* ===========================
+   COLOR PALETTE
+=========================== */
+
+:root {
+
+    --bg: #f5f8f5;
+    --surface: #ffffff;
+    --navbar: #d8ead8;
+
+    --primary: #2e7d32;
+    --primary-hover: #1b5e20;
+
+    --success: #4caf50;
+    --danger: #e53935;
+    --warning: #f9a825;
+
+    --text: #212121;
+    --text-light: #666666;
+
+    --border: #d8d8d8;
+
+    --shadow: 0 8px 18px rgba(0, 0, 0, .08);
+
+}
+
+/* ===========================
+   DARK MODE
+=========================== */
+
+.dark {
+
+    --bg: #121212;
+    --surface: #1d1d1d;
+    --navbar: #1f3323;
+
+    --primary: #66bb6a;
+    --primary-hover: #81c784;
+
+    --success: #81c784;
+    --danger: #ef5350;
+    --warning: #ffd54f;
+
+    --text: #eeeeee;
+    --text-light: #bdbdbd;
+
+    --border: #333333;
+
+    --shadow: 0 8px 18px rgba(0, 0, 0, .35);
+
+}
+
+/* ===========================
+   RESET
+=========================== */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    transition: .3s ease;
+
+}
+
+/* ===========================
+   TYPOGRAPHY
+=========================== */
+
+h1 {
+
+    font-size: clamp(2rem, 4vw, 3rem);
+
+}
+
+h2 {
+
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+
+}
+
+h3 {
+
+    font-size: 1.3rem;
+
+}
+
+p {
+
+    line-height: 1.6;
+
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+a {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    transition: .25s;
+
+}
+
+h1 a {
+    color: var(--primary);
+}
+
+a:hover {
+
+    color: var(--primary);
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button {
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    font-family: inherit;
+
+}
+
+button:active {
+
+    transform: scale(.97);
+
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+header {
+
+    background: var(--navbar);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 50px;
+
+    position: sticky;  /*tells navbar to act normally until it hits a point in scrolling
+    in which case it will begin to follow*/ 
+
+    top: 0; /*tells navbar to anchor itself at the top*/
+
+    z-index: 1000; /*gives navbar higher stacking priority so that cards and other overlays
+    wont cover it*/
+}
+
+.left-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+.right-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+.logo {
+
+    color: var(--primary);
+
+    line-height: .9;
+
+    user-select: none;
+
+}
+
+.menu-btn,
+#themeToggle {
+
+    width: 50px;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-size: 22px;
+
+}
+
+.menu-btn:hover,
+#themeToggle:hover {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+/* ===========================
+   SEARCH BAR
+=========================== */
+
+.search-container {
+
+    position: relative;
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+.search-container input {
+
+    width: 55%;
+
+    padding: 14px 22px;
+
+    border-radius: 35px;
+
+    border: 1px solid var(--border);
+
+    outline: none;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-size: 16px;
+
+}
+
+.search-container input:focus {
+
+    border-color: var(--primary);
+
+}
+
+.search-results {
+
+    position: absolute;
+
+    top: 60px;
+
+    width: 55%;
+
+    background: var(--surface);
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    display: none;
+
+    box-shadow: var(--shadow);
+
+    z-index: 999;
+
+}
+
+.search-item {
+
+    padding: 15px 20px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+.search-item:last-child {
+
+    border-bottom: none;
+
+}
+
+.search-item:hover {
+
+    background: var(--navbar);
+
+}
+
+/* ===========================
+   COMMON BUTTONS
+=========================== */
+
+.primary-btn {
+
+    background: var(--primary);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px 24px;
+
+}
+
+.primary-btn:hover {
+
+    background: var(--primary-hover);
+
+}
+
+.secondary-btn {
+
+    background: transparent;
+
+    border: 2px solid var(--primary);
+
+    color: var(--primary);
+
+    border-radius: 12px;
+
+    padding: 12px 24px;
+
+}
+
+.secondary-btn:hover {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+/* ===========================
+   COMMON CARD
+=========================== */
+
+.card {
+
+    background: var(--surface);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+
+    cursor: pointer;
+
+    transition: .25s ease;
+
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 18px 35px rgba(0, 0, 0, .15);
+
+}
+
+.card img {
+
+    transition: .35s;
+
+}
+
+.card:hover img {
+
+    transform: scale(1.05);
+
+}
+
+/* ===========================
+   ARROWS
+=========================== */
+
+.arrow {
+
+    width: 50px;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--surface);
+
+    color: var(--primary);
+
+    box-shadow: var(--shadow);
+
+    font-size: 18px;
+
+}
+
+.arrow:hover {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+/* ===========================
+   TAGS
+=========================== */
+
+.tag {
+
+    display: inline-block;
+
+    background: #d9f2d9;
+
+    color: #2e7d32;
+
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    font-size: .9rem;
+
+    font-weight: bold;
+
+}
+
+.dark .tag {
+
+    background: #355b38;
+
+    color: #f1fff1;
+
+}
+
+/* ===========================
+   UTILITIES
+=========================== */
+
+.container {
+
+    width: 90%;
+
+    margin: auto;
+
+}
+
+.flex {
+
+    display: flex;
+
+}
+
+.center {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.hidden {
+
+    display: none;
+
+}
+
+.shadow {
+
+    box-shadow: var(--shadow);
+
+}
+
+.round {
+
+    border-radius: 20px;
+
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: var(--primary);
+
+    border-radius: 20px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: var(--bg);
+
+}
+
+.arrow:disabled {
+
+    opacity: .35;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+.arrow:disabled:hover {
+
+    background: var(--surface);
+
+    color: var(--primary);
+
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+    left: -320px;
+
+    width: 300px;
+    height: 100vh;
+
+    background: var(--surface);
+
+    box-shadow: 5px 0 25px rgba(0, 0, 0, .15);
+
+    z-index: 2000;
+
+    transition: .35s;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.sidebar.active {
+
+    left: 0;
+
+}
+
+.sidebar-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .35);
+
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .35s;
+
+    z-index: 1500;
+
+}
+
+.sidebar-overlay.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+.sidebar-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 30px 25px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+.profile-picture {
+
+    width: 72px;
+
+    height: 72px;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    color: white;
+
+}
+
+.profile-info h3 {
+
+    margin-bottom: 6px;
+
+}
+
+.profile-info p {
+
+    font-size: .9rem;
+
+    color: var(--text-light);
+
+}
+
+.sidebar-links {
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 18px;
+
+}
+
+.sidebar-links a {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    padding: 14px 16px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    transition: .25s;
+
+}
+
+.sidebar-links a:hover {
+
+    background: var(--primary);
+
+    color: white;
+
+    transform: translateX(5px);
+
+}
+
+.sidebar-divider {
+
+    height: 1px;
+
+    background: var(--border);
+
+    margin: 10px 20px;
+
+}
