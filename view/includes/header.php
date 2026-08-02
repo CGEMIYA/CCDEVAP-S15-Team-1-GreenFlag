@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../view/css/global.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../view/css/home.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../view/css/about.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../view/css/spot.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../view/css/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -54,7 +55,7 @@
             </div>
             <div class="profile-info">
                 <h3>You are not signed in</h3>
-                <p>Login to unlock reviews, favorites, and more.</p>
+                <p>Login to unlock reviews, **WHAT ELSE TO ADD HERE**.</p>
             </div>
         </div>
 
