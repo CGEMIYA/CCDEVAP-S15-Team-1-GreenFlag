@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../config/database.php";
+require "../../model/config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
