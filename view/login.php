@@ -113,7 +113,7 @@ session_start();
             }
 
             ?>
-            <form id="loginForm" action="process/login_process.php" method="POST">
+            <form id="loginForm" action="../model/process/login_process.php" method="POST">
 
                 <div class="input-group">
 

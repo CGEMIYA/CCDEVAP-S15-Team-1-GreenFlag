@@ -6,7 +6,7 @@ require "../config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-    header("Location: ../login.php");
+    header("Location: ../../view/login.php");
     exit();
 
 }
@@ -18,7 +18,7 @@ if (empty($email) || empty($password)) {
 
     $_SESSION["error"] = "Please fill in all fields.";
 
-    header("Location: ../login.php");
+    header("Location: ../../view/login.php");
 
     exit();
 
@@ -38,7 +38,7 @@ if (!$user) {
 
     $_SESSION["error"] = "Email or password is incorrect.";
 
-    header("Location: ../login.php");
+    header("Location: ../../view/login.php");
 
     exit();
 
@@ -48,7 +48,7 @@ if (!password_verify($password, $user["password"])) {
 
     $_SESSION["error"] = "Email or password is incorrect.";
 
-    header("Location: ../login.php");
+    header("Location: ../../view/login.php");
 
     exit();
 
@@ -59,7 +59,7 @@ if ($user["status"] != "verified") {
     $_SESSION["error"] =
         "Your account is awaiting administrator approval.";
 
-    header("Location: ../login.php");
+    header("Location: ../../view/login.php");
 
     exit();
 
@@ -70,7 +70,7 @@ $_SESSION["full_name"] = $user["full_name"];
 $_SESSION["email"] = $user["email"];
 $_SESSION["role"] = $user["role"];
 
-header("Location: ../index.php");
+header("Location: ../../view/index.php");
 
 exit();
 
