@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/config/database.php';
 
+
 $spots = [];
 
 try {
