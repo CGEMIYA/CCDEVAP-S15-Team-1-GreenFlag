@@ -25,16 +25,14 @@ session_start();
 
         <div class="left-nav">
 
-            <button class="menu-btn" onclick="window.location.href='index.php'">
-
+            <!-- Replaced old button -->
+            <button class="menu-btn" onclick="history.back()">
                 <i class="fa-solid fa-arrow-left"></i>
-
             </button>
 
+            <!-- Replace the old h1 with this -->
             <h1 class="logo">
-
-                Green<br>Flag
-
+                 <a href="index.php">Green<br>Flag</a>
             </h1>
 
         </div>
