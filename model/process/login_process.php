@@ -44,15 +44,30 @@ if (!$user) {
 
 }
 
-if (!password_verify($password, $user["password"])) {
+// OLD CODE
+// if (!password_verify($password, $user["password"])) {
+//     $_SESSION["error"] = "Email or password is incorrect.";
+//     header("Location: ../../view/login.php");
+//     exit();
+// }
 
-    $_SESSION["error"] = "Email or password is incorrect.";
+// NEW CODE
+$isPasswordCorrect = false;
 
-    header("Location: ../../view/login.php");
-
-    exit();
-
+// Check if the password in the database is a hash (bcrypt hashes always start with $2y$)
+if (strpos($user["password"], '$2y$') === 0) {
+    $isPasswordCorrect = password_verify($password, $user["password"]);
+} else {
+    // Fallback for your premade test accounts using plain text
+    $isPasswordCorrect = ($password === $user["password"]);
 }
+
+if (!$isPasswordCorrect) {
+    $_SESSION["error"] = "Email or password is incorrect.";
+    header("Location: ../../view/login.php");
+    exit();
+}
+// END OF NEW CODE
 
 if ($user["status"] != "verified") {
 
