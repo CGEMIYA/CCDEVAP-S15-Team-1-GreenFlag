@@ -123,7 +123,11 @@ session_start();
 
                     </label>
 
-                    <input type="password" name="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                    <label class="checkbox">
+                      <input type="checkbox" id="check" > Show Password  
+                    </label>
 
                 </div>
 
@@ -154,6 +158,7 @@ session_start();
     </main>
 
     <script src="../js/darkmode.js"></script>
+    <script src="js/admin.js"></script>
 
 </body>
 

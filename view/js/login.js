@@ -9,6 +9,8 @@ const emailInput = document.getElementById("email");
 
 const passwordInput = document.getElementById("password");
 
+const checkInput = document.getElementById("check");
+
 /* ============================================
    FORM SUBMISSION
 ============================================ */
@@ -65,8 +67,24 @@ loginForm.addEventListener("submit", function (event) {
 
     }
 
+    
+      
+
     // No event.preventDefault() here!
     // If everything is valid,
     // the browser submits the form to PHP automatically.
 
 });
+
+/*===============================
+      Password show or hide
+=============================*/
+   if(checkInput){
+      checkInput.addEventListener("change", function () {
+         if (this.checked) {
+            passwordInput.type = "text";
+         } else {
+            passwordInput.type = "password";
+            }
+      });
+   }

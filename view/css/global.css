@@ -727,3 +727,11 @@ header {
     margin: 10px 20px;
 
 }
+
+/* Hides native browser password reveal eye icon in Edge/IE only edge does this apprently*/
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}

@@ -137,6 +137,10 @@ session_start();
 
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
+                    <label class="checkbox">
+                      <input type="checkbox" id="check" > Show Password  
+                    </label>
+
                 </div>
 
                 <a href="#" class="forgot-password">

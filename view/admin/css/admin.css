@@ -171,3 +171,11 @@ body{
 .summary-card.banned{
     border-left-color:#dc3545;
 }
+
+/* Hide native browser password reveal eye icon in Edge/IE */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}

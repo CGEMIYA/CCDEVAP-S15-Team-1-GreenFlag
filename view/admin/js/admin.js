@@ -50,3 +50,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+/*===============================
+      Password show or hide
+=============================*/
+const checkInput = document.getElementById("check");
+const passwordInput = document.getElementById("password");
+   if(checkInput){
+      checkInput.addEventListener("change", function () {
+         if (checkInput.checked) {
+            passwordInput.type = "text";
+         } else {
+            passwordInput.type = "password";
+            }
+      });
+   }
