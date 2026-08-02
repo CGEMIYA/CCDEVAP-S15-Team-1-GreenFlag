@@ -22,7 +22,9 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="logo">
-                <a href="../view/index.php">Green<br>Flag</a>
+                <a href="../view/index.php">
+                <img src="../view/photos/greenflag.png" alt="Green Flag Logo" class="nav-logo-img">
+                </a>
             </h1>
         </div>
 

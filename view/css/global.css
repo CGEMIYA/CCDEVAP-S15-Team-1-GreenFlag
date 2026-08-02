@@ -728,6 +728,34 @@ header {
 
 }
 
+/* Pull the container as tight as possible */
+.left-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px !important; /* Squeezes the gap down */
+}
+
+.left-nav .logo {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-img {
+    height: 75px !important; 
+    max-height: none !important;
+    width: auto !important;
+    display: block;
+    
+    /* Visually scales image up without breaking the navbar layout */
+    transform: scale(1.5); /* Adjust here */
+    transform-origin: left center; /* Ensures it scales to the right, not over the menu button */
+    
+    /* Pulls it slightly to the left, closing the visual gap even more */
+    margin-left: -5px !important; 
+}
+
 /* Hides native browser password reveal eye icon in Edge/IE only edge does this apprently*/
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
