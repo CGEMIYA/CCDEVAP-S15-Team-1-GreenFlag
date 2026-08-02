@@ -1,5 +1,5 @@
 <?php
-require_once 'config/database.php';
+require_once (__DIR__ . '/../model/config/database.php');
 
 $searchTerm = '';
 if (isset($_GET['search'])) {

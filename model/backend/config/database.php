@@ -2,8 +2,9 @@
 
 $host = "localhost";
 $user = "root";
-$password = "";
 $database = "greenflag";
+$password = "";
+
 
 $conn = mysqli_connect(
     $host,

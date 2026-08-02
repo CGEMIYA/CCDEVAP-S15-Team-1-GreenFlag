@@ -172,7 +172,7 @@ header {
 
     align-items: center;
 
-    padding: 20px 50px;
+    padding: 10px 50px;
 
     position: sticky;  /*tells navbar to act normally until it hits a point in scrolling
     in which case it will begin to follow*/ 
@@ -181,6 +181,7 @@ header {
 
     z-index: 1000; /*gives navbar higher stacking priority so that cards and other overlays
     wont cover it*/
+
 }
 
 .left-nav {
