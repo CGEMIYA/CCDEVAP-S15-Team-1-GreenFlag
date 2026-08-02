@@ -1,22 +1,27 @@
 .about-container {
     padding: 40px 24px 60px;
-    max-width: 1200px;
+    max-width: 1400px !important; 
     margin: 0 auto;
 }
 
-.section-header {
+.about-container .section-header {
+    display: block !important; 
+    text-align: center !important;
     margin-bottom: 24px;
 }
 
-.section-header h2 {
+.about-container .section-header h2 {
     color: var(--primary);
     margin-bottom: 8px;
+    width: 100%;
+    text-align: center;
 }
 
 .mission-statement {
     font-size: 1.08rem;
     line-height: 1.8;
-    margin-bottom: 36px;
+    margin: 0 auto 36px auto !important;
+    text-align: center !important;
     color: var(--text);
     max-width: 860px;
     padding: 20px 24px;
@@ -29,47 +34,61 @@
     margin-bottom: 20px;
     font-size: 1.5rem;
     color: var(--primary);
+    text-align: center !important; 
+    display: block !important;
 }
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 20px !important;
 }
 
 .team-card {
     text-align: center;
-    padding: 28px 20px;
+    padding: 28px 15px;
     border-radius: 18px;
     background: var(--surface);
     box-shadow: var(--shadow);
     transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content inside the flex card */
 }
 
 .team-card:hover {
     transform: translateY(-3px);
 }
 
-.team-avatar {
-    width: 82px;
-    height: 82px;
-    margin: 0 auto 16px auto;
-    background: linear-gradient(135deg, var(--navbar), var(--surface));
-    color: var(--primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
+/* Lock the images in a cage so global.css can't stretch them */
+img.team-avatar {
+    width: 110px !important; 
+    height: 110px !important;
+    max-width: 110px !important;
+    min-height: 110px !important;
+    margin: 0 auto 16px auto !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important; 
+    border: 3px solid var(--primary);
+    background: var(--surface);
 }
 
 .team-card h3 {
     font-size: 1.05rem;
     color: var(--text);
+    margin: 0;
 }
 
 .team-card .role {
     color: var(--text-light);
     font-size: 0.9rem;
     margin-top: 5px;
+}
+
+
+@media (max-width: 1100px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    }
 }
