@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Flag</title>
 
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="../view/css/global.css">
+    <link rel="stylesheet" href="../view/css/home.css">
+    <link rel="stylesheet" href="../view/css/about.css">
+    <link rel="stylesheet" href="../view/css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="logo">
-                <a href="index.php">Green<br>Flag</a>
+                <a href="../view/index.php">Green<br>Flag</a>
             </h1>
         </div>
 
@@ -36,11 +36,11 @@
             <button id="themeToggle">
                 <i class="fa-solid fa-moon"></i>
             </button>
-            <a href="login.php">
+            <a href="../view/login.php">
                 <i class="fa-regular fa-user"></i> Login
             </a>
             <span>|</span>
-            <a href="register.php">Sign Up</a>
+            <a href="../view/register.php">Sign Up</a>
         </div>
     </header>
 
@@ -59,14 +59,13 @@
         </div>
 
         <div class="sidebar-links">
-            <a href="login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-            <a href="register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+            <a href="../view/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <a href="../view/register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
         </div>
         <div class="sidebar-divider"></div>
         <div class="sidebar-links">
-            <a href="index.php"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="#"><i class="fa-regular fa-heart"></i> Favorites</a>
-            <a href="coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
-            <a href="aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
+            <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
+            <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
         </div>
     </aside>
