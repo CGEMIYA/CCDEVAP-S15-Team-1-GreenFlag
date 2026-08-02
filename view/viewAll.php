@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 require_once (__DIR__ . '/../model/config/database.php');
+=======
+require_once(__DIR__ . '/../model/config/database.php'); //require_once 'config/database.php';
+>>>>>>> deac663c78c363fd8f5f7e2c2cdff49621506201
 
 $searchTerm = '';
 if (isset($_GET['search'])) {
