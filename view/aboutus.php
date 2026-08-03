@@ -61,7 +61,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 </main>
-
+</div> <!-- CLOSES .page-layout -->
 <!-- Scripts -->
 <script src="js/darkmode.js"></script>
 <script src="js/sidebar.js"></script>

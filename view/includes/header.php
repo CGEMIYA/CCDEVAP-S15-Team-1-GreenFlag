@@ -15,15 +15,16 @@
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (Spans full width at top) -->
     <header>
+
         <div class="left-nav">
             <button class="menu-btn" id="menuBtn">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="logo">
                 <a href="../view/index.php">
-                <img src="../view/photos/greenflag.png" alt="Green Flag Logo" class="nav-logo-img">
+                    <img src="../view/photos/greenflag.png" alt="Green Flag Logo" class="nav-logo-img">
                 </a>
             </h1>
         </div>
@@ -47,28 +48,31 @@
         </div>
     </header>
 
-    <!-- SIDEBAR -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- PAGE LAYOUT WRAPPER (Renders Sidebar + Main content side-by-side) -->
+    <div class="page-layout">
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-profile">
-            <div class="profile-picture">
-                <i class="fa-regular fa-user"></i>
-            </div>
-            <div class="profile-info">
-                <h3>You are not signed in</h3>
-                <p>Login to unlock reviews, **WHAT ELSE TO ADD HERE**.</p>
-            </div>
-        </div>
+        <!-- SIDEBAR OVERLAY (Mobile only) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <div class="sidebar-links">
-            <a href="../view/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-            <a href="../view/register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="sidebar-links">
-            <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
-            <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
-        </div>
-    </div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-picture">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>You are not signed in</h3>
+                    <p>Login to unlock reviews, save reviews, and more.</p>
+                </div>
+            </div>
+
+            <div class="sidebar-links">
+                <a href="../view/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                <a href="../view/register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-links">
+                <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
+                <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
+            </div>
+        </aside>

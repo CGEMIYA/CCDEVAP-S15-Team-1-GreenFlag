@@ -94,7 +94,7 @@
             </section>
 
         </main>
-
+        </div> <!-- CLOSES .page-layout -->
         <script src="js/spots.js"></script>
         <script src="js/darkmode.js"></script>
         <script src="js/sidebar.js"></script>

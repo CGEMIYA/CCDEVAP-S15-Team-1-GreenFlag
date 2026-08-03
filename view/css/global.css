@@ -161,47 +161,65 @@ button:active {
 /* ===========================
    NAVBAR
 =========================== */
-
 header {
-
     background: var(--navbar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    position: fixed; 
+    gap: 10px;
+    top: 0;/*tells navbar to anchor itself at the top*/
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1000;/*gives navbar higher stacking priority so that cards and other overlays
+    wont cover it*/
+    border-bottom: 1px solid rgb(120, 154, 131);
+
+    flex-wrap: nowrap; /* Prevents items from wrapping below header */
+}
+
+
+/* ==========================================
+   PAGE LAYOUT WRAPPER (REDDIT STYLE I think)
+=========================================== */
+
+.page-layout {
 
     display: flex;
 
-    justify-content: space-between;
+    margin-top: 80px; /* Offset by header height */
 
-    align-items: center;
+    min-height: calc(100vh - 80px);
 
-    padding: 10px 50px;
+    width: 100%;
 
-    position: sticky;  /*tells navbar to act normally until it hits a point in scrolling
-    in which case it will begin to follow*/ 
+}
 
-    top: 0; /*tells navbar to anchor itself at the top*/
+main {
 
-    z-index: 1000; /*gives navbar higher stacking priority so that cards and other overlays
-    wont cover it*/
+    flex: 1; /* Automatically takes remaining width on right */
+
+    padding: 25px;
+
+    min-width: 0; /* Prevents overflow bugs with flex items */
 
 }
 
 .left-nav {
-
     display: flex;
-
     align-items: center;
-
-    gap: 25px;
-
+    gap: 10px;
+    flex-shrink: 0; /* Keeps the menu button and logo pinned on the far left */
 }
 
 .right-nav {
-
     display: flex;
-
     align-items: center;
-
-    gap: 15px;
-
+    gap: 12px;
+    white-space: nowrap; /* Prevents "Login | Sign Up" from wrapping to a new line */
+    flex-shrink: 0;      /* Keeps the login and moon button pinned on the far right */
 }
 
 .logo {
@@ -255,18 +273,21 @@ header {
     position: relative;
 
     flex: 1;
-
+    min-width: 140px; /* Prevents the search bar from crushing into a circle */
+    max-width: 500px;
     display: flex;
 
     justify-content: center;
+    margin: 0 10px;
+    height:auto
 
 }
 
 .search-container input {
 
-    width: 55%;
+    width: 100%;
 
-    padding: 14px 22px;
+    padding: 10px 18px;
 
     border-radius: 35px;
 
@@ -576,18 +597,17 @@ header {
 
 .sidebar {
 
-    position: fixed;
+    position: sticky;
 
-    top: 0;
-    
-    left:0px;
+    top: 80px;
 
-    width: 250px;
-    height: 100vh;
+    width: 260px;
+
+    height: calc(100vh - 80px);
 
     background: var(--surface);
 
-    box-shadow: 5px 0 25px rgba(0, 0, 0, .15);
+    border-right: 1px solid var(--border);
 
     z-index: 2000;
 
@@ -596,6 +616,8 @@ header {
     display: flex ;
 
     flex-direction: column;
+
+    overflow-y: auto;
 
 }
 
@@ -623,7 +645,7 @@ header {
 }
 
 .sidebar-overlay.active {
-    opacity: 1;
+    opacity: 0; /*always zero because of backdrop-filter that looks ugly*/
     visibility: visible;
 }
 
@@ -742,17 +764,12 @@ header {
 }
 
 .nav-logo-img {
-    height: 75px !important; 
-    max-height: none !important;
+    height: 45px !important; 
     width: auto !important;
     display: block;
-    
-    /* Visually scales image up without breaking the navbar layout */
-    transform: scale(1.3); /* Adjust here */
-    transform-origin: left center; /* Ensures it scales to the right, not over the menu button */
-    
-    /* Pulls it slightly to the left, closing the visual gap even more */
-    margin-left: -5px !important; 
+    transform: none !important;
+    margin-left: 0 !important;
+
 }
 
 /* Hides native browser password reveal eye icon in Edge/IE only edge does this apprently*/

@@ -3,23 +3,6 @@
    RESPONSIVE STYLES
 ====================================================== */
 
-/*SIDEBAR BUTTON*/
-@media (max-width: 768px){
-    .menu-btn{
-        display:block;
-    }
-
-    .sidebar{
-        transform: translateX(-100%); 
-    }
-
-    .sidebar.active{
-        transform: translateX(0);
-    }
-
-}
-
-
 
 /* ======================================================
    LARGE LAPTOPS
@@ -59,26 +42,28 @@
 
     header {
 
-        flex-direction: column;
-
-        gap: 20px;
-
-        padding: 25px;
-
+        flex-direction: row !important; /* Keep items in 1 horizontal line */
+        justify-content: space-between;
+        padding: 0 12px;
+        gap: 8px;
     }
 
     .left-nav,
     .right-nav {
 
-        width: 100%;
-
-        justify-content: center;
+        width: auto !important;
+        gap:8px;
+        justify-content: flex-start !important;
 
     }
 
+    .nav-logo-img {
+        height: 38px !important; /* Slightly smaller logo when space is limited */
+    }
+    
     .search-container {
-
-        width: 100%;
+        width: auto;
+        flex: 1; /* Search expands to take middle space */
 
     }
 
@@ -194,7 +179,7 @@
 
     .logo {
 
-        text-align: center;
+        text-align: left;
 
     }
 
@@ -346,6 +331,36 @@
 
         width: 100%;
 
+    }
+
+}
+
+/* ======================================================
+   MOBILE & TABLET RESPONSIVE SIDEBAR
+====================================================== */
+@media (max-width: 762px) {
+    .menu-btn {
+        display: flex !important;
+    }
+
+    /* Convert sidebar into floating drawer on small screens */
+    .sidebar {
+        position: fixed;
+        top: 70 px;
+        left: 0;
+        height: calc(100vh - 80px);
+        z-index: 2000;
+        transform: translateX(-100%); 
+        box-shadow: 5px 0 25px rgba(0, 0, 0, .15);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    main {
+        width: 100%;
+        padding: 15px;
     }
 
 }
