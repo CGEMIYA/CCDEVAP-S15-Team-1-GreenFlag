@@ -28,21 +28,29 @@ require_once __DIR__ . '/includes/header.php';
 
                 <!-- Team Member 2 -->
                 <div class="card team-card">
-                    <img src="photos/Chris Profile.jpg" class="team-avatar" alt="Chris Garvida">
-                    <div class="card-content">
-                        <h3>Chris Garvida</h3>
-                    </div>
-                </div>
-
-                <!-- Team Member 3 -->
-                <div class="card team-card">
                     <img src="photos/Atreus Profile.jpg" class="team-avatar" alt="Atreyu Pena">
                     <div class="card-content">
                         <h3>Atreyu Pena</h3>
                     </div>
                 </div>
 
+                <!-- Team Member 3 -->
+                <div class="card team-card">
+                    <img src="photos/Chris Profile.jpg" class="team-avatar" alt="Chris Garvida">
+                    <div class="card-content">
+                        <h3>Chris Garvida</h3>
+                    </div>
+                </div>
+
                 <!-- Team Member 4 -->
+                <div class="card team-card">
+                    <img src="photos/Shaun Profile.jpg" class="team-avatar" alt="Shaun Stephen Roca">
+                    <div class="card-content">
+                        <h3>Shaun Stephen Roca</h3>
+                    </div>
+                </div>
+                
+                <!-- Team Member 5 -->
                 <div class="card team-card">
                     <img src="photos/Rafael Profile.png" class="team-avatar" alt="Rafael Vicuna">
                     <div class="card-content">
@@ -50,13 +58,8 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                 </div>
 
-                <!-- Team Member 5 -->
-                <div class="card team-card">
-                    <img src="photos/Shaun Profile.jpg" class="team-avatar" alt="Shaun Stephen Roca">
-                    <div class="card-content">
-                        <h3>Shaun Stephen Roca</h3>
-                    </div>
-                </div>
+
+                
             </div>
         </div>
     </div>
