@@ -1,9 +1,9 @@
 <div class="sidebar">
     <div class="sidebar-header">
-        <a href="../index.php">
+        <a href="../../index.php">
             <img src="greenflag.png" alt="Logo">
         </a>
-        <small>Administrator</small>
+     
     </div>
 
     <nav>
