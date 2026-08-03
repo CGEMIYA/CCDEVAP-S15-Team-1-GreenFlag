@@ -40,7 +40,9 @@ session_start();
 
             <!-- Replace the old h1 with this -->
             <h1 class="logo">
-                 <a href="index.php">Green<br>Flag</a>
+                 <a href="index.php">
+                     <img src="photos/greenflag.png" alt="Green Flag Logo" class="nav-logo-img">
+                 </a>
             </h1>
 
         </div>

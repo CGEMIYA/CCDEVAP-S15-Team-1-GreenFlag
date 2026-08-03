@@ -3,17 +3,16 @@
 ========================================== */
 
 .auth-page {
+    /* Add these lines to push the card out from under the navbar */
+    padding-top: 120px !important; 
 
-    min-height: calc(100vh - 80px);
+    min-height: 100vh;
 
     display: flex;
 
-    justify-content: center;
-
     align-items: center;
-
-    padding: 40px 20px;
-
+    
+    justify-content: center;
 }
 
 /* ==========================
@@ -25,9 +24,10 @@
     width: 100%;
 
     max-width: 460px;
-
-    background: var(--surface);
-
+    
+    /* Changed from var(--surface) to match the index page */
+    background: var(--navbar); 
+    
     border-radius: 20px;
 
     padding: 40px;
@@ -37,6 +37,8 @@
     text-align: center;
 
     transition: .3s;
+    
+    border: none;
 
 }
 
@@ -125,13 +127,14 @@ body.dark .auth-card {
     border: 1px solid var(--border);
 
     border-radius: 12px;
-
-    background: var(--background);
-
+    
+    /* Changed from var(--background) to var(--surface) */
+    background: var(--surface); 
+    
     color: var(--text);
 
     font-size: 15px;
-
+    
     transition: .25s;
 
 }
