@@ -75,9 +75,9 @@
 
                         <div class="flag-buttons">
 
-                            <button class="flag green">🟢</button>
+                            <button class="flag green"><img src="photos/greenflag.svg" alt="Logo" ></button>
 
-                            <button class="flag red">🔴</button>
+                            <button class="flag red"><img src="photos/redflag.svg" alt="Logo" ></button>
 
                         </div>
 
