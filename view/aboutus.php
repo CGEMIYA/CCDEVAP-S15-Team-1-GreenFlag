@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="team-grid">
                 <!-- Team Member 1 -->
                 <div class="card team-card">
-                    <img src="https://placehold.co/150x150/e2e8f0/64748b?text=Face" class="team-avatar" alt="Aaron Zander Romero">
+                    <img src="photos/Aaron Profile.jpg" class="team-avatar" alt="Aaron Zander Romero">
                     <div class="card-content">
                         <h3>Aaron Zander Romero</h3>
                     </div>
@@ -36,7 +36,7 @@ require_once __DIR__ . '/includes/header.php';
 
                 <!-- Team Member 3 -->
                 <div class="card team-card">
-                    <img src="https://placehold.co/150x150/e2e8f0/64748b?text=Face" class="team-avatar" alt="Atreyu Pena">
+                    <img src="photos/Atreus Profile.jpg" class="team-avatar" alt="Atreyu Pena">
                     <div class="card-content">
                         <h3>Atreyu Pena</h3>
                     </div>
