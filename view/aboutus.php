@@ -19,7 +19,7 @@
             <div class="team-grid">
                 <!-- Team Member 1 -->
                 <div class="card team-card">
-                    <img src="photos/Aaron Profile.jpg" class="team-avatar" alt="Aaron Zander Romero">
+                    <img src="photos/aaron_profile2.jpg" class="team-avatar" alt="Aaron Zander Romero">
                     <div class="card-content">
                         <h3>Aaron Zander Romero</h3>
                     </div>
