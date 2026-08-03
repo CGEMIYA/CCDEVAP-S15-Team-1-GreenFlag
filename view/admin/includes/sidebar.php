@@ -28,7 +28,7 @@
             About Us
         </a>
         <hr>
-        <a href="../login.php">
+        <a href="../../model/process/logout_process.php">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
         </a>

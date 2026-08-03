@@ -1,4 +1,15 @@
 <?php
+// bouncer
+require_once 'includes/auth.php';
+
+// Set page title
+$pageTitle = "Spots";
+
+require_once 'includes/header.php';
+require_once 'includes/sidebar.php';
+?>
+
+<?php
 $pageTitle = "Spots";
 require_once "includes/auth.php";
 require_once "includes/header.php";
