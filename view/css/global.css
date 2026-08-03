@@ -233,6 +233,10 @@ header {
 
 }
 
+.menu-btn{
+    display:none;
+} 
+
 .menu-btn:hover,
 #themeToggle:hover {
 
@@ -577,7 +581,7 @@ header {
     top: 0;
     left: -320px;
 
-    width: 300px;
+    width: 250px;
     height: 100vh;
 
     background: var(--surface);
@@ -588,19 +592,18 @@ header {
 
     transition: .35s;
 
-    display: flex;
+    display: flex ;
 
     flex-direction: column;
+    
+    left:0;
 
 }
 
-.sidebar.active {
 
-    left: 0;
-
-}
 
 .sidebar-overlay {
+    
 
     position: fixed;
 
@@ -621,11 +624,8 @@ header {
 }
 
 .sidebar-overlay.active {
-
-    opacity: 1;
-
+    opacity: 0;
     visibility: visible;
-
 }
 
 .sidebar-profile {
