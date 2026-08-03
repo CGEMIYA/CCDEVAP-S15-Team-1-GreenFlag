@@ -1,4 +1,5 @@
 <?php
+// 1. Connect to the correct PDO database file (DISREGARD model/backend/config/database.php)
 require_once (__DIR__ . '/../model/config/database.php');
 
 $searchTerm = '';
@@ -6,7 +7,7 @@ if (isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
 }
 
-// Fetch main grid data
+// 2. Fetch main grid data
 $query = "
     SELECT s.id, s.name, s.location, s.price, s.description, s.image,
            IFNULL(ROUND(AVG(r.rating), 1), 0) as avg_rating,
@@ -23,7 +24,7 @@ $searchWildcard = "%" . $searchTerm . "%";
 $stmt->execute([$searchWildcard]);
 $spots = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch data for the live search dropdown
+// 3. Fetch data for the live search dropdown
 $allQuery = "SELECT id, name, location FROM spots";
 $allStmt = $pdo->query($allQuery);
 $allSpots = $allStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,6 +35,11 @@ $priceMap = [
     'Medium' => '$$',
     'High' => '$$$'
 ];
+
+// LOAD THE HEADER BEFORE CLOSING PHP
+// This guarantees session_start() runs before any HTML comments
+require_once __DIR__ . '/includes/header.php';
+
 ?>
     <!-- REPLACES COPY n PASTE NAVBAR AND SIDEBAR AND ACTUALLY USES includes/header.php NOW -->
     <?php require_once __DIR__ . '/includes/header.php'; ?>

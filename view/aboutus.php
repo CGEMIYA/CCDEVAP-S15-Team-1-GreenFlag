@@ -1,6 +1,5 @@
-<?php
-require_once __DIR__ . '/includes/header.php';
-?>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
+<!-- REPLACES COPY n PASTE NAVBAR AND SIDEBAR AND ACTUALLY USES includes/header.php NOW -->
 
 <main>
     <div class="popular about-container">
