@@ -77,24 +77,5 @@ ${tag}
 
 });
 
-const reviewContainer =
-    document.getElementById("reviewsContainer");
-
-spot.comments.forEach(comment => {
-
-    reviewContainer.innerHTML += `
-
-<div class="review">
-
-<h4>${comment.user}</h4>
-
-<p>${"⭐".repeat(comment.rating)}</p>
-
-<p>${comment.text}</p>
-
-</div>
-
-`;
-
-});
+// DELETED FAKE REVIEWS
 
