@@ -1,3 +1,10 @@
+<?php
+// BEGIN SESSION CHECK
+// don't accidentally start twice
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!-- includes/header.php -->
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +22,8 @@
 </head>
 <body>
 
-    <!-- NAVBAR (Spans full width at top) -->
+    <!-- NAVBAR -->
     <header>
-
         <div class="left-nav">
             <button class="menu-btn" id="menuBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -40,39 +46,64 @@
             <button id="themeToggle">
                 <i class="fa-solid fa-moon"></i>
             </button>
-            <a href="../view/login.php">
-                <i class="fa-regular fa-user"></i> Login
-            </a>
-            <span>|</span>
-            <a href="../view/register.php">Sign Up</a>
+            
+            <!-- UPDATE NAVBAR WITH SESSION -->
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <!-- If Logged in -->
+                <span style="font-weight: 600; color: var(--primary);">Hi, <?= htmlspecialchars($_SESSION["full_name"]); ?></span>
+                <span>|</span>
+                <a href="../model/process/logout_process.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            <?php else: ?>
+                <!-- If NOT Logged in -->
+                <a href="../view/login.php"><i class="fa-regular fa-user"></i> Login</a>
+                <span>|</span>
+                <a href="../view/register.php">Sign Up</a>
+            <?php endif; ?>
+
         </div>
     </header>
 
-    <!-- PAGE LAYOUT WRAPPER (Renders Sidebar + Main content side-by-side) -->
+    <!-- This opens layout for the entire page -->
     <div class="page-layout">
 
-        <!-- SIDEBAR OVERLAY (Mobile only) -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- SIDEBAR -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-profile">
-                <div class="profile-picture">
-                    <i class="fa-regular fa-user"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>You are not signed in</h3>
-                    <p>Login to unlock reviews, save reviews, and more.</p>
-                </div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-profile">
+            <div class="profile-picture">
+                <i class="fa-regular fa-user"></i>
             </div>
+            <div class="profile-info">
+                <!-- UPDATE SIDEBAR WITH SESSION -->
+                <?php if (isset($_SESSION["user_id"])): ?>
+                    <!-- If Logged in -->
+                    <h3><?= htmlspecialchars($_SESSION["full_name"]); ?></h3>
+                    <p><?= htmlspecialchars($_SESSION["email"]); ?></p>
+                <?php else: ?>
+                    <!-- If NOT Logged in -->
+                    <h3>You are not signed in</h3>
+                    <p>Login to post reviews, save your favorite spots, and discover your next Green Flag.</p>
+                <?php endif; ?>
+            </div>
+        </div>
 
-            <div class="sidebar-links">
+        <div class="sidebar-links">
+                <!-- SIDEBAR BUTTONS LOGGED IN & LOGGED OUT-->
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <!-- If Logged in -->
+                <a href="../model/process/logout_process.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            <?php else: ?>
+                <!-- If NOT Logged in -->
                 <a href="../view/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
                 <a href="../view/register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
-            </div>
-            <div class="sidebar-divider"></div>
-            <div class="sidebar-links">
-                <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
-                <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
-                <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
-            </div>
-        </aside>
+            <?php endif; ?>
+        </div>
+        
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-links">
+            <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
+            <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
+        </div>
+    </aside>
