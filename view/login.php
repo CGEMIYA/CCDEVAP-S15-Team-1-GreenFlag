@@ -141,12 +141,6 @@ session_start();
 
                 </div>
 
-                <a href="#" class="forgot-password">
-
-                    Forgot Password?
-
-                </a>
-
                 <button class="auth-btn" type="submit">
 
                     Login
