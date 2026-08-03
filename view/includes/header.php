@@ -99,7 +99,12 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="../view/register.php"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
             <?php endif; ?>
         </div>
-        
+        <?php if (isset($_SESSION["user_id"]) && $_SESSION["role"] === "admin"): ?>
+            <div class="sidebar-links">
+                <a href="../view/admin/analytics.php"><i class="fa-solid fa-gauge"></i> Admin Dashboard</a>
+            </div>
+        <?php endif; ?>
+
         <div class="sidebar-divider"></div>
         <div class="sidebar-links">
             <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
