@@ -1,9 +1,9 @@
 <?php
 
-require_once "../../includes/db.php";
+require_once "../../../../view/admin/includes/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../users.php");
+    header("Location: ../../../../view/admin/users.php");
     exit();
 }
 
@@ -15,7 +15,7 @@ $status = $_POST["status"] ?? "pending";
 $password = trim($_POST["password"] ?? "");
 
 if (!$id || empty($full_name) || empty($email)) {
-    header("Location: ../../users.php");
+    header("Location: ../../../../view/admin/users.php");
     exit();
 }
 
@@ -29,7 +29,7 @@ if (!empty($password)) {
 }
 
 mysqli_stmt_execute($stmt);
-header("Location: ../../users.php");
+header("Location: ../../../../view/admin/users.php");
 exit();
 
 ?>
