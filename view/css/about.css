@@ -62,11 +62,11 @@
 
 /* Lock the images in a cage so global.css can't stretch them */
 img.team-avatar {
-    width: 110px !important; 
-    height: 110px !important;
-    max-width: 110px !important;
-    min-height: 110px !important;
-    margin: 0 auto 16px auto !important;
+    width: 150px !important; 
+    height: 150px !important;
+    max-width: 150px !important;
+    min-height: 150px !important;
+    margin: 0 auto 6px auto !important;
     border-radius: 50% !important;
     object-fit: cover !important;
     display: block !important; 
