@@ -1,14 +1,14 @@
 <?php
-require_once "../../includes/db.php";
+require_once "../../../../view/admin/includes/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
 $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
 if (!$id) {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
@@ -32,5 +32,5 @@ try {
     throw $e;
 }
 
-header("Location: ../../spots.php");
+header("Location: ../../../../view/admin/spots.php");
 exit();

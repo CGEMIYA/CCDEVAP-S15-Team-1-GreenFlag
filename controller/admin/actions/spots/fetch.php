@@ -1,5 +1,5 @@
 <?php
-require_once "../../includes/db.php";
+require_once "../../../../view/admin/includes/db.php";
 
 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 if (!$id) {

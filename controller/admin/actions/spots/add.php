@@ -1,8 +1,8 @@
 <?php
-require_once "../../includes/db.php";
+require_once "../../../../view/admin/includes/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
@@ -16,7 +16,7 @@ $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
 
 if (empty($name) || empty($location)) {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
@@ -24,5 +24,5 @@ $stmt = mysqli_prepare($conn, "INSERT INTO spots (name, location, description, i
 mysqli_stmt_bind_param($stmt, "ssssssss", $name, $location, $description, $image, $hours, $noise, $privacy, $price);
 mysqli_stmt_execute($stmt);
 
-header("Location: ../../spots.php");
+header("Location: ../../../../view/admin/spots.php");
 exit();

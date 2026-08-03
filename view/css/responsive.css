@@ -10,10 +10,13 @@
     }
 
     .sidebar{
-        display:none;
+        transform: translateX(-100%); 
     }
 
-    
+    .sidebar.active{
+        transform: translateX(0);
+    }
+
 }
 
 

@@ -1,8 +1,8 @@
 <?php
-require_once "../../includes/db.php";
+require_once "../../../../view/admin/includes/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
 
 if (!$id || empty($name) || empty($location)) {
-    header("Location: ../../spots.php");
+    header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
@@ -25,5 +25,5 @@ $stmt = mysqli_prepare($conn, "UPDATE spots SET name = ?, location = ?, descript
 mysqli_stmt_bind_param($stmt, "ssssssssi", $name, $location, $description, $image, $hours, $noise, $privacy, $price, $id);
 mysqli_stmt_execute($stmt);
 
-header("Location: ../../spots.php");
+header("Location: ../../../../view/admin/spots.php");
 exit();
