@@ -749,7 +749,7 @@ header {
     display: block;
     
     /* Visually scales image up without breaking the navbar layout */
-    transform: scale(1.5); /* Adjust here */
+    transform: scale(1.3); /* Adjust here */
     transform-origin: left center; /* Ensures it scales to the right, not over the menu button */
     
     /* Pulls it slightly to the left, closing the visual gap even more */
