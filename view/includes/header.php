@@ -50,7 +50,7 @@
     <!-- SIDEBAR -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <aside class="sidebar" id="sidebar">
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-profile">
             <div class="profile-picture">
                 <i class="fa-regular fa-user"></i>
@@ -71,4 +71,4 @@
             <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
             <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
         </div>
-    </aside>
+    </div>
