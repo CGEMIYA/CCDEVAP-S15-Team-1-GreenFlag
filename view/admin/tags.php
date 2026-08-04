@@ -51,7 +51,7 @@ $result = mysqli_query($conn, $query);
                                             <button type="button" class="btn btn-warning btn-sm editTagBtn" data-id="<?= (int) $tag['id']; ?>">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <form method="POST" action="actions/tags/delete.php" class="d-inline">
+                                            <form method="POST" action="../../controller/admin/actions/tags/delete.php" class="d-inline">
                                                 <input type="hidden" name="id" value="<?= (int) $tag['id']; ?>">
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this tag?');">
                                                     <i class="fa-solid fa-trash"></i>
@@ -92,7 +92,7 @@ $result = mysqli_query($conn, $query);
 <div class="modal fade" id="editTagModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="actions/tags/edit.php" method="POST">
+            <form action="../../controller/admin/actions/tags/edit.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Tag</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>

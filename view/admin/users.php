@@ -171,7 +171,7 @@ require_once "includes/header.php";
 
                                     </a>
 
-                                    <form method="POST" action="actions/users/delete.php" class="d-inline">
+                                    <form method="POST" action="../../controller/admin/actions/users/delete.php" class="d-inline">
                                         <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                         <button
                                             type="submit"
@@ -357,7 +357,7 @@ Save User
 <div class="modal fade" id="editUserModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="actions/users/edit.php" method="POST">
+            <form action="../../controller/admin/actions/users/edit.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit User</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
