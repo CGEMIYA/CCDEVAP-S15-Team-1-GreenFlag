@@ -13,10 +13,17 @@ if (empty($tag_name)) {
     exit();
 }
 
+if (duplicateTag($conn, $tag_name, $id ?? null)) {
+    header("Location: ../../../../view/admin/tags.php?error=tag_exists");
+    exit();
+}
+
 addTag($conn, $tag_name);
 /*stmt = mysqli_prepare($conn, "INSERT INTO tags (tag_name) VALUES (?)");
 mysqli_stmt_bind_param($stmt, "s", $tag_name);
 mysqli_stmt_execute($stmt);*/
 
-header("Location: ../../../../view/admin/tags.php");
+
+
+header("Location: ../../../../view/admin/tags.php?status=created");
 exit();

@@ -14,10 +14,15 @@ if (!$id || empty($tag_name)) {
     exit();
 }
 
+if (duplicateTag($conn, $tag_name, $id ?? null)) {
+    header("Location: ../../../../view/admin/tags.php?error=tag_exists");
+    exit();
+}
+
 editTag($conn, $id, $tag_name);
 /*$stmt = mysqli_prepare($conn, "UPDATE tags SET tag_name = ? WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "si", $tag_name, $id);
 mysqli_stmt_execute($stmt);
 */
-header("Location: ../../../../view/admin/tags.php");
+header("Location: ../../../../view/admin/tags.php?status=updated");
 exit();

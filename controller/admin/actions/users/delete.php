@@ -47,7 +47,7 @@ try {
     throw $e;
 }
 */
-header("Location: ../../../../view/admin/users.php");
+header("Location: ../../../../view/admin/users.php?status=deleted");
 exit();
 
 ?>

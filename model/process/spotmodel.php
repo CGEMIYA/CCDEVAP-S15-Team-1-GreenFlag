@@ -164,4 +164,19 @@ function deleteSpot($conn, $id) {
         throw $e;
     }
 }
+
+
+//8. DUPLICATE SPOT CHECKER
+function duplicateSpot($conn, $name, $excludeId = null) {
+    if ($excludeId) {
+        $stmt = mysqli_prepare($conn, "SELECT id FROM spots WHERE LOWER(name) = LOWER(?) AND id != ?");
+        mysqli_stmt_bind_param($stmt, "si", $name, $excludeId);
+    } else {
+        $stmt = mysqli_prepare($conn, "SELECT id FROM spots WHERE LOWER(name) = LOWER(?)");
+        mysqli_stmt_bind_param($stmt, "s", $name);
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_num_rows($result) > 0;
+}
 ?>

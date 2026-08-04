@@ -38,5 +38,5 @@ try {
 */
 
 
-header("Location: ../../../../view/admin/spots.php");
+header("Location: ../../../../view/admin/spots.php?status=deleted");
 exit();

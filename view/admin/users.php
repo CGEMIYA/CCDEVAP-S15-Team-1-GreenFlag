@@ -71,6 +71,21 @@ require_once 'includes/header.php';
                 </div>
             <?php endif; ?>
                 
+
+            <?php if (isset($_GET['status'])): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php if ($_GET['status'] === 'created'): ?>
+                        User/s created successfully.
+                    <?php elseif ($_GET['status'] === 'updated'): ?>
+                        User/s updated successfully.
+                    <?php elseif ($_GET['status'] === 'deleted'): ?>
+                        User/s deleted successfully.    
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+
+
             <?php if (isset($_GET['error']) && $_GET['error'] === 'email_exists'): ?>
                 <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
                     <i class="fa-solid fa-triangle-exclamation me-2"></i>
