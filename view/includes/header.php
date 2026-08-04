@@ -16,6 +16,8 @@ if (!isset($active_nav)) {
         $active_nav = 'coinflip';
     } elseif ($current_page === 'aboutus.php') {
         $active_nav = 'about';
+    } elseif ($current_page === 'myreviews.php') {
+        $active_nav = 'myreviews'; // <--- ADDED THIS LINE
     } elseif ($current_page === 'analytics.php' || $current_page === 'reviews.php' || $current_page === 'spots.php' || $current_page === 'tags.php' || $current_page === 'users.php') {
         $active_nav = 'admin';
     } else {
@@ -133,11 +135,16 @@ if (!isset($active_nav)) {
             <a href="../view/index.php" class="<?php echo $active_nav === 'home' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'home' ? 'page' : 'false'; ?>">
                 <i class="fa-solid fa-house"></i> Home
             </a>
+
+            <!-- ADDED: Only show to logged in users -->
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <a href="myreviews.php" class="<?php echo $active_nav === 'myreviews' ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-pen-to-square"></i> My Reviews
+                </a>
+            <?php endif; ?>
+
             <a href="../view/coinflip.php" class="<?php echo $active_nav === 'coinflip' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'coinflip' ? 'page' : 'false'; ?>">
                 <i class="fa-solid fa-coins"></i> Coin Flip
-            </a>
-            <a href="../view/aboutus.php" class="<?php echo $active_nav === 'about' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'about' ? 'page' : 'false'; ?>">
-                <i class="fa-solid fa-circle-info"></i> About Green Flag
             </a>
         </div>
     </aside>
