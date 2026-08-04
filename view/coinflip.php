@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/config/database.php';
 
+$extra_css = ['css/coinflip.css'];
 
 $spots = [];
 
@@ -11,75 +12,12 @@ try {
 } catch (PDOException $e) {
     $spots = [];
 }
+
+require_once __DIR__ . '/includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Flag | Coinflip</title>
-
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/coinflip.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-</head>
-
-<body class="page-transition">
-
-    <header>
-        <div class="left-nav">
-            <button class="menu-btn" id="menuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <h1 class="logo">
-                <a href="index.php">Green<br>Flag</a>
-            </h1>
-        </div>
-
-        <div class="right-nav">
-            <button id="themeToggle">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-
-            <a href="index.php">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
-        </div>
-    </header>
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-profile">
-            <div class="profile-picture">
-                <i class="fa-regular fa-user"></i>
-            </div>
-
-            <div class="profile-info">
-                <h3>Coinflip Arena</h3>
-                <p>Pick your side and let the coin decide.</p>
-            </div>
-        </div>
-
-        <div class="sidebar-links">
-            <a href="index.php">
-                <i class="fa-solid fa-house"></i>
-                Home
-            </a>
-
-            <a href="coinflip.php" class="active">
-                <i class="fa-solid fa-coins"></i>
-                Coinflip
-            </a>
-        </div>
-    </aside>
-
-    <main class="coinflip-shell">
+    <main>
+        <section class="coinflip-shell">
         <section class="coinflip-card">
             <div class="page-intro">
                 <p class="eyebrow">Two-player showdown</p>
@@ -179,6 +117,7 @@ try {
             </div>
         </section>
     </main>
+    </div> <!-- CLOSES .page-layout -->
 
     <script src="js/darkmode.js"></script>
     <script src="js/sidebar.js"></script>
