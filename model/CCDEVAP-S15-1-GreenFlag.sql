@@ -52,64 +52,6 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_addre
 (9, 3, 'Submitted a review for Santos Garden.', NULL, NULL, '2026-07-14 06:50:04'),
 (10, 1, 'Approved a review submitted by Juan Dela Cruz.', NULL, NULL, '2026-07-14 06:50:04'),
 (11, 1, 'Approved a review submitted by Maria Santos.', NULL, NULL, '2026-07-14 06:50:04'),
-(12, 2, 'Added Coffee Bean & Tea Leaf to Favorites.', NULL, NULL, '2026-07-14 06:50:04'),
-(13, 2, 'Added Cafe Mesa to Favorites.', NULL, NULL, '2026-07-14 06:50:04'),
-(14, 3, 'Added Santos Garden to Favorites.', NULL, NULL, '2026-07-14 06:50:04'),
-(15, 3, 'Added Death to Aladeen to Favorites.', NULL, NULL, '2026-07-14 06:50:04'),
-(16, 1, 'Published the announcement \"Welcome to Green Flag!\".', NULL, NULL, '2026-07-14 06:50:04'),
-(17, 1, 'Published the announcement \"Platform Maintenance\".', NULL, NULL, '2026-07-14 06:50:04');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `announcements`
---
-
-CREATE TABLE `announcements` (
-  `id` int(11) NOT NULL,
-  `admin_id` int(11) NOT NULL,
-  `title` varchar(150) NOT NULL,
-  `message` text NOT NULL,
-  `target_role` enum('all','student','admin') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `expires_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `announcements`
---
-
-INSERT INTO `announcements` (`id`, `admin_id`, `title`, `message`, `target_role`, `created_at`, `expires_at`) VALUES
-(1, 1, 'Welcome to Green Flag!', 'Welcome to Green Flag! Explore the best study spots, cafés, restaurants, and hangout locations around DLSU. Start discovering your next favorite place today!', 'all', '2026-07-14 06:48:59', NULL),
-(2, 1, 'New Spot Added', 'Coffee Bean & Tea Leaf (Henry Sy Sr. Hall) has been added to the platform. Check it out and let the community know what you think!', 'all', '2026-07-14 06:48:59', NULL),
-(3, 1, 'Community Guidelines Reminder', 'Please keep reviews respectful and honest. Reviews containing offensive language, spam, or misleading information may be removed by the administrators.', 'all', '2026-07-14 06:48:59', NULL),
-(4, 1, 'Platform Maintenance', 'Green Flag will undergo scheduled maintenance this Sunday from 12:00 AM to 2:00 AM. Some features may be temporarily unavailable during this period.', 'all', '2026-07-14 06:48:59', NULL),
-(5, 1, 'Feature Update', 'The Favorites system is now available! Save your favorite study spots and restaurants for quick access anytime.', 'all', '2026-07-14 06:48:59', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `favorites`
---
-
-CREATE TABLE `favorites` (
-  `user_id` int(11) NOT NULL,
-  `spot_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `favorites`
---
-
-INSERT INTO `favorites` (`user_id`, `spot_id`, `created_at`) VALUES
-(2, 2, '2026-07-14 05:10:38'),
-(2, 6, '2026-07-14 05:10:38'),
-(3, 3, '2026-07-14 05:10:38'),
-(3, 5, '2026-07-14 05:10:38'),
-(3, 6, '2026-07-14 05:10:38'),
-(4, 1, '2026-07-14 05:10:38'),
-(4, 4, '2026-07-14 05:10:38');
 
 -- --------------------------------------------------------
 
@@ -274,20 +216,6 @@ ALTER TABLE `activity_logs`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `announcements`
---
-ALTER TABLE `announcements`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `admin_id` (`admin_id`);
-
---
--- Indexes for table `favorites`
---
-ALTER TABLE `favorites`
-  ADD PRIMARY KEY (`user_id`,`spot_id`),
-  ADD KEY `spot_id` (`spot_id`);
-
---
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
@@ -333,12 +261,7 @@ ALTER TABLE `activity_logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `announcements`
---
-ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
@@ -373,17 +296,8 @@ ALTER TABLE `activity_logs`
   ADD CONSTRAINT `activity_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `announcements`
---
-ALTER TABLE `announcements`
-  ADD CONSTRAINT `announcements_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `favorites`
---
-ALTER TABLE `favorites`
-  ADD CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`spot_id`) REFERENCES `spots` (`id`);
 
 --
 -- Constraints for table `reviews`
