@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '../config/database.php';
+require_once dirname(__DIR__) . '/config/database.php';
 
 // Tell the browser to send JSON back, not HTML
 header('Content-Type: application/json');
@@ -26,25 +26,22 @@ $reviewText = trim($data['review']);
 $rating = $data['rating'];
 $status = 'approved'; // Defaulting to approved based on your DB screenshot
 
-// Insert into the database
+// Insert into the database (NEW: REMOVED STATUS CHECK, NOW DEFAULTING TO APPROVED)
 try {
-    $query = "INSERT INTO reviews (user_id, spot_id, rating, review, status, created_at, updated_at) 
-              VALUES (:user_id, :spot_id, :rating, :review, :status, NOW(), NOW())";
+    $query = "INSERT INTO reviews (user_id, spot_id, rating, review, created_at, updated_at) 
+              VALUES (:user_id, :spot_id, :rating, :review, NOW(), NOW())";
     
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         ':user_id' => $userId,
         ':spot_id' => $spotId,
         ':rating'  => $rating,
-        ':review'  => $reviewText,
-        ':status'  => $status
+        ':review'  => $reviewText
     ]);
 
-    // Send success message to JS
     echo json_encode(['success' => true]);
 
 } catch (PDOException $e) {
-    // If the database crashes, send the exact error back to JS for debugging
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 ?>
