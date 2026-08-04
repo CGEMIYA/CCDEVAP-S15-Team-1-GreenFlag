@@ -19,7 +19,7 @@ if (empty($full_name) || empty($email) || empty($password)) {
     exit();
 }
 
-// 🚫 DUPLICATE CHECK: Redirect back if email exists instead of crashing
+// DUPLICATE CHECK: Redirect back if email exists instead of crashing
 if (duplicateEmail($conn, $email)) {
     header("Location: ../../../../view/admin/users.php?error=email_exists");
     exit();

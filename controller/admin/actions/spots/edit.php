@@ -20,8 +20,8 @@ $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
 $rawTagIds = $_POST["tag_ids"] ?? [];
 
-$uploadDir = dirname(__DIR__, 4) . '/view/uploads';
-$image = handleSpotImageUpload('image', $uploadDir, 'uploads', $existingImage);
+$uploadDir = dirname(__DIR__, 4) . '/view/photos/thumbnails/'; // Adjust the path as needed
+$image = handleSpotImageUpload('image', $uploadDir, 'photos/thumbnails', $existingImage);
 
 if (!$id || empty($name) || empty($location)) {
     header("Location: ../../../../view/admin/spots.php");
