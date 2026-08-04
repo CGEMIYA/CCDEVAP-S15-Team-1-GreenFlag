@@ -27,8 +27,25 @@ async function loadSpotDetail() {
 
         document.getElementById("spotName").textContent = spot.name;
         document.getElementById("spotLocation").textContent = spot.location;
-        document.getElementById("rating").textContent = `⭐ ${spot.rating || 'N/A'} (${spot.reviews || 0})`;
-        document.getElementById("price").textContent = spot.price;
+        
+        // FIXED RATINGS: Maps avg_rating and review_count from your database query
+        const avgRating = spot.avg_rating && parseFloat(spot.avg_rating) > 0 ? spot.avg_rating : 'N/A';
+        const reviewCount = spot.review_count || 0;
+        document.getElementById("rating").textContent = `⭐ ${avgRating} (${reviewCount} reviews)`;
+
+        // FIXED PRICING: Converts price numbers or strings into corresponding '$' symbols
+        let priceSymbols = '$$'; // default fallback
+        if (spot.price) {
+            const priceVal = parseInt(spot.price);
+            if (!isNaN(priceVal)) {
+                priceVal = Math.max(1, Math.min(priceVal, 4)); // keeps it between 1 and 4
+                priceSymbols = '$'.repeat(priceVal);
+            } else {
+                priceSymbols = spot.price; // fallback if text like "High" was passed
+            }
+        }
+        document.getElementById("price").textContent = priceSymbols;
+
         document.getElementById("description").textContent = spot.description;
         document.getElementById("hours").textContent = `🕒 ${spot.hours}`;
         document.getElementById("noise").textContent = `🔊 Noise Level: ${spot.noise}`;
