@@ -65,6 +65,8 @@
 </main>
 </div> <!-- CLOSES .page-layout -->
 <!-- Scripts -->
+<script src="js/spots.js"></script>
+<script src="js/search.js"></script>
 <script src="js/darkmode.js"></script>
 <script src="js/sidebar.js"></script>
 </body>

@@ -85,10 +85,6 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </main>
         </div> <!-- CLOSES .page-layout -->
-    <script>
-        // Passes database array to your search.js file
-        const spotsData = <?php echo json_encode($allSpots); ?>;
-    </script>
 
     <!-- Using the exact scripts from your index.php -->
     <script src="js/spots.js"></script>
