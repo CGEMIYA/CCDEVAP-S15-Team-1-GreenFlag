@@ -1,6 +1,7 @@
 <?php
 
 require_once "../../../../view/admin/includes/db.php";
+require_once "../../../../model/process/usermodel.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/users.php");
@@ -14,6 +15,9 @@ if (!$id) {
     exit();
 }
 
+deleteUser($conn, $id);
+
+/*
 mysqli_begin_transaction($conn);
 
 try {
@@ -42,7 +46,7 @@ try {
     mysqli_rollback($conn);
     throw $e;
 }
-
+*/
 header("Location: ../../../../view/admin/users.php");
 exit();
 

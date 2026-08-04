@@ -1,17 +1,13 @@
 <?php
-// bouncer
-require_once 'includes/auth.php';
+// view/admin/users.php
 
-// Set page title
+require_once 'includes/auth.php';
+require_once 'includes/db.php';
+require_once '../../model/process/usermodel.php';
+
 $pageTitle = "Users";
 
 require_once 'includes/header.php';
-require_once 'includes/sidebar.php';
-?>
-
-<?php
-$pageTitle = "Users";
-require_once "includes/header.php";
 ?>
 
 <div class="wrapper">

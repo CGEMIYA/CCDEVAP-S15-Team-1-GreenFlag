@@ -1,7 +1,7 @@
 <?php
 
 require_once "../../../../view/admin/includes/db.php";
-
+require_once "../../../../model/process/usermodel.php";
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/users.php");
     exit();
@@ -19,6 +19,10 @@ if (!$id || empty($full_name) || empty($email)) {
     exit();
 }
 
+editUser($conn, $id, $full_name, $email, $password, $role, $status);
+
+/*
+
 if (!empty($password)) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, password = ?, role = ?, status = ? WHERE id = ?");
@@ -29,6 +33,8 @@ if (!empty($password)) {
 }
 
 mysqli_stmt_execute($stmt);
+*/
+
 header("Location: ../../../../view/admin/users.php");
 exit();
 
