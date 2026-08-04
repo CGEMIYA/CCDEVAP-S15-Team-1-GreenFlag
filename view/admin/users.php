@@ -163,13 +163,14 @@ require_once "includes/header.php";
 
                                 <div class="table-actions">
 
-                                    <a
-                                        class="btn btn-warning btn-sm"
-                                        href="users.php?edit_id=<?= $user['id']; ?>">
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning btn-sm editUserBtn"
+                                        data-id="<?= (int) $user['id']; ?>">
 
                                         <i class="fa-solid fa-pen"></i>
 
-                                    </a>
+                                    </button>
 
                                     <form method="POST" action="../../controller/admin/actions/users/delete.php" class="d-inline">
                                         <input type="hidden" name="id" value="<?= $user['id']; ?>">
@@ -211,7 +212,7 @@ require_once "includes/header.php";
 
 <div class="modal-content">
 
-<form action="actions/users/add.php" method="POST">
+<form action="../../controller/admin/actions/users/add.php" method="POST">
 
 <div class="modal-header">
 
