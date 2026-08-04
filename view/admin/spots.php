@@ -59,7 +59,7 @@ $result = mysqli_query($conn, $query);
                                             <button type="button" class="btn btn-warning btn-sm editSpotBtn" data-id="<?= (int) $spot['id']; ?>">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <form method="POST" action="actions/spots/delete.php" class="d-inline">
+                                            <form method="POST" action="../../controller/admin/actions/spots/delete.php" class="d-inline">
                                                 <input type="hidden" name="id" value="<?= (int) $spot['id']; ?>">
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this spot?');">
                                                     <i class="fa-solid fa-trash"></i>
@@ -107,7 +107,7 @@ $result = mysqli_query($conn, $query);
 <div class="modal fade" id="editSpotModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="actions/spots/edit.php" method="POST">
+            <form action="../../controller/admin/actions/spots/edit.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Spot</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
