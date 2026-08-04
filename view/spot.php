@@ -4,10 +4,11 @@
 
         $spotId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
+        // Removed the status check for reviews
         $stmt = $pdo->prepare("SELECT r.rating, r.review, r.created_at, u.full_name 
             FROM reviews r 
             JOIN users u ON r.user_id = u.id 
-            WHERE r.spot_id = :spot_id AND r.status = 'approved'
+            WHERE r.spot_id = :spot_id
             ORDER BY r.created_at DESC");
         $stmt->execute([':spot_id' => $spotId]);
         $dbReviews = $stmt->fetchAll(PDO::FETCH_ASSOC);

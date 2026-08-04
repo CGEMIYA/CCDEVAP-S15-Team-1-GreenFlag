@@ -63,13 +63,11 @@ main {
 }
 
 .thumbnail-row {
-
     display: flex;
 
-    gap: 15px;
-
-    margin-top: 20px;
-
+    justify-content: center; /* This pushes the boxes to the middle */
+    
+    gap: 10px; /* Adjust this if you want more/less space between them */
 }
 
 .thumb {

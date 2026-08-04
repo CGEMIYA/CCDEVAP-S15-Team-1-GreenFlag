@@ -39,11 +39,7 @@ $priceMap = [
 // LOAD THE HEADER BEFORE CLOSING PHP
 // This guarantees session_start() runs before any HTML comments
 require_once __DIR__ . '/includes/header.php';
-
 ?>
-    <!-- REPLACES COPY n PASTE NAVBAR AND SIDEBAR AND ACTUALLY USES includes/header.php NOW -->
-    <?php require_once __DIR__ . '/includes/header.php'; ?>
-
     <!-- ==========================================
          MAIN CONTENT
     =========================================== -->
@@ -58,16 +54,16 @@ require_once __DIR__ . '/includes/header.php';
             <div class="cards-container" style="flex-wrap: wrap;">
                 <?php if (count($spots) > 0): ?>
                     <?php foreach ($spots as $spot): ?>
+                        <!-- Removed the ($spot['id'] - 1) -->
                         <div class="card"
-                            onclick="window.location.href='spot.php?id=<?php echo htmlspecialchars($spot['id'] - 1); ?>'">
+                            onclick="window.location.href='spot.php?id=<?php echo htmlspecialchars($spot['id']); ?>'">
 
                             <?php if (!empty($spot['image'])): ?>
                                 <img src="<?php echo htmlspecialchars($spot['image']); ?>"
                                     alt="<?php echo htmlspecialchars($spot['name']); ?>">
                             <?php else: ?>
-                                <div
-                                    style="width: 100%; height: 220px; display: flex; align-items: center; justify-content: center; background: #eee;">
-                                    ✕ No Image</div>
+                                <!-- Swapped the gray box for the placeholder image! -->
+                                <img src="photos/aaron_profile2.jpg" alt="Placeholder Image">
                             <?php endif; ?>
 
                             <div class="card-content">
@@ -89,10 +85,6 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </main>
         </div> <!-- CLOSES .page-layout -->
-    <script>
-        // Passes database array to your search.js file
-        const spotsData = <?php echo json_encode($allSpots); ?>;
-    </script>
 
     <!-- Using the exact scripts from your index.php -->
     <script src="js/spots.js"></script>
