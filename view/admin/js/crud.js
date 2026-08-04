@@ -39,6 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                     checkbox.checked = true;
                                 }
                             });
+
+                            const fileInput = document.getElementById('edit_spot_image');
+                            if (fileInput) {
+                                fileInput.value = '';
+                            }
+
+                            const imageHint = document.getElementById('edit_spot_image_hint');
+                            if (imageHint) {
+                                imageHint.textContent = record.image ? 'Current image: ' + record.image : 'Current image: none';
+                            }
                         }
 
                         const modal = new bootstrap.Modal(document.getElementById(modalId));
@@ -64,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         name: 'edit_spot_name',
         location: 'edit_spot_location',
         description: 'edit_spot_description',
-        image: 'edit_spot_image',
+        image: 'edit_spot_existing_image',
         hours: 'edit_spot_hours',
         noise: 'edit_spot_noise',
         privacy: 'edit_spot_privacy',

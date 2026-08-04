@@ -1,6 +1,7 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
 require_once "../../../../model/process/spotmodel.php";
+require_once "../../../../model/process/image_upload.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/spots.php");
@@ -11,12 +12,16 @@ $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
 $name = trim($_POST["name"] ?? "");
 $location = trim($_POST["location"] ?? "");
 $description = trim($_POST["description"] ?? "");
+$existingImage = trim($_POST["existing_image"] ?? "");
 $image = trim($_POST["image"] ?? "");
 $hours = trim($_POST["hours"] ?? "");
 $noise = $_POST["noise"] ?? "Low";
 $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
 $rawTagIds = $_POST["tag_ids"] ?? [];
+
+$uploadDir = dirname(__DIR__, 4) . '/view/uploads';
+$image = handleSpotImageUpload('image', $uploadDir, 'uploads', $existingImage);
 
 if (!$id || empty($name) || empty($location)) {
     header("Location: ../../../../view/admin/spots.php");

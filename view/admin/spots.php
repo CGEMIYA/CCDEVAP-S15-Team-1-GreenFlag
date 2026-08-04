@@ -116,7 +116,7 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
 <div class="modal fade" id="addSpotModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="../../controller/admin/actions/spots/add.php" method="POST">
+            <form action="../../controller/admin/actions/spots/add.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Spot</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
@@ -125,7 +125,11 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
                     <div class="mb-3"><label class="form-label">Name</label><input class="form-control" name="name" required></div>
                     <div class="mb-3"><label class="form-label">Location</label><input class="form-control" name="location" required></div>
                     <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
-                    <div class="mb-3"><label class="form-label">Image</label><input class="form-control" name="image"></div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input class="form-control" type="file" name="image" accept="image/*">
+                        <div class="form-text">Upload an image file for this spot; the file path will be stored in the database.</div>
+                    </div>
                     <div class="mb-3"><label class="form-label">Hours</label><input class="form-control" name="hours"></div>
                     <div class="mb-3"><label class="form-label">Noise</label><select class="form-select" name="noise"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" name="privacy"><option>Low</option><option>Medium</option><option>High</option></select></div>
@@ -158,17 +162,23 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
 <div class="modal fade" id="editSpotModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="../../controller/admin/actions/spots/edit.php" method="POST">
+            <form action="../../controller/admin/actions/spots/edit.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Spot</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="edit_spot_id">
+                    <input type="hidden" name="existing_image" id="edit_spot_existing_image">
                     <div class="mb-3"><label class="form-label">Name</label><input class="form-control" name="name" id="edit_spot_name" required></div>
                     <div class="mb-3"><label class="form-label">Location</label><input class="form-control" name="location" id="edit_spot_location" required></div>
                     <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" name="description" id="edit_spot_description"></textarea></div>
-                    <div class="mb-3"><label class="form-label">Image</label><input class="form-control" name="image" id="edit_spot_image"></div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input class="form-control" type="file" name="image" id="edit_spot_image" accept="image/*">
+                        <div id="edit_spot_image_hint" class="form-text text-muted">Current image: none</div>
+                        <div class="form-text">Choose an image to replace the current spot image, or leave blank to keep the existing one.</div>
+                    </div>
                     <div class="mb-3"><label class="form-label">Hours</label><input class="form-control" name="hours" id="edit_spot_hours"></div>
                     <div class="mb-3"><label class="form-label">Noise</label><select class="form-select" name="noise" id="edit_spot_noise"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" name="privacy" id="edit_spot_privacy"><option>Low</option><option>Medium</option><option>High</option></select></div>
