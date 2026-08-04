@@ -5,7 +5,7 @@
 
 <div class="sidebar">
     <div class="sidebar-header">
-        <a href="../../index.php">
+        <a href="../../view/index.php">
             <img src="greenflag.png" alt="Logo">
         </a>
      
