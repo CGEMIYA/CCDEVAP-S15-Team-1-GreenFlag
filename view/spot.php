@@ -5,7 +5,7 @@
         $spotId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
         // Removed the status check for reviews
-        $stmt = $pdo->prepare("SELECT r.id AS review_id, r.rating, r.review, r.created_at, u.full_name 
+        $stmt = $pdo->prepare("SELECT r.id AS review_id, r.rating, r.review, r.created_at, r.updated_at, u.full_name 
             FROM reviews r 
             JOIN users u ON r.user_id = u.id 
             WHERE r.spot_id = :spot_id 
@@ -130,6 +130,14 @@
                                 <p><?= nl2br(htmlspecialchars($dbReview['review'])); ?></p>
                                 <small style="color: #888; font-size: 0.8rem;">
                                     <?= date("F j, Y", strtotime($dbReview['created_at'])); ?>
+                                    
+                                    <!-- CHECK IF REVIEW HAS BEEN EDITED -->
+                                    <?php if ($dbReview['created_at'] !== $dbReview['updated_at']): ?>
+                                        <span style="font-style: italic; margin-left: 5px; cursor: help;" 
+                                              title="Last edited: <?= date("F j, Y \a\\t g:i A", strtotime($dbReview['updated_at'])); ?>">
+                                            (Edited)
+                                        </span>
+                                    <?php endif; ?>
                                 </small>
                             </div>
                         <?php endforeach; ?>
