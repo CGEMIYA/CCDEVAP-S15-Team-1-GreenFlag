@@ -1,6 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
-
+require_once "../../../../model/process/TagModel.php"; // Loads Model
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/tags.php");
     exit();
@@ -11,7 +11,8 @@ if (!$id) {
     header("Location: ../../../../view/admin/tags.php");
     exit();
 }
-
+deleteTag($conn, $id);
+/*
 mysqli_begin_transaction($conn);
 try {
     $spotTagsStmt = mysqli_prepare($conn, "DELETE FROM spot_tags WHERE tag_id = ?");
@@ -27,6 +28,6 @@ try {
     mysqli_rollback($conn);
     throw $e;
 }
-
+*/
 header("Location: ../../../../view/admin/tags.php");
 exit();

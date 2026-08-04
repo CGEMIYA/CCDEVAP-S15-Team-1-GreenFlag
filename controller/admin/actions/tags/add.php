@@ -1,5 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
+require_once "../../../../model/process/TagModel.php"; // Loads Model
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/tags.php");
@@ -12,9 +13,10 @@ if (empty($tag_name)) {
     exit();
 }
 
-$stmt = mysqli_prepare($conn, "INSERT INTO tags (tag_name) VALUES (?)");
+addTag($conn, $tag_name);
+/*stmt = mysqli_prepare($conn, "INSERT INTO tags (tag_name) VALUES (?)");
 mysqli_stmt_bind_param($stmt, "s", $tag_name);
-mysqli_stmt_execute($stmt);
+mysqli_stmt_execute($stmt);*/
 
 header("Location: ../../../../view/admin/tags.php");
 exit();

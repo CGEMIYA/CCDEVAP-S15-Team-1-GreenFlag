@@ -1,7 +1,7 @@
 <?php
 // bouncer
 require_once 'includes/auth.php';
-
+require_once "../../../../model/process/TagModel.php"; // Loads Model
 // Set page title
 $pageTitle = "Tags";
 
@@ -15,8 +15,10 @@ require_once "includes/auth.php";
 require_once "includes/header.php";
 require_once "includes/db.php";
 
+$result=getAllTags($conn);
+/*
 $query = "SELECT * FROM tags ORDER BY id ASC";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($conn, $query);*/
 ?>
 
 <div class="wrapper">
