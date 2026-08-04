@@ -1,0 +1,46 @@
+/* ============================================
+   GREEN FLAG - MANAGE REVIEW
+============================================ */
+.manage-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+/* Spot Banner Header */
+.manage-header-banner { display: flex; align-items: center; background: #fff; border-radius: 8px 8px 0 0; overflow: hidden; border: 1px solid #dcdcdc; border-bottom: none; }
+.manage-banner-img { width: 150px; height: 100px; object-fit: cover; background: #eee; }
+.manage-banner-text { padding: 20px; }
+.manage-banner-text h2 { margin: 0 0 5px 0; font-size: 1.5rem; color: #333; }
+.manage-banner-text p { margin: 0; color: #666; font-size: 0.9rem; }
+
+/* Form Container */
+.manage-form-container { background: #fff; padding: 20px; border: 1px solid #dcdcdc; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.manage-form-group { margin-bottom: 20px; }
+.manage-form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #333; }
+.manage-textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1rem; min-height: 150px; resize: vertical; }
+
+/* Controls */
+.manage-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+.btn-save { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+.btn-save:hover { background: #218838; }
+.btn-delete { padding: 10px 20px; background: transparent; color: #dc3545; border: 1px solid #dc3545; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+.btn-delete:hover { background: #dc3545; color: white; }
+.btn-cancel { color: #666; text-decoration: none; margin-right: 15px; font-weight: bold; }
+.btn-cancel:hover { text-decoration: underline; }
+
+/* SVG RADIO BUTTON STYLING */
+.flag-options { display: flex; gap: 30px; margin-top: 10px; padding: 10px 0; }
+.flag-radio { cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 1.1rem; }
+.flag-radio input[type="radio"] { transform: scale(1.3); cursor: pointer; margin-right: 5px; }
+.flag-radio img { height: 24px; width: auto; }
+.flag-green-text { color: #28a745; }
+.flag-red-text { color: #dc3545; }
+
+/* ============================================
+   DARK MODE OVERRIDES (Forced !important)
+============================================ */
+body.dark-mode .manage-header-banner,
+body.dark-mode .manage-form-container { background: #2a2a2a !important; border-color: #444 !important; }
+body.dark-mode .manage-banner-text h2 { color: #ffffff !important; }
+body.dark-mode .manage-banner-text p { color: #aaa !important; }
+body.dark-mode .manage-form-group label { color: #eee !important; }
+body.dark-mode .manage-textarea { background: #333 !important; color: #fff !important; border-color: #555 !important; }
+body.dark-mode .manage-controls { border-top-color: #444 !important; }
+body.dark-mode .btn-cancel { color: #aaa !important; }
