@@ -46,11 +46,9 @@ if (!$reviewData) {
                 <!-- Edit Form -->
                 <div class="manage-form-container">
                     
-                    <!-- action now points to Controller -->
-                    <form method="POST" action="../model/process/manage_review_process.php">
+                    <!-- POINTS TO THE NEW EDIT CONTROLLER -->
+                    <form method="POST" action="../controller/reviews/edit.php">
                         
-                        <input type="hidden" name="action" value="update">
-                        <!-- We pass the ID through a hidden input so the controller knows which review to update -->
                         <input type="hidden" name="review_id" value="<?= $reviewId ?>">
 
                         <div class="manage-form-group">
@@ -77,7 +75,6 @@ if (!$reviewData) {
                         </div>
 
                         <div class="manage-controls">
-                            <!-- Delete Button -->
                             <button type="button" class="btn-delete" onclick="if(confirm('Are you sure you want to permanently delete this review?')) { document.getElementById('delete-form').submit(); }">
                                 🗑 Delete Review
                             </button>
@@ -89,9 +86,8 @@ if (!$reviewData) {
                         </div>
                     </form>
 
-                    <!-- The hidden Delete form also points to Controller -->
-                    <form id="delete-form" method="POST" action="../model/process/manage_review_process.php" style="display: none;">
-                        <input type="hidden" name="action" value="delete">
+                    <!-- POINTS TO THE NEW DELETE CONTROLLER -->
+                    <form id="delete-form" method="POST" action="../controller/reviews/delete.php" style="display: none;">
                         <input type="hidden" name="review_id" value="<?= $reviewId ?>">
                     </form>
 
