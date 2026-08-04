@@ -2,18 +2,28 @@
         require_once __DIR__ . '/includes/header.php'; 
         require_once __DIR__ . '/../model/config/database.php';
 
-        // Grab the spot ID from the URL (and add 1 to match database IDs since we started at 0)
-        $spotId = isset($_GET['id']) ? (int)$_GET['id'] + 1 : 1;
+        $spotId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
-        $stmt = $pdo->prepare("
-            SELECT r.rating, r.review, r.created_at, u.full_name 
+        $stmt = $pdo->prepare("SELECT r.rating, r.review, r.created_at, u.full_name 
             FROM reviews r 
             JOIN users u ON r.user_id = u.id 
             WHERE r.spot_id = :spot_id AND r.status = 'approved'
-            ORDER BY r.created_at DESC
-        ");
+            ORDER BY r.created_at DESC");
         $stmt->execute([':spot_id' => $spotId]);
         $dbReviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $spotStmt = $pdo->prepare("SELECT s.*, t.id AS tag_id, t.tag_name FROM spots s LEFT JOIN spot_tags st ON st.spot_id = s.id LEFT JOIN tags t ON t.id = st.tag_id WHERE s.id = :spot_id ORDER BY t.tag_name ASC");
+        $spotStmt->execute([':spot_id' => $spotId]);
+        $spotRows = $spotStmt->fetchAll(PDO::FETCH_ASSOC);
+        $spotData = $spotRows ? $spotRows[0] : null;
+        $spotTags = [];
+        if ($spotRows) {
+            foreach ($spotRows as $row) {
+                if (!empty($row['tag_id'])) {
+                    $spotTags[] = ['id' => (int) $row['tag_id'], 'tag_name' => $row['tag_name']];
+                }
+            }
+        }
     ?>
     <!-- REPLACES COPY n PASTE NAVBAR AND SIDEBAR AND ACTUALLY USES includes/header.php NOW -->
 
@@ -140,7 +150,8 @@
         window.userFullName = "<?php echo isset($_SESSION['full_name']) ? addslashes($_SESSION['full_name']) : 'You'; ?>";
         
         const urlParams = new URLSearchParams(window.location.search);
-        window.dbSpotId = parseInt(urlParams.get("id")) + 1; 
+        window.dbSpotId = parseInt(urlParams.get("id")) || 1;
+        window.currentSpotId = window.dbSpotId;
     </script>
     
     <script src="js/spots.js"></script>

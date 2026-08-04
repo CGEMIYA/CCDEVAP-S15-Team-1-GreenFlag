@@ -31,7 +31,7 @@ session_start();
 
         <div class="left-nav">
 
-            <button class="menu-btn" onclick="window.location.href='../index.php'">
+            <button class="menu-btn" onclick="history.back()">
 
                 <i class="fa-solid fa-arrow-left"></i>
 
@@ -39,7 +39,11 @@ session_start();
 
             <h1 class="logo">
 
-                Green<br>Flag
+                <a href="../index.php">
+
+                    <img src="../photos/greenflag.png" alt="Green Flag Logo" class="nav-logo-img">
+
+                </a>
 
             </h1>
 

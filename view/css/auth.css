@@ -3,8 +3,7 @@
 ========================================== */
 
 .auth-page {
-    /* Add these lines to push the card out from under the navbar */
-    padding-top: 120px !important; 
+    padding: 120px 20px 40px !important;
 
     min-height: 100vh;
 
@@ -25,12 +24,13 @@
 
     max-width: 460px;
     
-    /* Changed from var(--surface) to match the index page */
     background: var(--navbar); 
     
     border-radius: 20px;
 
     padding: 40px;
+
+    margin: 0 auto;
 
     box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
 
@@ -186,6 +186,36 @@ body.dark .auth-card {
 .checkbox-group input {
 
     margin-top: 4px;
+
+}
+
+.checkbox {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+    color: var(--text-light);
+
+    font-size: .95rem;
+
+    cursor: pointer;
+
+}
+
+.checkbox input {
+
+    width: 16px;
+
+    height: 16px;
+
+    margin: 0;
+
+    accent-color: var(--primary);
 
 }
 

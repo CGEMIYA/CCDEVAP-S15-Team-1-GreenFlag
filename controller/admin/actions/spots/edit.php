@@ -21,9 +21,47 @@ if (!$id || empty($name) || empty($location)) {
     exit();
 }
 
-$stmt = mysqli_prepare($conn, "UPDATE spots SET name = ?, location = ?, description = ?, image = ?, hours = ?, noise = ?, privacy = ?, price = ? WHERE id = ?");
-mysqli_stmt_bind_param($stmt, "ssssssssi", $name, $location, $description, $image, $hours, $noise, $privacy, $price, $id);
-mysqli_stmt_execute($stmt);
+mysqli_begin_transaction($conn);
 
-header("Location: ../../../../view/admin/spots.php");
+try {
+    $stmt = mysqli_prepare($conn, "UPDATE spots SET name = ?, location = ?, description = ?, image = ?, hours = ?, noise = ?, privacy = ?, price = ? WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "ssssssssi", $name, $location, $description, $image, $hours, $noise, $privacy, $price, $id);
+    mysqli_stmt_execute($stmt);
+
+    $clearTagsStmt = mysqli_prepare($conn, "DELETE FROM spot_tags WHERE spot_id = ?");
+    mysqli_stmt_bind_param($clearTagsStmt, "i", $id);
+    mysqli_stmt_execute($clearTagsStmt);
+
+    $tagIds = [];
+    if (isset($_POST["tag_ids"]) && is_array($_POST["tag_ids"])) {
+        foreach ($_POST["tag_ids"] as $tagId) {
+            $tagId = filter_var($tagId, FILTER_VALIDATE_INT);
+            if ($tagId) {
+                $tagIds[] = $tagId;
+            }
+        }
+    }
+
+    $tagIds = array_values(array_unique($tagIds));
+
+    foreach ($tagIds as $tagId) {
+        $tagCheck = mysqli_prepare($conn, "SELECT id FROM tags WHERE id = ?");
+        mysqli_stmt_bind_param($tagCheck, "i", $tagId);
+        mysqli_stmt_execute($tagCheck);
+        $tagResult = mysqli_stmt_get_result($tagCheck);
+
+        if (mysqli_num_rows($tagResult) > 0) {
+            $tagLinkStmt = mysqli_prepare($conn, "INSERT INTO spot_tags (spot_id, tag_id) VALUES (?, ?)");
+            mysqli_stmt_bind_param($tagLinkStmt, "ii", $id, $tagId);
+            mysqli_stmt_execute($tagLinkStmt);
+        }
+    }
+
+    mysqli_commit($conn);
+} catch (Exception $e) {
+    mysqli_rollback($conn);
+    throw $e;
+}
+
+header("Location: ../../../../view/admin/spots.php?status=updated");
 exit();
