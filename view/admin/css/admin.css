@@ -31,8 +31,10 @@ body{
 }
 
 .sidebar-header img{
-    width:100px;
-    margin-bottom:10px;
+    max-width:100%;
+    width: 250px;       /* Set your desired display size (e.g., 120px to 150px) */
+    height: auto;       /* Keeps the height proportional so it doesn't stretch */
+ 
 }
 
 .sidebar nav{
