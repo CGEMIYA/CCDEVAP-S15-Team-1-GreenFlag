@@ -4,6 +4,24 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+if (!isset($extra_css)) {
+    $extra_css = [];
+}
+
+if (!isset($active_nav)) {
+    $current_page = basename($_SERVER['PHP_SELF'] ?? 'index.php');
+
+    if ($current_page === 'coinflip.php') {
+        $active_nav = 'coinflip';
+    } elseif ($current_page === 'aboutus.php') {
+        $active_nav = 'about';
+    } elseif ($current_page === 'analytics.php' || $current_page === 'reviews.php' || $current_page === 'spots.php' || $current_page === 'tags.php' || $current_page === 'users.php') {
+        $active_nav = 'admin';
+    } else {
+        $active_nav = 'home';
+    }
+}
 ?>
 <!-- includes/header.php -->
 <!DOCTYPE html>
@@ -18,6 +36,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="../view/css/about.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../view/css/spot.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../view/css/responsive.css?v=<?php echo time(); ?>">
+    <?php foreach ($extra_css as $css) : ?>
+        <link rel="stylesheet" href="<?php echo htmlspecialchars($css, ENT_QUOTES); ?>">
+    <?php endforeach; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
@@ -101,14 +122,22 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         <?php if (isset($_SESSION["user_id"]) && $_SESSION["role"] === "admin"): ?>
             <div class="sidebar-links">
-                <a href="../view/admin/analytics.php"><i class="fa-solid fa-gauge"></i> Admin Dashboard</a>
+                <a href="../view/admin/analytics.php" class="<?php echo $active_nav === 'admin' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'admin' ? 'page' : 'false'; ?>">
+                    <i class="fa-solid fa-gauge"></i> Admin Dashboard
+                </a>
             </div>
         <?php endif; ?>
 
         <div class="sidebar-divider"></div>
         <div class="sidebar-links">
-            <a href="../view/index.php"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="../view/coinflip.php"><i class="fa-solid fa-coins"></i> Coin Flip</a>
-            <a href="../view/aboutus.php"><i class="fa-solid fa-circle-info"></i> About Green Flag</a>
+            <a href="../view/index.php" class="<?php echo $active_nav === 'home' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'home' ? 'page' : 'false'; ?>">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            <a href="../view/coinflip.php" class="<?php echo $active_nav === 'coinflip' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'coinflip' ? 'page' : 'false'; ?>">
+                <i class="fa-solid fa-coins"></i> Coin Flip
+            </a>
+            <a href="../view/aboutus.php" class="<?php echo $active_nav === 'about' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'about' ? 'page' : 'false'; ?>">
+                <i class="fa-solid fa-circle-info"></i> About Green Flag
+            </a>
         </div>
     </aside>
