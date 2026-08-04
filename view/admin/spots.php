@@ -120,7 +120,7 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
                     <div class="mb-3"><label class="form-label">Name</label><input class="form-control" name="name" required></div>
                     <div class="mb-3"><label class="form-label">Location</label><input class="form-control" name="location" required></div>
                     <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
-                    <div class="mb-3"><label class="form-label">Image</label><input type="file" class="form-control" name="image"></div>
+                    <div class="mb-3"><label class="form-label">Image</label><input class="form-control" name="image"></div>
                     <div class="mb-3"><label class="form-label">Hours</label><input class="form-control" name="hours"></div>
                     <div class="mb-3"><label class="form-label">Noise</label><select class="form-select" name="noise"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" name="privacy"><option>Low</option><option>Medium</option><option>High</option></select></div>
