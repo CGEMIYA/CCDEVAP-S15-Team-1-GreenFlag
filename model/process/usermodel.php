@@ -20,7 +20,7 @@ function addUser($conn, $full_name, $email, $password, $role = "student", $statu
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (full_name, email, password, role, status) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssss", $full_name, $email, $hashed_password, $role, $status);
+    mysqli_stmt_bind_param($stmt, "sssss", $full_name, $email, $hashed_password, $role/*, $status*/);
     return mysqli_stmt_execute($stmt);
 }
 
@@ -74,5 +74,13 @@ function updateUserStatus($conn, $id, $status) {
     $stmt = mysqli_prepare($conn, "UPDATE users SET status = ? WHERE id = ?");
     mysqli_stmt_bind_param($stmt, "si", $status, $id);
     return mysqli_stmt_execute($stmt);
+}
+
+//bro we keep adding new functions HAHAHAHA
+// 7. COUNT TOTAL ADMIN USERS
+function getAdminCount($conn) {
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role = 'admin'");
+    $row = mysqli_fetch_assoc($result);
+    return (int) ($row['total'] ?? 0);
 }
 ?>

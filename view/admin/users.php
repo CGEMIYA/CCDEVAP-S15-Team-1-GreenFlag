@@ -126,6 +126,15 @@ require_once 'includes/header.php';
                             </td>
 
                             <td>
+                                    <?php if ($user['role'] === 'admin'): ?>
+        
+                                    <!--PROTECTED ADMIN (supposed to be not clickable) -->
+                                    <span class="badge bg-dark px-2 py-1">
+                                        <i class="fa-solid fa-user-shield me-1"></i> Admin (Protected)
+                                    </span>
+
+                                    <?php else: ?>  
+
                                     <?php switch ($user['status']): 
                                         case "pending": ?>
                                             <!-- 1. APPROVE BUTTON (For Pending) -->
@@ -155,7 +164,7 @@ require_once 'includes/header.php';
                                             <!-- 3. BANNED STATUS WITH UNBAN OPTION -->
                                             <form method="POST" action="../../controller/admin/actions/users/updatestatus.php" class="d-inline">
                                                 <input type="hidden" name="id" value="<?= (int) $user['id']; ?>">
-                                                <input type="hidden" name="status" value="verified">
+                                                <input type="hidden" name="status" value="pending">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" title="Click to Unban / Reinstate User">
                                                     <i class="fa-solid fa-ban me-1"></i> <?= ucfirst($user['status']); ?> (Unban)
                                                 </button>
@@ -163,6 +172,7 @@ require_once 'includes/header.php';
                                             <?php break; ?>
 
                                     <?php endswitch; ?>
+                                    <?php endif; ?>
                                 </td>
 
                             <td>
@@ -217,152 +227,82 @@ require_once 'includes/header.php';
 </div>
 
 <div class="modal fade" id="addUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="../../controller/admin/actions/users/add.php" method="POST">
+                <div class="modal-header">
+                <h5>Add User</h5>
+                <button class="btn-close"data-bs-dismiss="modal" type="button"></button>
+                </div>
 
-<div class="modal-dialog">
+                <div class="modal-body">
+                        <div class="mb-3">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="full_name" required>
+                        </div>
 
-<div class="modal-content">
+                        <div class="mb-3">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email" required>
+                        </div>
 
-<form action="../../controller/admin/actions/users/add.php" method="POST">
+                        <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                        </div>
 
-<div class="modal-header">
+                        <div class="mb-3">
+                        <label>Role</label>
+                        <select class="form-select"  name="role"><option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                        </select>
+                        </div>
+                            <!--
+                            <div class="mb-3">
 
-<h5>Add User</h5>
+                            <label>Status</label>
 
-<button
-class="btn-close"
-data-bs-dismiss="modal"
-type="button">
-</button>
+                            <select
+                            class="form-select"
+                            name="status">
 
-</div>
+                            <option value="pending">
 
-<div class="modal-body">
+                            Pending
 
-<div class="mb-3">
+                            </option>
 
-<label>Full Name</label>
+                            <option value="verified">
 
-<input
-type="text"
-class="form-control"
-name="full_name"
-required>
+                            Verified
 
-</div>
+                            </option>
 
-<div class="mb-3">
+                            <option value="suspended">
 
-<label>Email</label>
+                            Suspended
 
-<input
-type="email"
-class="form-control"
-name="email"
-required>
+                            </option>
 
-</div>
+                            <option value="banned">
 
-<div class="mb-3">
+                            Banned
 
-<label>Password</label>
+                            </option>
 
-<input
-type="password"
-class="form-control"
-name="password"
-required>
+                            </select>
 
-</div>
+                            </div>-->
 
-<div class="mb-3">
+                </div>
 
-<label>Role</label>
-
-<select
-class="form-select"
-name="role">
-
-<option value="student">
-
-Student
-
-</option>
-
-<option value="admin">
-
-Admin
-
-</option>
-
-</select>
-
-</div>
-
-<div class="mb-3">
-
-<label>Status</label>
-
-<select
-class="form-select"
-name="status">
-
-<option value="pending">
-
-Pending
-
-</option>
-
-<option value="verified">
-
-Verified
-
-</option>
-
-<option value="suspended">
-
-Suspended
-
-</option>
-
-<option value="banned">
-
-Banned
-
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="modal-footer">
-
-<button
-class="btn btn-secondary"
-data-bs-dismiss="modal"
-type="button">
-
-Cancel
-
-</button>
-
-<button
-class="btn btn-success"
-type="submit">
-
-Save User
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
+                <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                <button class="btn btn-success"type="submit">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="editUserModal">

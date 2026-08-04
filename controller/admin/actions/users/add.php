@@ -20,7 +20,7 @@ if (empty($full_name) || empty($email) || empty($password)) {
 }
 
 
-addUser($conn, $full_name, $email, $password, $role, $status);
+addUser($conn, $full_name, $email, $password, $role/*, $status*/);
 
 /*
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);

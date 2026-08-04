@@ -13,7 +13,13 @@ $status = trim($_POST["status"] ?? "");
 $allowedStatuses = ["pending", "verified", "suspended", "banned"];
 
 if ($id && in_array($status, $allowedStatuses)) {
-    updateUserStatus($conn, $id, $status);
+    // 1. Fetch target user to inspect role
+    $targetUser = fetchUserById($conn, $id);
+
+    // 2. Only allow status change if the targeted user is NOT an admin
+    if ($targetUser && $targetUser['role'] !== 'admin') {
+        updateUserStatus($conn, $id, $status);
+    }
 }
 
 header("Location: ../../../../view/admin/users.php");
