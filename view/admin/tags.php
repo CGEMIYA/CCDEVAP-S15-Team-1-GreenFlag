@@ -72,7 +72,7 @@ $result = mysqli_query($conn, $query);
 <div class="modal fade" id="addTagModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="actions/tags/add.php" method="POST">
+            <form action="../../controller/admin/actions/tags/add.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Tag</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button"></button>

@@ -37,7 +37,7 @@ require_once "includes/header.php";
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                         <h5 class="mb-3">Edit User</h5>
-                        <form action="actions/users/edit.php" method="POST" class="row g-3">
+                        <form action="../../controller/admin/actions/users/edit.php" method="POST" class="row g-3">
                             <input type="hidden" name="id" value="<?= (int) $editingUser['id']; ?>">
                             <div class="col-md-4">
                                 <label class="form-label">Full Name</label>
