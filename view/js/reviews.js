@@ -69,7 +69,7 @@ if (postButton && reviewText) {
 
         // Send the data to PHP
         try {
-            const response = await fetch("../model/process/submit_review.php", {
+            const response = await fetch("../controller/reviews/add.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
