@@ -1,5 +1,4 @@
 <?php
-// model/TagModel.php
 
 // 1. READ ALL
 function getAllTags($conn) {
@@ -13,6 +12,7 @@ function fetchTagById($conn, $id) {
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    
 }
 
 // 3. Adddddd

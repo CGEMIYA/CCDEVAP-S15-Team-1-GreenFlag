@@ -13,6 +13,7 @@ if (!$id || empty($tag_name)) {
     header("Location: ../../../../view/admin/tags.php");
     exit();
 }
+
 editTag($conn, $id, $tag_name);
 /*$stmt = mysqli_prepare($conn, "UPDATE tags SET tag_name = ? WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "si", $tag_name, $id);

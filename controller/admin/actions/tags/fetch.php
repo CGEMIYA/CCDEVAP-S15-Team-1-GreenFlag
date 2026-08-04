@@ -6,7 +6,8 @@ if (!$id) {
     echo json_encode([]);
     exit();
 }
-fetchTagById($conn, $id);
+$tag= fetchTagById($conn, $id);
+echo json_encode($tag ?: []);
 /*
 $stmt = mysqli_prepare($conn, "SELECT * FROM tags WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "i", $id);

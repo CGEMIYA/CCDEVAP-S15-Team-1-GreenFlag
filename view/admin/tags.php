@@ -1,21 +1,19 @@
 <?php
-// bouncer
+// view/admin/tags.php
+
+// 1. Load Authentication
 require_once 'includes/auth.php';
-require_once "../../../../model/process/TagModel.php"; // Loads Model
-// Set page title
-$pageTitle = "Tags";
 
-require_once 'includes/header.php';
-require_once 'includes/sidebar.php';
-?>
-
-<?php
-$pageTitle = "Tags";
-require_once "includes/auth.php";
-require_once "includes/header.php";
+// 2. Load Database & Model
 require_once "includes/db.php";
+require_once "../../model/process/TagModel.php";
 
-$result=getAllTags($conn);
+// 3. Set Page Settings & Headers
+$pageTitle = "Tags";
+require_once 'includes/header.php';
+
+// 4. Fetch Data using Model
+$result = getAllTags($conn);
 /*
 $query = "SELECT * FROM tags ORDER BY id ASC";
 $result = mysqli_query($conn, $query);*/
