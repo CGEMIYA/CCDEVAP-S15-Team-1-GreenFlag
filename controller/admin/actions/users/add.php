@@ -19,8 +19,15 @@ if (empty($full_name) || empty($email) || empty($password)) {
     exit();
 }
 
+// 🚫 DUPLICATE CHECK: Redirect back if email exists instead of crashing
+if (duplicateEmail($conn, $email)) {
+    header("Location: ../../../../view/admin/users.php?error=email_exists");
+    exit();
+}
 
-addUser($conn, $full_name, $email, $password, $role/*, $status*/);
+addUser($conn, $full_name, $email, $password, $role, $status);
+
+
 
 /*
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
