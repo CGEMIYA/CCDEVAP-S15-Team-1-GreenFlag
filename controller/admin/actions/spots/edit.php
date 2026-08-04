@@ -28,6 +28,11 @@ if (!$id || empty($name) || empty($location)) {
     exit();
 }
 
+if (duplicateSpot($conn, $name, $id ?? null)) {
+    header("Location: ../../../../view/admin/spots.php?error=spot_exists");
+    exit();
+}
+
 editSpot($conn, $id, $name, $location, $description, $image, $hours, $noise, $privacy, $price, $rawTagIds);
 /*
 mysqli_begin_transaction($conn);

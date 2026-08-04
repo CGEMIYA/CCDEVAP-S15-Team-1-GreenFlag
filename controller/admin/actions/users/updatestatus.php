@@ -22,6 +22,6 @@ if ($id && in_array($status, $allowedStatuses)) {
     }
 }
 
-header("Location: ../../../../view/admin/users.php");
+header("Location: ../../../../view/admin/users.php?status=updated");
 exit();
 ?>

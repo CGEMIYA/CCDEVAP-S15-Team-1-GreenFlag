@@ -24,6 +24,26 @@ $result = mysqli_query($conn, $query);*/
     <div class="main">
         <?php require_once "includes/topbar.php"; ?>
         <div class="content">
+            <?php if (isset($_GET['status'])): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php if ($_GET['status'] === 'created'): ?>
+                        Tags created successfully.
+                    <?php elseif ($_GET['status'] === 'updated'): ?>
+                        Tags updated successfully.
+                    <?php elseif ($_GET['status'] === 'deleted'): ?>
+                        Tags deleted successfully.      
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'tag_exists'): ?>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    <strong>Error:</strong> The tag already exists!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3>Tags Overview</h3>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTagModal">

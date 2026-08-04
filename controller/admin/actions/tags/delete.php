@@ -29,5 +29,5 @@ try {
     throw $e;
 }
 */
-header("Location: ../../../../view/admin/tags.php");
+header("Location: ../../../../view/admin/tags.php?status=deleted");
 exit();

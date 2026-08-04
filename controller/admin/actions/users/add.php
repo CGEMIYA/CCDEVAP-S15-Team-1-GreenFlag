@@ -37,5 +37,5 @@ $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "sssss", $full_name, $email, $hashed_password, $role, $status);
 mysqli_stmt_execute($stmt);
 */
-header("Location: ../../../../view/admin/users.php");
+header("Location: ../../../../view/admin/users.php?status=created");
 exit();

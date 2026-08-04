@@ -35,7 +35,7 @@ if (!empty($password)) {
 mysqli_stmt_execute($stmt);
 */
 
-header("Location: ../../../../view/admin/users.php");
+header("Location: ../../../../view/admin/users.php?status=updated");
 exit();
 
 ?>

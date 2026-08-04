@@ -47,9 +47,20 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
                         Spot created successfully.
                     <?php elseif ($_GET['status'] === 'updated'): ?>
                         Spot updated successfully.
+                        <?php elseif ($_GET['status'] === 'deleted'): ?>
+                        Spot deleted successfully. 
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'spot_exists'): ?>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    <strong>Error:</strong> The spot already exists!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3>Spots Overview</h3>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSpotModal">
