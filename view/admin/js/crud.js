@@ -28,6 +28,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         });
 
+                        if (modalId === 'editSpotModal') {
+                            document.querySelectorAll('#editSpotModal .spot-tag-checkbox').forEach(function (checkbox) {
+                                checkbox.checked = false;
+                            });
+
+                            (record.tags || []).forEach(function (tag) {
+                                const checkbox = document.querySelector('#editSpotModal .spot-tag-checkbox[value="' + tag.id + '"]');
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                        }
+
                         const modal = new bootstrap.Modal(document.getElementById(modalId));
                         modal.show();
                     })

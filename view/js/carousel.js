@@ -41,7 +41,7 @@ function displayCards() {
     const start = currentPage * cardsPerPage;
     const end = start + cardsPerPage;
 
-    const visibleSpots = spots.slice(start, end);
+    const visibleSpots = (spots || []).slice(start, end);
 
     visibleSpots.forEach((spot) => {
 
@@ -108,7 +108,7 @@ function updateButtons() {
     prevBtn.disabled = currentPage === 0;
 
     nextBtn.disabled =
-        (currentPage + 1) * cardsPerPage >= spots.length;
+        (currentPage + 1) * cardsPerPage >= (spots || []).length;
 
 }
 
@@ -150,7 +150,7 @@ if (nextBtn) {
 
     nextBtn.addEventListener("click", () => {
 
-        if ((currentPage + 1) * cardsPerPage < spots.length) {
+        if ((currentPage + 1) * cardsPerPage < (spots || []).length) {
 
             currentPage++;
 
@@ -180,4 +180,8 @@ window.addEventListener("resize", () => {
    INITIALIZE
 =========================== */
 
-displayCards();
+if (typeof loadSpots === 'function') {
+    loadSpots();
+} else {
+    displayCards();
+}

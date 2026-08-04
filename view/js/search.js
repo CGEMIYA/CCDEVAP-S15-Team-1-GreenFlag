@@ -29,14 +29,14 @@ if (searchInput && searchResults) {
 
         }
 
-        const matches = spots.filter(spot =>
+        const matches = (spots || []).filter(spot =>
 
-            spot.name.toLowerCase().includes(query) ||
+            (spot.name || '').toLowerCase().includes(query) ||
 
-            spot.location.toLowerCase().includes(query) ||
+            (spot.location || '').toLowerCase().includes(query) ||
 
-            spot.tags.some(tag =>
-                tag.toLowerCase().includes(query)
+            (spot.tags || []).some(tag =>
+                (tag.tag_name || tag.name || tag).toLowerCase().includes(query)
             )
 
         );
@@ -115,14 +115,14 @@ if (searchInput) {
             .trim()
             .toLowerCase();
 
-        const match = spots.find(spot =>
+        const match = (spots || []).find(spot =>
 
-            spot.name.toLowerCase().includes(query) ||
+            (spot.name || '').toLowerCase().includes(query) ||
 
-            spot.location.toLowerCase().includes(query) ||
+            (spot.location || '').toLowerCase().includes(query) ||
 
-            spot.tags.some(tag =>
-                tag.toLowerCase().includes(query)
+            (spot.tags || []).some(tag =>
+                (tag.tag_name || tag.name || tag).toLowerCase().includes(query)
             )
 
         );

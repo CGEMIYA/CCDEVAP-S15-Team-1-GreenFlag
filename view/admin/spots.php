@@ -17,6 +17,18 @@ require_once "includes/db.php";
 
 $query = "SELECT * FROM spots ORDER BY id ASC";
 $result = mysqli_query($conn, $query);
+
+$availableTags = [];
+$tagsResult = mysqli_query($conn, "SELECT * FROM tags ORDER BY tag_name ASC");
+while ($tagRow = mysqli_fetch_assoc($tagsResult)) {
+    $availableTags[] = $tagRow;
+}
+
+$spotTagMap = [];
+$spotTagsResult = mysqli_query($conn, "SELECT st.spot_id, t.id, t.tag_name FROM spot_tags st JOIN tags t ON t.id = st.tag_id ORDER BY st.spot_id, t.tag_name ASC");
+while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
+    $spotTagMap[(int) $spotTagRow['spot_id']][] = $spotTagRow;
+}
 ?>
 
 <div class="wrapper">
@@ -24,6 +36,15 @@ $result = mysqli_query($conn, $query);
     <div class="main">
         <?php require_once "includes/topbar.php"; ?>
         <div class="content">
+            <?php if (isset($_GET['status'])): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php if ($_GET['status'] === 'created'): ?>
+                        Spot created successfully.
+                    <?php elseif ($_GET['status'] === 'updated'): ?>
+                        Spot updated successfully.
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3>Spots Overview</h3>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSpotModal">
@@ -42,6 +63,7 @@ $result = mysqli_query($conn, $query);
                                 <th>Noise</th>
                                 <th>Privacy</th>
                                 <th>Price</th>
+                                <th>Tags</th>
                                 <th width="140">Actions</th>
                             </tr>
                         </thead>
@@ -54,6 +76,15 @@ $result = mysqli_query($conn, $query);
                                     <td><?= htmlspecialchars($spot['noise']); ?></td>
                                     <td><?= htmlspecialchars($spot['privacy']); ?></td>
                                     <td><?= htmlspecialchars($spot['price']); ?></td>
+                                    <td>
+                                        <?php if (!empty($spotTagMap[(int) $spot['id']])): ?>
+                                            <?php foreach ($spotTagMap[(int) $spot['id']] as $spotTag): ?>
+                                                <span class="badge bg-info-subtle text-info-emphasis me-1"><?= htmlspecialchars($spotTag['tag_name']); ?></span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <span class="text-muted">No tags</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <button type="button" class="btn btn-warning btn-sm editSpotBtn" data-id="<?= (int) $spot['id']; ?>">
@@ -94,6 +125,21 @@ $result = mysqli_query($conn, $query);
                     <div class="mb-3"><label class="form-label">Noise</label><select class="form-select" name="noise"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" name="privacy"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Price</label><select class="form-select" name="price"><option>Free</option><option>Low</option><option>Medium</option><option>High</option></select></div>
+                    <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                        <div class="border rounded p-2" style="max-height: 180px; overflow-y: auto;">
+                            <?php if (!empty($availableTags)): ?>
+                                <?php foreach ($availableTags as $tag): ?>
+                                    <div class="form-check">
+                                        <input class="form-check-input spot-tag-checkbox" type="checkbox" name="tag_ids[]" value="<?= (int) $tag['id']; ?>">
+                                        <label class="form-check-label"><?= htmlspecialchars($tag['tag_name']); ?></label>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted mb-0">No tags available yet.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
@@ -121,7 +167,22 @@ $result = mysqli_query($conn, $query);
                     <div class="mb-3"><label class="form-label">Hours</label><input class="form-control" name="hours" id="edit_spot_hours"></div>
                     <div class="mb-3"><label class="form-label">Noise</label><select class="form-select" name="noise" id="edit_spot_noise"><option>Low</option><option>Medium</option><option>High</option></select></div>
                     <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" name="privacy" id="edit_spot_privacy"><option>Low</option><option>Medium</option><option>High</option></select></div>
-                    <div class="mb-3"><label class="form-label">Price</label><select class="form-select" name="price" id="edit_spot_price"><option>Free</option><option>Low</option><option>Medium</option><option>High</option></select></div>
+                    <div class="mb-3"><label class="form-label">Price</label><select class="form-select" name="price" id="edit_spot_price"><option>Free</option><option>Low</option><option>High</option></select></div>
+                    <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                        <div class="border rounded p-2" style="max-height: 180px; overflow-y: auto;">
+                            <?php if (!empty($availableTags)): ?>
+                                <?php foreach ($availableTags as $tag): ?>
+                                    <div class="form-check">
+                                        <input class="form-check-input spot-tag-checkbox" type="checkbox" name="tag_ids[]" value="<?= (int) $tag['id']; ?>">
+                                        <label class="form-check-label"><?= htmlspecialchars($tag['tag_name']); ?></label>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-muted mb-0">No tags available yet.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
