@@ -48,10 +48,7 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_addre
 (5, 1, 'Verified the account of Maria Santos.', NULL, NULL, '2026-07-14 06:50:04'),
 (6, 2, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
 (7, 3, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
-(8, 2, 'Submitted a review for Cafe Mesa.', NULL, NULL, '2026-07-14 06:50:04'),
-(9, 3, 'Submitted a review for Santos Garden.', NULL, NULL, '2026-07-14 06:50:04'),
-(10, 1, 'Approved a review submitted by Juan Dela Cruz.', NULL, NULL, '2026-07-14 06:50:04'),
-(11, 1, 'Approved a review submitted by Maria Santos.', NULL, NULL, '2026-07-14 06:50:04'),
+(8, 4, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
 
 -- --------------------------------------------------------
 
