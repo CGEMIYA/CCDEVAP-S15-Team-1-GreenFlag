@@ -5,10 +5,10 @@
         $spotId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
         // Removed the status check for reviews
-        $stmt = $pdo->prepare("SELECT r.rating, r.review, r.created_at, u.full_name 
+        $stmt = $pdo->prepare("SELECT r.id AS review_id, r.rating, r.review, r.created_at, u.full_name 
             FROM reviews r 
             JOIN users u ON r.user_id = u.id 
-            WHERE r.spot_id = :spot_id
+            WHERE r.spot_id = :spot_id 
             ORDER BY r.created_at DESC");
         $stmt->execute([':spot_id' => $spotId]);
         $dbReviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -112,7 +112,8 @@
                     <?php if (count($dbReviews) > 0): ?>
                         
                         <?php foreach ($dbReviews as $dbReview): ?>
-                            <div class="review">
+                            <!-- Added the ID anchor here! -->
+                            <div class="review" id="review-<?= $dbReview['review_id']; ?>">
                                 <h4><?= htmlspecialchars($dbReview['full_name']); ?></h4>
                                 
                                 <!-- SVG FLAGS -->
