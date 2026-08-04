@@ -11,7 +11,7 @@ $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
 $full_name = trim($_POST["full_name"] ?? "");
 $email = trim($_POST["email"] ?? "");
 $role = $_POST["role"] ?? "student";
-$status = $_POST["status"] ?? "pending";
+//$status = $_POST["status"] ?? "pending";
 $password = trim($_POST["password"] ?? "");
 
 if (!$id || empty($full_name) || empty($email)) {
@@ -19,7 +19,7 @@ if (!$id || empty($full_name) || empty($email)) {
     exit();
 }
 
-editUser($conn, $id, $full_name, $email, $password, $role, $status);
+editUser($conn, $id, $full_name, $email, $password, $role);
 
 /*
 

@@ -54,7 +54,7 @@ require_once 'includes/header.php';
                                     <option value="admin" <?= $editingUser['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <label class="form-label">Status</label>
                                 <select class="form-select" name="status">
                                     <option value="pending" <?= $editingUser['status'] === 'pending' ? 'selected' : ''; ?>>Pending</option>
@@ -62,7 +62,7 @@ require_once 'includes/header.php';
                                     <option value="suspended" <?= $editingUser['status'] === 'suspended' ? 'selected' : ''; ?>>Suspended</option>
                                     <option value="banned" <?= $editingUser['status'] === 'banned' ? 'selected' : ''; ?>>Banned</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="col-md-4 d-flex align-items-end">
                                 <button type="submit" class="btn btn-success w-100">Save Changes</button>
                             </div>
@@ -126,30 +126,44 @@ require_once 'includes/header.php';
                             </td>
 
                             <td>
+                                    <?php switch ($user['status']): 
+                                        case "pending": ?>
+                                            <!-- 1. APPROVE BUTTON (For Pending) -->
+                                            <form method="POST" action="../../controller/admin/actions/users/updatestatus.php" class="d-inline">
+                                                <input type="hidden" name="id" value="<?= (int) $user['id']; ?>">
+                                                <input type="hidden" name="status" value="verified">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="fa-solid fa-check me-1"></i> Approve
+                                                </button>
+                                            </form>
+                                            <?php break; ?>
 
-                                <?php
+                                        <?php case "verified": ?>
+                                            <!-- 2. VERIFIED / HOVER TO BAN BUTTON -->
+                                            <form method="POST" action="../../controller/admin/actions/users/updatestatus.php" class="d-inline" onsubmit="return confirm('Are you sure you want to ban this user?');">
+                                                <input type="hidden" name="id" value="<?= (int) $user['id']; ?>">
+                                                <input type="hidden" name="status" value="banned">
+                                                <button type="submit" class="btn btn-sm btn-success btn-status-verified">
+                                                    <span class="text-default"><i class="fa-solid fa-user-check me-1"></i> Verified</span>
+                                                    <span class="text-hover"><i class="fa-solid fa-user-slash me-1"></i> Ban User</span>
+                                                </button>
+                                            </form>
+                                            <?php break; ?>
 
-                                switch($user['status']){
-                                    case "verified":
-                                        echo '<span class="status active">Verified</span>';
-                                        break;
+                                        <?php case "banned": 
+                                            case "suspended": ?>
+                                            <!-- 3. BANNED STATUS WITH UNBAN OPTION -->
+                                            <form method="POST" action="../../controller/admin/actions/users/updatestatus.php" class="d-inline">
+                                                <input type="hidden" name="id" value="<?= (int) $user['id']; ?>">
+                                                <input type="hidden" name="status" value="verified">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Click to Unban / Reinstate User">
+                                                    <i class="fa-solid fa-ban me-1"></i> <?= ucfirst($user['status']); ?> (Unban)
+                                                </button>
+                                            </form>
+                                            <?php break; ?>
 
-                                    case "pending":
-                                        echo '<span class="status pending">Pending</span>';
-                                        break;
-
-                                    case "suspended":
-                                        echo '<span class="status banned">Suspended</span>';
-                                        break;
-
-                                    case "banned":
-                                        echo '<span class="status banned">Banned</span>';
-                                        break;
-
-                                }
-                                ?>
-
-                            </td>
+                                    <?php endswitch; ?>
+                                </td>
 
                             <td>
                                 <?= date("M d, Y", strtotime($user['created_at'])); ?>
@@ -385,7 +399,7 @@ Save User
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <!--<div class="mb-3">
                         <label>Status</label>
                         <select class="form-select" name="status" id="edit_status">
                             <option value="pending">Pending</option>
@@ -393,7 +407,7 @@ Save User
                             <option value="suspended">Suspended</option>
                             <option value="banned">Banned</option>
                         </select>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>

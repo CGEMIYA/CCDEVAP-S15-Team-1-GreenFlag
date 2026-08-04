@@ -25,14 +25,14 @@ function addUser($conn, $full_name, $email, $password, $role = "student", $statu
 }
 
 // 4. Edit USER
-function editUser($conn, $id, $full_name, $email, $password, $role, $status) {
+function editUser($conn, $id, $full_name, $email, $password, $role, ) {
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, password = ?, role = ?, status = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "sssssi", $full_name, $email, $hashed_password, $role, $status, $id);
+        mysqli_stmt_bind_param($stmt, "sssssi", $full_name, $email, $hashed_password, $role, $id);
     } else {
-        $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, role = ?, status = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "ssssi", $full_name, $email, $role, $status, $id);
+        $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, role = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "ssssi", $full_name, $email, $role, $id);
     }
     return mysqli_stmt_execute($stmt);
 }
@@ -67,5 +67,12 @@ function deleteUser($conn, $id) {
         mysqli_rollback($conn);
         throw $e;
     }
+}
+
+// 6. QUICK UPDATE USER STATUS
+function updateUserStatus($conn, $id, $status) {
+    $stmt = mysqli_prepare($conn, "UPDATE users SET status = ? WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "si", $status, $id);
+    return mysqli_stmt_execute($stmt);
 }
 ?>

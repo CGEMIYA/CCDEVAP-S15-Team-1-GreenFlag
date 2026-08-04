@@ -192,3 +192,23 @@ input[type="password"]::-ms-clear {
     width: 0;
     height: 0;
 }
+
+/* Hover button effect for Verified -> Ban User */
+.btn-status-verified {
+    min-width: 105px;
+    transition: all 0.2s ease-in-out;
+}
+.btn-status-verified .text-hover {
+    display: none;
+}
+.btn-status-verified:hover {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: #fff !important;
+}
+.btn-status-verified:hover .text-default {
+    display: none;
+}
+.btn-status-verified:hover .text-hover {
+    display: inline-block;
+}
