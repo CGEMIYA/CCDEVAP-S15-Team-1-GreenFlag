@@ -1,5 +1,7 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
+require_once "../../../../model/process/spotmodel.php";
+
 
 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 if (!$id) {
@@ -7,6 +9,7 @@ if (!$id) {
     exit();
 }
 
+/*
 $stmt = mysqli_prepare($conn, "SELECT * FROM spots WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
@@ -24,5 +27,7 @@ if ($spot) {
         $spot["tags"][] = $tag;
     }
 }
+*/
 
+$spot = fetchSpotById($conn, $id);
 echo json_encode($spot ?: []);

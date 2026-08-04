@@ -6,7 +6,7 @@ require_once 'includes/auth.php';
 
 // 2. Load Database & Model
 require_once "includes/db.php";
-require_once "../../model/process/TagModel.php";
+require_once "../../model/process/tagmodel.php";
 
 // 3. Set Page Settings & Headers
 $pageTitle = "Tags";

@@ -1,6 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
-require_once "../../../../model/process/TagModel.php"; // Loads Model
+require_once "../../../../model/process/tagmodel.php"; // Loads Model
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/tags.php");

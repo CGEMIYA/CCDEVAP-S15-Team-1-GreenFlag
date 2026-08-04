@@ -1,22 +1,26 @@
 <?php
-// bouncer
+
+// view/admin/spots.php
+
+// 1. Authentication & DB connection
 require_once 'includes/auth.php';
+require_once 'includes/db.php';
+require_once '../../model/process/SpotModel.php';
 
-// Set page title
+// 2. Set Page Title & Load Headers
 $pageTitle = "Spots";
-
 require_once 'includes/header.php';
-require_once 'includes/sidebar.php';
-?>
 
-<?php
-$pageTitle = "Spots";
-require_once "includes/auth.php";
-require_once "includes/header.php";
-require_once "includes/db.php";
+// 3. Fetch Data via SpotModel
+$result = getAllSpots($conn);
+$availableTags = getAvailableTags($conn);
+$spotTagMap = getSpotTagMap($conn);
 
+
+/*
 $query = "SELECT * FROM spots ORDER BY id ASC";
 $result = mysqli_query($conn, $query);
+
 
 $availableTags = [];
 $tagsResult = mysqli_query($conn, "SELECT * FROM tags ORDER BY tag_name ASC");
@@ -29,6 +33,7 @@ $spotTagsResult = mysqli_query($conn, "SELECT st.spot_id, t.id, t.tag_name FROM 
 while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
     $spotTagMap[(int) $spotTagRow['spot_id']][] = $spotTagRow;
 }
+*/
 ?>
 
 <div class="wrapper">

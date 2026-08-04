@@ -1,5 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
+require_once "../../../../model/process/spotmodel.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/spots.php");
@@ -12,6 +13,9 @@ if (!$id) {
     exit();
 }
 
+deleteSpot($conn, $id);
+
+/*
 mysqli_begin_transaction($conn);
 try {
     $spotTagsStmt = mysqli_prepare($conn, "DELETE FROM spot_tags WHERE spot_id = ?");
@@ -31,6 +35,8 @@ try {
     mysqli_rollback($conn);
     throw $e;
 }
+*/
+
 
 header("Location: ../../../../view/admin/spots.php");
 exit();

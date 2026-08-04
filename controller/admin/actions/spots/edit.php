@@ -1,5 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
+require_once "../../../../model/process/spotmodel.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/spots.php");
@@ -15,12 +16,15 @@ $hours = trim($_POST["hours"] ?? "");
 $noise = $_POST["noise"] ?? "Low";
 $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
+$rawTagIds = $_POST["tag_ids"] ?? [];
 
 if (!$id || empty($name) || empty($location)) {
     header("Location: ../../../../view/admin/spots.php");
     exit();
 }
 
+editSpot($conn, $id, $name, $location, $description, $image, $hours, $noise, $privacy, $price, $rawTagIds);
+/*
 mysqli_begin_transaction($conn);
 
 try {
@@ -62,6 +66,7 @@ try {
     mysqli_rollback($conn);
     throw $e;
 }
+    */
 
 header("Location: ../../../../view/admin/spots.php?status=updated");
 exit();

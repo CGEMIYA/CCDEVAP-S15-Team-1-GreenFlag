@@ -1,6 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
-require_once "../../../../model/process/TagModel.php"; // Loads Model
+require_once "../../../../model/process/tagmodel.php"; // Loads Model
 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 if (!$id) {
     echo json_encode([]);
