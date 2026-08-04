@@ -70,7 +70,14 @@ require_once 'includes/header.php';
                     </div>
                 </div>
             <?php endif; ?>
-
+                
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'email_exists'): ?>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    <strong>Error:</strong> A user with that email address already exists!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3>User Management</h3>
                 <button

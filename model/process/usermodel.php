@@ -18,24 +18,39 @@ function fetchUserById($conn, $id) {
 // 3. add USER
 function addUser($conn, $full_name, $email, $password, $role = "student", $status = "pending") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users (full_name, email, password, role, status) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssss", $full_name, $email, $hashed_password, $role/*, $status*/);
+    mysqli_stmt_bind_param($stmt, "ssss"/*s*/, $full_name, $email, $hashed_password, $role/*, $status*/);
     return mysqli_stmt_execute($stmt);
 }
 
-// 4. Edit USER
-function editUser($conn, $id, $full_name, $email, $password, $role, ) {
+/*
+function editUser($conn, $id, $full_name, $email, $password, $role, $status) {
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, password = ?, role = ?, status = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "sssssi", $full_name, $email, $hashed_password, $role, $id);
+        mysqli_stmt_bind_param($stmt, "sssssi", $full_name, $email, $hashed_password, $role, $status, $id);
+    } else {
+        $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, role = ?, status = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "ssssi", $full_name, $email, $role, $status, $id);
+    }
+    return mysqli_stmt_execute($stmt);
+  }
+**/
+
+// 4. Edit USER
+function editUser($conn, $id, $full_name, $email, $password, $role ) {
+    if (!empty($password)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, password = ?, role = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "ssssi", $full_name, $email, $hashed_password, $role, $id);
     } else {
         $stmt = mysqli_prepare($conn, "UPDATE users SET full_name = ?, email = ?, role = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "ssssi", $full_name, $email, $role, $id);
+        mysqli_stmt_bind_param($stmt, "sssi", $full_name, $email, $role, $id);
     }
     return mysqli_stmt_execute($stmt);
 }
+
 
 // 5. DELETE USER 
 function deleteUser($conn, $id) {
@@ -82,5 +97,24 @@ function getAdminCount($conn) {
     $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role = 'admin'");
     $row = mysqli_fetch_assoc($result);
     return (int) ($row['total'] ?? 0);
+}
+
+
+//8. DUPLICATE EMAIL CHECK
+// Check if an email address is already in use
+function duplicateEmail($conn, $email, $excludeId = null) {
+    if ($excludeId) {
+        // For Editing: Ignore the current user's ID
+        $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ? AND id != ?");
+        mysqli_stmt_bind_param($stmt, "si", $email, $excludeId);
+    } else {
+        // For Adding: Check all users
+        $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, "s", $email);
+    }
+
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_num_rows($result) > 0;
 }
 ?>
