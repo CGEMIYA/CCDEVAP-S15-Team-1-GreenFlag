@@ -102,7 +102,7 @@ session_start();
 
             ?>
 
-            <form id="registerForm" action="process/register_process.php" method="POST">
+            <form id="registerForm" action="../model/process/register_process.php" method="POST">
 
                 <!-- Full Name -->
 

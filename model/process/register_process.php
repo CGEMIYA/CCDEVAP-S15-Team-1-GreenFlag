@@ -30,7 +30,7 @@ if (
 if (!str_ends_with($email, "@dlsu.edu.ph")) {
     $_SESSION["error"] = "Only DLSU Emails are allowed!";
 
-    header("Location: ../register.php");
+    header("Location: ../../view/register.php");
 
     exit();
 }
@@ -38,7 +38,7 @@ if (!str_ends_with($email, "@dlsu.edu.ph")) {
 if ($password !== $confirm_password) {
     $_SESSION["error"] = "Passwords do not match.";
 
-    header("Location: ../register.php");
+    header("Location: ../../view/register.php");
 
     exit();
 }
@@ -52,7 +52,7 @@ $stmt->execute([$email]);
 if ($stmt->fetch()) {
     $_SESSION["error"] = "An account with this email already exists.";
 
-    header("Location: ../register.php");
+    header("Location: ../../view/register.php");
 
     exit();
 }
@@ -85,7 +85,7 @@ $stmt->execute([
 $_SESSION["success"] =
     "Registration successful! Your account is now pending administrator approval.";
 
-header("Location: ../login.php");
+header("Location:  ../../view/login.php");
 
 exit();
 

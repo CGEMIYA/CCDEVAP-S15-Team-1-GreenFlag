@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '../config/database.php';
 
 // Tell the browser to send JSON back, not HTML
 header('Content-Type: application/json');
