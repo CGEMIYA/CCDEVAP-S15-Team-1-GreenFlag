@@ -59,11 +59,14 @@ async function loadSpotDetail() {
         const hasValidImage = spot.image && !isPlaceholder;
             
         //NO IMAGE
-        // If there is NO valid image AND NO gallery, completely hide the left side
+        // If there is NO valid image AND NO gallery, completely hide the left side DONT TOUCH THIS ANYMOR EITS PERFECT
         if (!hasValidImage && (!activeGallery || activeGallery.length === 0)) {
-            galleryContainer.style.display = 'block';//used to be none, but changed to block to show the gallery container even if no images are available
+            galleryContainer.style.display = 'block'; // Container remains visible
+            mainImage.style.display = 'block'; // Hides main image element
+            thumbnails.forEach(thumb => thumb.style.display = 'none'); // Hides thumbnails
         } else {
             galleryContainer.style.display = 'block';
+            mainImage.style.display = 'block';
             
             // Apply the valid image, or fallback to the gallery array
             mainImage.src = hasValidImage ? spot.image : (activeGallery ? activeGallery[0] : '');

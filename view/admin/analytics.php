@@ -17,13 +17,9 @@ require_once 'includes/db.php';
 
 $totalUsers = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM users"));
 $totalSpots = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM spots"));
+$totalTags  = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM tags"));
+$totalReviews = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM reviews"));
 
-$favCount = 0;
-$favQuery = @mysqli_query($conn, "SELECT COUNT(*) AS count FROM favorites");
-if ($favQuery && $favRow = mysqli_fetch_assoc($favQuery)) {
-    $favCount = (int)$favRow['count'];
-}
-$totalFavorites = ['count' => $favCount];
 
 $reviewStatus = [];
 $reviewStatusQuery = mysqli_query($conn, "SELECT status, COUNT(*) AS count FROM reviews GROUP BY status");
@@ -37,7 +33,7 @@ while ($row = mysqli_fetch_assoc($userStatusQuery)) {
     $userStatus[$row['status']] = (int) $row['count'];
 }
 
-$reviewLabels = ['pending', 'approved', 'rejected', 'removed'];
+$reviewLabels = [ 'approved', 'removed'];
 $reviewData = [];
 foreach ($reviewLabels as $label) {
     $reviewData[] = $reviewStatus[$label] ?? 0;
@@ -76,11 +72,19 @@ foreach ($userLabels as $label) {
                 <div class="col-lg-4 col-md-6"> 
                     <div class="card shadow-sm h-100"> 
                         <div class="card-body"> 
-                            <h6 class="text-muted">Total Favorites</h6> 
-                            <h2 class="mt-2"><?= (int) $totalFavorites['count']; ?></h2> 
+                            <h6 class="text-muted">Total Tags</h6> 
+                            <h2 class="mt-2"><?= (int) $totalTags['count']; ?></h2> 
                         </div> 
                     </div> 
-                </div> 
+                </div>
+                <div class="col-lg-4 col-md-6"> 
+                    <div class="card shadow-sm h-100"> 
+                        <div class="card-body"> 
+                            <h6 class="text-muted">Total Reviews</h6> 
+                            <h2 class="mt-2"><?= (int) $totalReviews['count']; ?></h2> 
+                        </div> 
+                    </div> 
+                </div>  
             </div> 
             
             <br> 
@@ -116,7 +120,7 @@ foreach ($userLabels as $label) {
             datasets: [{
                 label: 'Reviews',
                 data: <?= json_encode($reviewData) ?>,
-                backgroundColor: ['#f9a825', '#2e7d32', '#e53935', '#b71c1c']
+                backgroundColor: [ '#2e7d32', '#b71c1c']
             }]
         },
         options: {
