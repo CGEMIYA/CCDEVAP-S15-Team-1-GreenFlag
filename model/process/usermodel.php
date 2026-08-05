@@ -68,10 +68,6 @@ function deleteUser($conn, $id) {
         mysqli_stmt_bind_param($reviewsStmt, "i", $id);
         mysqli_stmt_execute($reviewsStmt);
 
-        $announcementsStmt = mysqli_prepare($conn, "DELETE FROM announcements WHERE admin_id = ?");
-        mysqli_stmt_bind_param($announcementsStmt, "i", $id);
-        mysqli_stmt_execute($announcementsStmt);
-
         $userStmt = mysqli_prepare($conn, "DELETE FROM users WHERE id = ?");
         mysqli_stmt_bind_param($userStmt, "i", $id);
         mysqli_stmt_execute($userStmt);
