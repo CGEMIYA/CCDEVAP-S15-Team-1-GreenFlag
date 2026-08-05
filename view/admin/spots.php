@@ -59,6 +59,13 @@ while ($spotTagRow = mysqli_fetch_assoc($spotTagsResult)) {
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'upload'): ?>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <i class="fa-solid fa-image me-2"></i>
+                    <strong>Image Upload Failed:</strong> <?= htmlspecialchars($_GET['msg'] ?? 'Unknown error'); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
 
             <div class="d-flex justify-content-between align-items-center mb-4">
