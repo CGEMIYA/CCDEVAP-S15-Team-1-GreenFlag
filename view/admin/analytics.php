@@ -42,7 +42,7 @@ $reviewData = [];
 foreach ($reviewLabels as $label) {
     $reviewData[] = $reviewStatus[$label] ?? 0;
 }
-$userLabels = ['pending', 'verified', 'suspended', 'banned'];
+$userLabels = ['pending', 'verified', 'banned'];
 $userData = [];
 foreach ($userLabels as $label) {
     $userData[] = $userStatus[$label] ?? 0;

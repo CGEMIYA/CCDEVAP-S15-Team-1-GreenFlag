@@ -57,10 +57,11 @@ async function loadSpotDetail() {
         // STRICT IMAGE CHECK: Treats 'aaron' or 'placeholder' database strings as NO IMAGE
         const isPlaceholder = spot.image && (spot.image.includes('aaron') || spot.image.includes('placeholder'));
         const hasValidImage = spot.image && !isPlaceholder;
-
+            
+        //NO IMAGE
         // If there is NO valid image AND NO gallery, completely hide the left side
         if (!hasValidImage && (!activeGallery || activeGallery.length === 0)) {
-            galleryContainer.style.display = 'none';
+            galleryContainer.style.display = 'block';//used to be none, but changed to block to show the gallery container even if no images are available
         } else {
             galleryContainer.style.display = 'block';
             
