@@ -1,69 +1,196 @@
-# GreenFlag Web Application (Phase 2)
+GreenFlag Web Application (Phase 3 - Cloud Deployment)
+This guide explains how to deploy the GreenFlag web application on the DLSU CCS Cloud Server. It covers connecting to the virtual machine, configuring SSH access, installing the required software, setting up the database, uploading the project files, and running the application.
+__________________________________________________________________
+Server Information
+Access the DLSU CCS Cloud portal:
+https://ccscloud.dlsu.edu.ph/
+Login using the credentials given to you
+Realm: Proxmox VE authentication server
+After logging in:
+Open Datacenter → tala.
+Select your assigned LXC Machine.
+Click Console.
+Login as root using the password above.
+Note: It is normal if the password does not appear while typing.
+__________________________________________________________________
+System Requirements
+Install the following packages on the server:
+Apache2
+PHP
+MariaDB
+SQLite3
+PHP MySQL Extension
+PHP SQLite Extension
+PHP GD Extension
+PHP MBString Extension
+PHP DOM Extension
+__________________________________________________________________
+Installation & Deployment Guide
+Step 1: Update the Server
+Run the following commands:
+sudo apt update
+sudo apt upgrade
+sudo apt full-upgrade
+__________________________________________________________________
+Step 2: Create an SSH User
+Create a new user by running:
+sudo adduser user_name
+Replace "user_name" with your preferred username.
+Choose a password and press Enter to skip the remaining optional information.
+__________________________________________________________________
+Step 3: Enable SSH Access
+Allow SSH and Apache through the firewall.
+sudo ufw allow ssh
+sudo ufw allow "Apache"
+Enable the firewall.
+sudo ufw enable
+Verify that the firewall is active.
+sudo ufw status
+The status should display "active".
+__________________________________________________________________
+Step 4: Connect Using SSH
+On your own computer, connect to the server using:
+ssh user_name@ccscloud.dlsu.edu.ph -p 604##
+Replace:
+user_name with the account you created.
+604## with your assigned SSH port.
+To disconnect from the server, type:
+logout
+__________________________________________________________________
+Step 5: Install Required Packages
+Install Apache, PHP, MariaDB, SQLite, and the required PHP extensions.
+sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server sqlite3 php-sqlite3 php-gd php-mbstring php-dom
+If prompted, enter your password.
+If you receive the message:
+this user_name is not in the sudoers file. This incident will be reported.
+continue to the troubleshooting section below.
+__________________________________________________________________
+Step 6: Verify Apache Installation
+Open the following address in your browser:
+http://ccscloud.dlsu.edu.ph:[HTTP_PORT]
+Replace [HTTP_PORT] with your assigned HTTP port.
+If Apache is installed successfully, the default Apache page should appear.
+__________________________________________________________________
+Step 7: Create the Project Directory
+Navigate to the web directory.
+cd /var/www/html
+Create your project folder.
+mkdir your_project_folder
+Example:
+sudo mkdir /var/www/html/T1-GreenFlag
+__________________________________________________________________
+Database Setup
+Step 1: Secure MariaDB
+Run:
+sudo mysql_secure_installation
+Use the following responses:
+Switch to unix_socket authentication? n
+Change the root password? n
+Remove anonymous users? y
+Disallow root login remotely? y
+Remove test database and access to it? y
+Reload privilege tables now? y
+__________________________________________________________________
+Step 2: Restart MariaDB
+sudo service mysql restart
+__________________________________________________________________
+Step 3: Configure the Firewall
+Allow the required ports.
+sudo ufw allow 80
+sudo ufw allow 3306
+sudo ufw allow 80/tcp
+sudo ufw allow 60135/tcp
+sudo ufw allow "Apache"
+sudo ufw reload
+Restart the server.
+sudo reboot
+__________________________________________________________________
+Step 4: Create the Database
+Login to MariaDB.
+mysql -u root -p
+Display the available databases.
+SHOW DATABASES;
+Create your database.
+CREATE DATABASE testDb;
+Replace "testDb" with your preferred database name.
+Verify the database.
+SHOW DATABASES;
 
-Welcome to the **GreenFlag** web application. This is a PHP-based platform featuring a user-facing portal (including interactive features like a coin flip game) and a robust admin dashboard for managing users, spots, reviews, favorites, and analytics.
+__________________________________________________________________
+Uploading the Web Application
+Step 1: Install FileZilla
+Download and install FileZilla from:
+https://filezilla-project.org/
+__________________________________________________________________
+Step 2: Configure FileZilla
+Open FileZilla.
+Go to File → Site Manager.
+Create a new site using the following settings:
+Protocol: SFTP - SSH File Transfer Protocol
+Host: ccscloud.dlsu.edu.ph
+Port: 604##
+Username: Your created user account (not root)
+Password: Your user account password
+Click Connect.
+__________________________________________________________________
+Step 3: Upload the Project Files
+After connecting:
+The left panel shows your local computer.
+The right panel shows the CCS Cloud server.
+Navigate to:
+/var/www/html/your_project_folder/
+Replace "your_project_folder" with the folder you created earlier (for example, T1-GreenFlag).
+Drag and drop all GreenFlag project files from your local computer into this folder.
+__________________________________________________________________
+Step 4: Access the Application
+Open your browser and navigate to:
+http://ccscloud.dlsu.edu.ph:[HTTP_PORT]/your_project_folder/
+Replace:
+[HTTP_PORT] with your assigned HTTP port.
+your_project_folder with the folder you uploaded.
+__________________________________________________________________
+Troubleshooting
+User Cannot Use sudo
+If you receive:
+this user_name is not in the sudoers file.
+This incident will be reported.
+Login to the VM using the browser console as root and run:
+usermod -aG sudo user_name
+Reconnect using SSH:
+ssh user_name@ccscloud.dlsu.edu.ph -p 604##
+Then update the package list:
+sudo apt update
+__________________________________________________________________
+Cloud Page Times Out
+If reopening the cloud page results in a timeout, temporarily disable the firewall.
+sudo ufw disable
+__________________________________________________________________
+Notes
+The SQL script provided by the professor contains several commands that are no longer supported by newer versions of MariaDB.
+The following commands still work:
+CREATE USER
+GRANT ALL PRIVILEGES
+FLUSH PRIVILEGES
+QUIT
+The following commands produce ERROR 1064 because they are deprecated:
+ALTER USER ... IDENTIFIED WITH auth_socket BY 'password';
+SET PASSWORD FOR ... = PASSWORD("password");
+This behavior is expected for:
+root@localhost
+root@192.168.%.%
+root@10.%.%.%
+No changes are required unless instructed otherwise.
+__________________________________________________________________
+Deployment Complete
+After completing the steps above, you should have:
+Access to the VM through SSH
+Apache installed and running
+PHP installed
+MariaDB configured
+Firewall configured
+Project directory created
+GreenFlag project uploaded
+Database created
+Application accessible through your assigned HTTP port
 
----
 
-## Repository Structure Overview
-
-*   **`/` (Root):** User-facing frontend files (`index.php`, `aboutus.php`, `coinflip.php`, `login.php`, etc.).
-*   **`/admin`:** Admin panel and dashboard management tools (`spots.php`, `users.php`, `reviews.php`, `analytics.php`).
-*   **`/backend`:** Authentication and core processing scripts (`login.php`, `register.php`, `verify.php`).
-*   **`/config`:** Database connection settings.
-*   **`/css` & `/js`:** Global and page-specific stylesheets and scripts.
-*   **`CCDEVAP-S15-1-GreenFlag.sql`:** Database schema and seed data.
-
----
-
-## System Requirements
-
-Before setting up the project, ensure you have the following installed on your machine:
-
-*   **PHP** (v7.4 or higher recommended)
-*   **MySQL / MariaDB** (v5.7 or higher)
-*   **Web Server** (Apache or Nginx - commonly bundled via **XAMPP**, **MAMP**, or **WampServer**)
-*   **Web Browser** (Chrome, Firefox, Edge, etc.)
-
----
-
-## Installation & Setup Guide
-
-Follow these steps to get your local development environment up and running:
-
-### Step 1: Clone or Extract the Repository
-Place the project folder inside your web server's root directory:
-*   **XAMPP (Windows):** `C:/xampp/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
-*   **XAMPP (macOS):** `/Applications/XAMPP/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
-*   **MAMP (macOS):** `/Applications/MAMP/htdocs/CCDEVAP-S15-Team-1-GreenFlag-phase-2/`
-
-### Step 2: Set Up the Database
-1. Start your **MySQL** server via your local stack controller (e.g., XAMPP Control Panel).
-2. Open your browser and navigate to **phpMyAdmin** (usually `http://localhost/phpmyadmin`).
-3. Create a new database named `greenflag` (or a name of your choice).
-4. Click on your newly created database, go to the **Import** tab.
-5. Choose the SQL file located at the root of this project: 
-   `CCDEVAP-S15-1-GreenFlag.sql`
-6. Click **Go** / **Import** to execute the queries and build the tables.
-
-### Step 3: Configure Database Connections
-You need to verify/update the database credentials in the configuration files to match your local database settings (Username, Password, and Database Name).
-
-Update the connection credentials in **both** of the following files:
-1.  **`config/database.php`** (for the user frontend)
-2.  **`backend/config/database.php`** (for the backend processes)
-3.  **`admin/includes/db.php`** (for the admin panel)
-
-*Example Database Configuration (`db.php` / `database.php`):*
-```php
-<?php
-$host = "localhost";
-$db_name = "greenflag";
-$username = "root"; // Default XAMPP username
-$password = "";     // Default XAMPP password (blank)
-
-try {
-    $conn = new PDO("mysql:host=" . $host . ";dbname=" . $db_name,$username, $password);$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $exception) {
-    echo "Connection error: " . $exception->getMessage();
-}
-?>
