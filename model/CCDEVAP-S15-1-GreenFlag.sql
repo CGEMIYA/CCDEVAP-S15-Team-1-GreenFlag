@@ -126,10 +126,10 @@ INSERT INTO `reviews` (`id`, `user_id`, `spot_id`, `rating`, `review`, `status`,
 (3, 2, 2, 5, 'Excellent coffee and plenty of charging outlets. Perfect during finals week.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (4, 3, 2, 4, 'Food was good but it gets crowded around lunchtime.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (5, 3, 3, 5, 'Probably my favorite place to unwind after a long day of classes.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
-(6, 4, 3, 5, 'Beautiful scenery and surprisingly quiet. Great for dates.', 'pending', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
+(6, 4, 3, 5, 'Beautiful scenery and surprisingly quiet. Great for dates.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (7, 2, 4, 4, 'Nice place to hang out with friends between classes.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (8, 3, 5, 5, 'The food was amazing and the atmosphere was unique.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
-(9, 4, 5, 3, 'Pretty good overall, although service was a little slow.', 'pending', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
+(9, 4, 5, 3, 'Pretty good overall, although service was a little slow.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (10, 2, 6, 5, 'One of the best study spots on campus. Fast Wi-Fi and great coffee.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55'),
 (11, 3, 6, 5, 'Quiet environment with lots of seating. Highly recommended.', 'approved', '2026-07-14 02:41:55', '2026-07-14 02:41:55');
 
@@ -157,7 +157,7 @@ CREATE TABLE `spots` (
 --
 
 INSERT INTO `spots` (`id`, `name`, `location`, `description`, `image`, `hours`, `noise`, `privacy`, `price`, `created_at`) VALUES
-(1, 'Archer\'s Place', 'Taft Avenue', 'One Archers Place is a 31-storey condominium located along Taft Avenue near several universities. It offers 665 residential units along with amenities.', 'photos/thumbnails/archers-place.png', 'Open • 9:00 AM - 10:00 PM', 'Low', 'Medium', 'High', '2026-07-14 02:30:43'),
+(1, 'Archer''s Place', 'Taft Avenue', 'One Archers Place is a 31-storey condominium located along Taft Avenue near several universities. It offers 665 residential units along with amenities.', 'photos/thumbnails/archers-place.png', 'Open • 9:00 AM - 10:00 PM', 'Low', 'Medium', 'High', '2026-07-14 02:30:43'),
 (2, 'Cafe Mesa', 'Taft Avenue', 'A cozy café perfect for locking in during finals week. Popular for students looking for a peaceful workspace with good coffee.', 'photos/thumbnails/cafe-mesa.png', 'Open • 9:00 AM - 10:00 PM', 'Low', 'Medium', 'High', '2026-07-14 02:30:43'),
 (3, 'Santos Garden', 'Ayala Center, Makati', 'Relaxing view perfect place to chill and enjoy your snack. There are various cafes and restaurants around the park. There are also cats, koi fish, and ducks.', 'photos/thumbnails/santos-garden.png', 'Open • 9:00 AM - 10:00 PM', 'High', 'Low', 'Free', '2026-07-14 02:30:43'),
 (4, 'Amphitheater', 'DLSU, Taft Avenue', 'Relaxing view perfect place to chill, enjoy your snack, and hang out with your date or friends!', 'photos/thumbnails/amphitheater.png', 'Open • 6:00 AM - 5:00 PM', 'High', 'Medium', 'Free', '2026-07-14 02:30:43'),
@@ -405,7 +405,8 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`spot_id`) REFERENCES `spots` (`id`);
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`spot_id`) REFERENCES `spots` (`id`),
+  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`removed_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `spot_tags`
@@ -418,3 +419,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+

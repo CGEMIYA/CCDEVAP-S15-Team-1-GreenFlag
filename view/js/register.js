@@ -11,6 +11,8 @@ const email = document.getElementById("email");
 
 const password = document.getElementById("password");
 
+const checkInput = document.getElementById("check");
+
 const confirmPassword = document.getElementById("confirmPassword");
 
 const terms = document.getElementById("terms");
@@ -172,3 +174,15 @@ registerForm.addEventListener("submit", function (event) {
     // The form will now submit to PHP automatically.
 
 });
+
+/*===============================
+      Password show or hide
+=============================*/
+if (checkInput) {
+    checkInput.addEventListener("change", function () {
+        const inputType = this.checked ? "text" : "password";
+        
+        password.type = inputType;
+        confirmPassword.type = inputType; // 👈 Toggles the confirmation input as well
+    });
+}

@@ -148,6 +148,10 @@ session_start();
 
                     <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
 
+                    <label class="checkbox">
+                      <input type="checkbox" id="check" > Show Password  
+                    </label>
+
                 </div>
 
                 <!-- Confirm Password -->
