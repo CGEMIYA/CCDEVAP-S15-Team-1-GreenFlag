@@ -1,0 +1,10 @@
+C:\xampp\htdocs\CCDEVAP-S15-Team-1-GreenFlag>vendor\bin\phpunit tests\usermodelTest.php
+PHPUnit 11.5.56 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.2.12
+
+........                                                            8 / 8 (100%)
+
+Time: 00:00.197, Memory: 8.00 MB
+
+OK (8 tests, 18 assertions)
