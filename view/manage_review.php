@@ -75,7 +75,7 @@ if (!$reviewData) {
                         </div>
 
                         <div class="manage-controls">
-                            <button type="button" class="btn-delete" onclick="if(confirm('Are you sure you want to permanently delete this review?')) { document.getElementById('delete-form').submit(); }">
+                            <button type="button" class="btn-delete" onclick="if (confirmAction('Are you sure you want to permanently delete this review? This action cannot be undone.')) { document.getElementById('delete-form').submit(); }">
                                 🗑 Delete Review
                             </button>
                             

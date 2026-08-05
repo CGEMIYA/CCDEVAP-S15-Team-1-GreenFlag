@@ -82,8 +82,7 @@ if (postButton && reviewText) {
             const result = await response.json();
 
             if (result.success) {
-                // alert below is checker for when it goes inside db
-                // alert("Success! Your review has been saved to the database.");
+                notifySuccess(result.message || "Review submitted successfully.");
 
                 const flagDisplay = selectedRating === 5 ? "🟩 Green Flag" : "🟥 Red Flag";
 
@@ -116,11 +115,11 @@ if (postButton && reviewText) {
                 redFlagBtn.style.border = "none";
                 redFlagBtn.style.backgroundColor = "transparent";
             } else {
-                alert(result.message || result.error || "Unable to submit review. Please try again.");
+                notifyError(result.message || result.error || "Unable to submit review. Please try again.");
             }
         } catch (error) {
             console.error("Error submitting review:", error);
-            alert("A network error occurred. Please try again.");
+            notifyError("A network error occurred. Please try again.");
         } finally {
             // Re-enable the button
             postButton.disabled = false;

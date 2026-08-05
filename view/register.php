@@ -59,6 +59,8 @@ session_start();
 
     </header>
 
+    <?php require_once __DIR__ . '/includes/notification-scripts.php'; ?>
+
     <main class="auth-page">
 
         <div class="auth-card">

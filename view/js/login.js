@@ -29,7 +29,7 @@ loginForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Please complete all fields.");
+        notifyError("Please complete all fields.");
 
         return;
 
@@ -43,7 +43,7 @@ loginForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Please use your DLSU email address.");
+        notifyError("Please use your DLSU email address.");
 
         emailInput.focus();
 
@@ -59,7 +59,7 @@ loginForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Password must be at least 8 characters.");
+        notifyError("Password must be at least 8 characters.");
 
         passwordInput.focus();
 

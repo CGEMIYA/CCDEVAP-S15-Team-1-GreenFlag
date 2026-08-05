@@ -114,7 +114,7 @@ registerForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Please enter your full name.");
+        notifyError("Please enter your full name.");
 
         fullName.focus();
 
@@ -126,7 +126,7 @@ registerForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Please use your DLSU email.");
+        notifyError("Please use your DLSU email.");
 
         email.focus();
 
@@ -138,7 +138,7 @@ registerForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Password must be at least 8 characters.");
+        notifyError("Password must be at least 8 characters.");
 
         password.focus();
 
@@ -150,7 +150,7 @@ registerForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Passwords do not match.");
+        notifyError("Passwords do not match.");
 
         confirmPassword.focus();
 
@@ -162,7 +162,7 @@ registerForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        alert("Please agree to the Community Guidelines.");
+        notifyError("Please agree to the Community Guidelines.");
 
         return;
 

@@ -86,6 +86,8 @@ if (!isset($active_nav)) {
         </div>
     </header>
 
+    <?php require_once __DIR__ . '/notification-scripts.php'; ?>
+
     <!-- This opens layout for the entire page -->
     <div class="page-layout">
 
