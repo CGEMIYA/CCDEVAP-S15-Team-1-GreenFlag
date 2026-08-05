@@ -33,49 +33,57 @@ async function loadSpotDetail() {
         const reviewCount = spot.review_count || 0;
         document.getElementById("rating").textContent = `⭐ ${avgRating} (${reviewCount} reviews)`;
 
-        // FIXED PRICING: Converts price numbers or strings into corresponding '$' symbols
-        let priceSymbols = '$$'; // default fallback
-        if (spot.price) {
-            const priceVal = parseInt(spot.price);
-            if (!isNaN(priceVal)) {
-                priceVal = Math.max(1, Math.min(priceVal, 4)); // keeps it between 1 and 4
-                priceSymbols = '$'.repeat(priceVal);
-            } else {
-                priceSymbols = spot.price; // fallback if text like "High" was passed
-            }
-        }
-        document.getElementById("price").textContent = priceSymbols;
+        // FIXED PRICING: Includes .trim() to prevent invisible spaces from breaking the map
+        const priceMap = {
+            'Free': 'Free',
+            'Low': '$',
+            'Medium': '$$',
+            'High': '$$$'
+        };
+        const rawPrice = spot.price ? spot.price.trim() : '';
+        document.getElementById("price").textContent = priceMap[rawPrice] || rawPrice || '$$';
 
         document.getElementById("description").textContent = spot.description;
         document.getElementById("hours").textContent = `🕒 ${spot.hours}`;
         document.getElementById("noise").textContent = `🔊 Noise Level: ${spot.noise}`;
         document.getElementById("privacy").textContent = `🔒 Privacy: ${spot.privacy}`;
 
+        const galleryContainer = document.querySelector(".gallery");
         const mainImage = document.getElementById("mainImage");
-        mainImage.src = spot.image || 'photos/aaron_profile2.jpg';
-
         const thumbnails = document.querySelectorAll(".thumb");
         
-        // Check if the DB provided a gallery OR if it exists in the legacy bridge
         const activeGallery = spot.gallery || legacyGalleries[id];
 
-        // If a gallery exists, populate the boxes
-        if (activeGallery && activeGallery.length > 0) {
-            thumbnails.forEach((thumb, index) => {
-                const galleryImage = activeGallery[index];
-                if (galleryImage) {
-                    thumb.src = galleryImage;
-                    thumb.style.display = 'block';
-                    thumb.addEventListener('click', () => {
-                        mainImage.src = galleryImage;
-                    });
-                } else {
-                    thumb.style.display = 'none';
-                }
-            });
+        // STRICT IMAGE CHECK: Treats 'aaron' or 'placeholder' database strings as NO IMAGE
+        const isPlaceholder = spot.image && (spot.image.includes('aaron') || spot.image.includes('placeholder'));
+        const hasValidImage = spot.image && !isPlaceholder;
+
+        // If there is NO valid image AND NO gallery, completely hide the left side
+        if (!hasValidImage && (!activeGallery || activeGallery.length === 0)) {
+            galleryContainer.style.display = 'none';
         } else {
-            // Hide all 4 thumbnail boxes for newly created spots without a gallery
-            thumbnails.forEach(thumb => thumb.style.display = 'none');
+            galleryContainer.style.display = 'block';
+            
+            // Apply the valid image, or fallback to the gallery array
+            mainImage.src = hasValidImage ? spot.image : (activeGallery ? activeGallery[0] : '');
+
+            // Populate thumbnails
+            if (activeGallery && activeGallery.length > 0) {
+                thumbnails.forEach((thumb, index) => {
+                    const galleryImage = activeGallery[index];
+                    if (galleryImage) {
+                        thumb.src = galleryImage;
+                        thumb.style.display = 'block';
+                        thumb.addEventListener('click', () => {
+                            mainImage.src = galleryImage;
+                        });
+                    } else {
+                        thumb.style.display = 'none';
+                    }
+                });
+            } else {
+                thumbnails.forEach(thumb => thumb.style.display = 'none');
+            }
         }
 
         const tagContainer = document.getElementById("tags");

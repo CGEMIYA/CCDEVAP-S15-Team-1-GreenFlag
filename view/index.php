@@ -30,12 +30,12 @@
 
     </main>
     </div> <!-- CLOSES .page-layout -->
-    <script src="js/spots.js"></script>
-    <script src="js/darkmode.js"></script>
-    <script src="js/sidebar.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/carousel.js"></script>
-    <script src="js/homepage.js"></script>
+    <script src="js/spots.js?v=<?php echo time(); ?>"></script>
+    <script src="js/darkmode.js?v=<?php echo time(); ?>"></script>
+    <script src="js/sidebar.js?v=<?php echo time(); ?>"></script>
+    <script src="js/search.js?v=<?php echo time(); ?>"></script>
+    <script src="js/carousel.js?v=<?php echo time(); ?>"></script> <!-- Cache Buster added! -->
+    <script src="js/homepage.js?v=<?php echo time(); ?>"></script>
 
 </body>
 

@@ -37,28 +37,33 @@ function displayCards() {
     const visibleSpots = (spots || []).slice(start, end);
 
     visibleSpots.forEach((spot) => {
-        // FIX: Use real Database ID instead of array index
         const dbId = spot.id; 
-        
-        // FIX: Grab the new database column names for ratings, fallback to 'N/A' and 0
         const rating = spot.avg_rating || spot.rating || 'N/A';
         const reviews = spot.review_count || spot.reviews || 0;
 
-        // Add fallback for tags in case the database tags are empty
         const tagsHtml = (spot.tags && spot.tags.length > 0) 
             ? spot.tags.join(" • ") 
             : "No Tags";
 
+        // ADDED: The price map dictionary and .trim() safety check
+        const priceMap = { 'Free': 'Free', 'Low': '$', 'Medium': '$$', 'High': '$$$' };
+        const rawPrice = spot.price ? spot.price.trim() : '';
+        const displayPrice = priceMap[rawPrice] || rawPrice || '$$';
+
+        // ADDED: Checks if the image is empty OR if the database accidentally saved the placeholder text
+        const isPlaceholder = spot.image && (spot.image.includes('aaron') || spot.image.includes('placeholder'));
+        const imgHtml = (spot.image && !isPlaceholder) ? `<img src="${spot.image}" alt="${spot.name}">` : '';
+
         cardsContainer.innerHTML += `
         <div class="card" onclick="openSpot(${dbId})">
-            <img src="${spot.image || 'photos/placeholder.jpg'}" alt="${spot.name}">
+            ${imgHtml}
             <div class="card-content">
                 <h3>${spot.name}</h3>
                 <p class="location">📍 ${spot.location}</p>
                 <p>${tagsHtml}</p>
                 <div class="info">
                     <span>⭐ ${rating} (${reviews})</span>
-                    <span>${spot.price || 'Free'}</span>
+                    <span>${displayPrice}</span>
                 </div>
                 <div class="card-footer">
                     <span class="view-spot">View Spot →</span>

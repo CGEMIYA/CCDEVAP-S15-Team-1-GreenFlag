@@ -315,12 +315,12 @@
         window.currentSpotId = window.dbSpotId;
     </script>
     
-    <script src="js/spots.js"></script>
-    <script src="js/darkmode.js"></script>
-    <script src="js/sidebar.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/spot.js"></script>
-    <script src="js/reviews.js?v=<?php echo time(); ?>"></script> <!-- Forces browser to load newest JS -->
+    <script src="js/spots.js?v=<?php echo time(); ?>"></script>
+    <script src="js/darkmode.js?v=<?php echo time(); ?>"></script>
+    <script src="js/sidebar.js?v=<?php echo time(); ?>"></script>
+    <script src="js/search.js?v=<?php echo time(); ?>"></script>
+    <script src="js/spot.js?v=<?php echo time(); ?>"></script> <!-- Cache Buster added! -->
+    <script src="js/reviews.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>

@@ -58,14 +58,13 @@ require_once __DIR__ . '/includes/header.php';
                         <div class="card"
                             onclick="window.location.href='spot.php?id=<?php echo htmlspecialchars($spot['id']); ?>'">
 
-                            <?php if (!empty($spot['image'])): ?>
+                            <!-- Strict check to block empty images and hardcoded placeholders -->
+                            <?php if (!empty($spot['image']) && strpos($spot['image'], 'aaron') === false && strpos($spot['image'], 'placeholder') === false): ?>
                                 <img src="<?php echo htmlspecialchars($spot['image']); ?>"
                                     alt="<?php echo htmlspecialchars($spot['name']); ?>">
-                            <?php else: ?>
-                                <!-- Swapped the gray box for the placeholder image! -->
-                                <img src="photos/aaron_profile2.jpg" alt="Placeholder Image">
                             <?php endif; ?>
 
+                            <!-- Removed the duplicate card-content div -->
                             <div class="card-content">
                                 <h3><?php echo htmlspecialchars($spot['name']); ?></h3>
                                 <p class="location">📍 <?php echo htmlspecialchars($spot['location']); ?></p>
@@ -73,7 +72,13 @@ require_once __DIR__ . '/includes/header.php';
                                 <div class="info">
                                     <span>⭐ <?php echo htmlspecialchars($spot['avg_rating']); ?>
                                         (<?php echo htmlspecialchars($spot['review_count']); ?>)</span>
-                                    <span><?php echo $priceMap[$spot['price']]; ?></span>
+                                    <span>
+                                        <?php 
+                                            // Safely trim and map the price
+                                            $p = trim($spot['price']);
+                                            echo isset($priceMap[$p]) ? $priceMap[$p] : htmlspecialchars($p); 
+                                        ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>
