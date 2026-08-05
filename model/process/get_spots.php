@@ -19,6 +19,7 @@ try {
                     IFNULL(ROUND(AVG(rating), 1), 0) AS avg_rating, 
                     COUNT(id) AS review_count
              FROM reviews
+             WHERE status = 'approved'
              GROUP BY spot_id
          ) r ON s.id = r.spot_id
          ORDER BY s.id ASC, t.tag_name ASC"

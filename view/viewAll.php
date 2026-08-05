@@ -13,7 +13,7 @@ $query = "
            IFNULL(ROUND(AVG(r.rating), 1), 0) as avg_rating,
            COUNT(r.id) as review_count
     FROM spots s
-    LEFT JOIN reviews r ON s.id = r.spot_id
+    LEFT JOIN reviews r ON s.id = r.spot_id AND r.status = 'approved'
     WHERE s.name LIKE ?
     GROUP BY s.id
     ORDER BY avg_rating DESC

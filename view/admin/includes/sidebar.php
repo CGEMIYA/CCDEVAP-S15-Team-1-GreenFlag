@@ -24,6 +24,10 @@
             <i class="fa-solid fa-location-dot"></i>
             Spots
         </a>
+        <a href="reviews.php" class="<?= ($current_page == 'reviews.php') ? 'active' : '' ?>">
+            <i class="fa-solid fa-comments"></i>
+            Reviews
+        </a>
         <a href="tags.php" class="<?= ($current_page == 'tags.php') ? 'active' : '' ?>">
             <i class="fa-solid fa-tags"></i>
             Tags

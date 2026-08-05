@@ -88,6 +88,28 @@ if (!isset($active_nav)) {
 
     <?php require_once __DIR__ . '/notification-scripts.php'; ?>
 
+    <?php
+    if (isset($_SESSION['user_id'])) {
+        require_once __DIR__ . '/../../model/config/database.php';
+        require_once __DIR__ . '/../../model/process/reviewmodel.php';
+        try {
+            $headerRevModel = new ReviewModel($pdo);
+            $unreadNotifs = $headerRevModel->getUnreadNotifications((int)$_SESSION['user_id']);
+            if (!empty($unreadNotifs)) {
+                echo "<script>\n";
+                echo "document.addEventListener('DOMContentLoaded', function() {\n";
+                foreach ($unreadNotifs as $notif) {
+                    $safeMsg = json_encode($notif['message']);
+                    echo "    if (typeof notifyError === 'function') { notifyError({$safeMsg}, 9000); }\n";
+                }
+                echo "});\n";
+                echo "</script>\n";
+                $headerRevModel->markNotificationsAsRead((int)$_SESSION['user_id']);
+            }
+        } catch (Exception $e) {}
+    }
+    ?>
+
     <!-- This opens layout for the entire page -->
     <div class="page-layout">
 

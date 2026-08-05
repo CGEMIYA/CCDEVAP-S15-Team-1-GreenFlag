@@ -4,11 +4,11 @@
 
         $spotId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
-        // Removed the status check for reviews
+        // Status check: only show approved reviews to public
         $stmt = $pdo->prepare("SELECT r.id AS review_id, r.rating, r.review, r.created_at, r.updated_at, u.full_name 
             FROM reviews r 
             JOIN users u ON r.user_id = u.id 
-            WHERE r.spot_id = :spot_id 
+            WHERE r.spot_id = :spot_id AND r.status = 'approved' 
             ORDER BY r.created_at DESC");
         $stmt->execute([':spot_id' => $spotId]);
         $dbReviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -114,7 +114,17 @@
                         <?php foreach ($dbReviews as $dbReview): ?>
                             <!-- Added the ID anchor here! -->
                             <div class="review" id="review-<?= $dbReview['review_id']; ?>">
-                                <h4><?= htmlspecialchars($dbReview['full_name']); ?></h4>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h4><?= htmlspecialchars($dbReview['full_name']); ?></h4>
+                                    
+                                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                        <button type="button" class="btn-admin-remove" 
+                                                style="background: #dc3545; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;"
+                                                onclick="openSpotAdminModeration(<?= $dbReview['review_id']; ?>, '<?= addslashes(htmlspecialchars($dbReview['full_name'])); ?>', '<?= addslashes(htmlspecialchars(trim(preg_replace('/\s+/', ' ', $dbReview['review'])))); ?>')">
+                                            <i class="fa-solid fa-shield-halved"></i> Moderate Review
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
                                 
                                 <!-- SVG FLAGS -->
                                 <p>
@@ -151,6 +161,147 @@
             </section>
         </main>
     </div> <!-- CLOSES .page-layout -->
+
+    <!-- SPOT ADMIN MODERATION MODAL -->
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+    <div id="spotModOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 99999; justify-content: center; align-items: center;">
+        <div style="background: var(--card-bg, #ffffff); color: var(--text-color, #333); width: 90%; max-width: 500px; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); font-family: inherit;">
+            <h3 style="margin-top: 0; color: #dc3545; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-triangle-exclamation"></i> Moderate & Remove Review
+            </h3>
+            
+            <!-- Requirement 2 Warning Text -->
+            <div style="background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; font-size: 0.9rem; margin-bottom: 15px; border: 1px solid #ffeeba;">
+                Are you sure you want to remove this review? The review will no longer be publicly visible, and the author will be notified that it was removed for violating the community guidelines.
+            </div>
+
+            <div style="background: #f8f9fa; color: #333; padding: 10px 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 15px; border: 1px solid #e9ecef;">
+                <div><strong>Author:</strong> <span id="spotModAuthor"></span></div>
+                <div style="margin-top: 4px; font-style: italic; color: #666;">"<span id="spotModReviewText"></span>"</div>
+            </div>
+
+            <form id="spotModForm">
+                <input type="hidden" id="spotModReviewId" name="review_id">
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">
+                        Select Removal Reason <span style="color: #dc3545;">*</span>
+                    </label>
+                    <select id="spotModReason" name="reason" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 0.9rem;">
+                        <option value="" disabled selected>-- Select reason --</option>
+                        <option value="Spam">Spam</option>
+                        <option value="Offensive or abusive language">Offensive or abusive language</option>
+                        <option value="Hate speech">Hate speech</option>
+                        <option value="False or misleading information">False or misleading information</option>
+                        <option value="Inappropriate content">Inappropriate content</option>
+                        <option value="Duplicate review">Duplicate review</option>
+                        <option value="Other">Other (custom explanation)</option>
+                    </select>
+                </div>
+
+                <div id="spotModCustomContainer" style="display: none; margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">
+                        Custom Explanation <span style="color: #dc3545;">*</span>
+                    </label>
+                    <textarea id="spotModCustomReason" name="custom_reason" rows="3" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 0.9rem;" placeholder="Provide additional details..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" onclick="closeSpotAdminModeration()" style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit" id="spotModSubmitBtn" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold;">Confirm & Remove</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function openSpotAdminModeration(reviewId, authorName, reviewText) {
+        document.getElementById('spotModReviewId').value = reviewId;
+        document.getElementById('spotModAuthor').textContent = authorName;
+        document.getElementById('spotModReviewText').textContent = reviewText;
+        document.getElementById('spotModReason').value = '';
+        document.getElementById('spotModCustomContainer').style.display = 'none';
+        document.getElementById('spotModCustomReason').value = '';
+        document.getElementById('spotModOverlay').style.display = 'flex';
+    }
+
+    function closeSpotAdminModeration() {
+        document.getElementById('spotModOverlay').style.display = 'none';
+    }
+
+    document.getElementById('spotModReason').addEventListener('change', function() {
+        if (this.value === 'Other') {
+            document.getElementById('spotModCustomContainer').style.display = 'block';
+            document.getElementById('spotModCustomReason').setAttribute('required', 'required');
+        } else {
+            document.getElementById('spotModCustomContainer').style.display = 'none';
+            document.getElementById('spotModCustomReason').removeAttribute('required');
+        }
+    });
+
+    document.getElementById('spotModForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const reviewId = document.getElementById('spotModReviewId').value;
+        const reason = document.getElementById('spotModReason').value;
+        const customReason = document.getElementById('spotModCustomReason').value;
+
+        const btn = document.getElementById('spotModSubmitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Removing...';
+
+        try {
+            const response = await fetch('../controller/admin/actions/reviews/remove.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    review_id: reviewId,
+                    reason: reason,
+                    custom_reason: customReason
+                })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                closeSpotAdminModeration();
+                const elem = document.getElementById('review-' + reviewId);
+                if (elem) {
+                    elem.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    elem.style.opacity = '0';
+                    elem.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        elem.remove();
+                        const container = document.getElementById('reviewsContainer');
+                        if (container && container.children.length === 0) {
+                            container.innerHTML = '<p style="text-align: center; color: #666; margin-top: 20px;">No reviews yet. Be the first to share your experience!</p>';
+                        }
+                    }, 400);
+                }
+                if (typeof notifySuccess === 'function') {
+                    notifySuccess(result.message);
+                } else {
+                    alert(result.message);
+                }
+                // Refresh rating calculation
+                if (typeof fetchSpotDetails === 'function') {
+                    fetchSpotDetails();
+                }
+            } else {
+                alert(result.message || 'Failed to remove review.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('A network error occurred while moderating review.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Confirm & Remove';
+        }
+    });
+    </script>
+    <?php endif; ?>
+
     
     <!-- INJECT SESSION -->
     <script>

@@ -213,3 +213,13 @@ body.dark-mode .btn-edit-review {
 body.dark-mode .btn-edit-review:hover {
     background: #555;
 }
+
+body.dark-mode .history-review-card.review-card-removed {
+    background: #281a1c;
+    border-color: #5c2024;
+}
+
+body.dark-mode .removed-reason-box {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-left-color: #dc3545;
+}

@@ -17,7 +17,13 @@ require_once 'includes/db.php';
 
 $totalUsers = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM users"));
 $totalSpots = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM spots"));
-$totalFavorites = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM favorites"));
+
+$favCount = 0;
+$favQuery = @mysqli_query($conn, "SELECT COUNT(*) AS count FROM favorites");
+if ($favQuery && $favRow = mysqli_fetch_assoc($favQuery)) {
+    $favCount = (int)$favRow['count'];
+}
+$totalFavorites = ['count' => $favCount];
 
 $reviewStatus = [];
 $reviewStatusQuery = mysqli_query($conn, "SELECT status, COUNT(*) AS count FROM reviews GROUP BY status");
@@ -31,12 +37,11 @@ while ($row = mysqli_fetch_assoc($userStatusQuery)) {
     $userStatus[$row['status']] = (int) $row['count'];
 }
 
-$reviewLabels = ['pending', 'approved', 'rejected'];
+$reviewLabels = ['pending', 'approved', 'rejected', 'removed'];
 $reviewData = [];
 foreach ($reviewLabels as $label) {
     $reviewData[] = $reviewStatus[$label] ?? 0;
 }
-
 $userLabels = ['pending', 'verified', 'suspended', 'banned'];
 $userData = [];
 foreach ($userLabels as $label) {
@@ -111,7 +116,7 @@ foreach ($userLabels as $label) {
             datasets: [{
                 label: 'Reviews',
                 data: <?= json_encode($reviewData) ?>,
-                backgroundColor: ['#f9a825', '#2e7d32', '#e53935']
+                backgroundColor: ['#f9a825', '#2e7d32', '#e53935', '#b71c1c']
             }]
         },
         options: {

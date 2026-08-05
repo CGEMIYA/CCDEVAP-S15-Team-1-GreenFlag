@@ -36,6 +36,20 @@ CREATE TABLE `activity_logs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `spot_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 --
 -- Dumping data for table `activity_logs`
 --
@@ -48,7 +62,7 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_addre
 (5, 1, 'Verified the account of Maria Santos.', NULL, NULL, '2026-07-14 06:50:04'),
 (6, 2, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
 (7, 3, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
-(8, 4, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04'),
+(8, 4, 'Logged into the application.', NULL, NULL, '2026-07-14 06:50:04');
 
 -- --------------------------------------------------------
 
@@ -62,9 +76,44 @@ CREATE TABLE `reviews` (
   `spot_id` int(11) NOT NULL,
   `rating` tinyint(1) NOT NULL,
   `review` text NOT NULL,
-  `status` enum('pending','approved','rejected') NOT NULL,
+  `status` enum('pending','approved','rejected','removed') NOT NULL DEFAULT 'approved',
+  `removal_reason` varchar(255) DEFAULT NULL,
+  `removal_custom_reason` text DEFAULT NULL,
+  `removed_by` int(11) DEFAULT NULL,
+  `removed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_moderation_logs`
+--
+
+CREATE TABLE `review_moderation_logs` (
+  `id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `custom_reason` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `type` varchar(50) NOT NULL DEFAULT 'review_removed',
+  `message` text NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -265,6 +314,29 @@ ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- Indexes for table `review_moderation_logs`
+--
+ALTER TABLE `review_moderation_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `review_id` (`review_id`),
+  ADD KEY `admin_id` (`admin_id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `favorites`
+--
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `spot_id` (`spot_id`);
+
+--
 -- AUTO_INCREMENT for table `spots`
 --
 ALTER TABLE `spots`
@@ -283,6 +355,25 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `review_moderation_logs`
+--
+ALTER TABLE `review_moderation_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT for table `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+
+--
 -- Constraints for dumped tables
 --
 
@@ -291,6 +382,19 @@ ALTER TABLE `users`
 --
 ALTER TABLE `activity_logs`
   ADD CONSTRAINT `activity_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `review_moderation_logs`
+--
+ALTER TABLE `review_moderation_logs`
+  ADD CONSTRAINT `review_moderation_logs_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `review_moderation_logs_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 
