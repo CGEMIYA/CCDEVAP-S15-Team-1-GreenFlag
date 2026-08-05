@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../model/config/database.php';
-require_once __DIR__ . '/../../model/reviewmodel.php';
+require_once __DIR__ . '/../../model/process/reviewmodel.php';
 
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../../view/myreviews.php");

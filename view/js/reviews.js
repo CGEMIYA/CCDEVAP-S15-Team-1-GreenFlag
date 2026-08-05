@@ -73,7 +73,7 @@ if (postButton && reviewText) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    spot_id: window.dbSpotId, 
+                    spot_id: window.dbSpotId,
                     rating: selectedRating,
                     review: text
                 })
@@ -116,7 +116,7 @@ if (postButton && reviewText) {
                 redFlagBtn.style.border = "none";
                 redFlagBtn.style.backgroundColor = "transparent";
             } else {
-                alert("Database Error: " + result.message);
+                alert(result.message || result.error || "Unable to submit review. Please try again.");
             }
         } catch (error) {
             console.error("Error submitting review:", error);
