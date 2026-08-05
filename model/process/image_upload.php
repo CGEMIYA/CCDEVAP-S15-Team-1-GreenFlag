@@ -22,17 +22,28 @@ function handleSpotImageUpload(string $fileInputName, string $uploadDir, string 
     }
 
     $file = $_FILES[$fileInputName];
+    
+    // If they intentionally left the image blank, just skip and return blank
     if ($file['error'] === UPLOAD_ERR_NO_FILE) {
         return $existingImagePath;
     }
 
+    // IF AN UPLOAD HAPPENED BUT FAILED, YELL EXACTLY WHY
     if ($file['error'] !== UPLOAD_ERR_OK) {
-        return $existingImagePath;
+        $phpErrors = [
+            1 => 'The image is too large! It exceeds the upload_max_filesize in php.ini (Usually 2MB).',
+            2 => 'The image exceeds the HTML form file limit.',
+            3 => 'The image was only partially uploaded.',
+            6 => 'Missing a temporary folder on the server.',
+            7 => 'Failed to write image to disk.',
+        ];
+        $errMsg = $phpErrors[$file['error']] ?? 'Unknown PHP upload error.';
+        throw new Exception($errMsg);
     }
 
     $imageInfo = @getimagesize($file['tmp_name']);
     if ($imageInfo === false) {
-        return $existingImagePath;
+        throw new Exception("File is not a valid image format.");
     }
 
     $allowedTypes = [
@@ -43,23 +54,26 @@ function handleSpotImageUpload(string $fileInputName, string $uploadDir, string 
     ];
 
     if (!isset($allowedTypes[$imageInfo[2]])) {
-        return $existingImagePath;
+        throw new Exception("Unsupported image type. Please use JPG, PNG, GIF, or WEBP.");
     }
 
     if (!ensureUploadDirectoryExists($uploadDir)) {
-        return $existingImagePath;
+        throw new Exception("Failed to create the thumbnails upload folder.");
     }
 
     $extension = $allowedTypes[$imageInfo[2]];
     $filename = generateUploadFilename($file['name'], $extension);
-    $destination = rtrim($uploadDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
+    
+    // FIX: Safely trims both forward and backward slashes to prevent Windows/Mac pathing bugs
+    $destination = rtrim($uploadDir, '/\\') . '/' . $filename;
 
     if (!move_uploaded_file($file['tmp_name'], $destination)) {
-        return $existingImagePath;
+        throw new Exception("Failed to physically move the image into the thumbnails folder.");
     }
 
+    // Delete old image if updating
     if (!empty($existingImagePath) && str_starts_with($existingImagePath, $webPathPrefix . '/')) {
-        $previousPath = rtrim($uploadDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . basename($existingImagePath);
+        $previousPath = rtrim($uploadDir, '/\\') . '/' . basename($existingImagePath);
         if (is_file($previousPath)) {
             @unlink($previousPath);
         }

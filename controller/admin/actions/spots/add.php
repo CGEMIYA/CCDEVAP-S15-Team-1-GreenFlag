@@ -18,8 +18,15 @@ $privacy = $_POST["privacy"] ?? "Low";
 $price = $_POST["price"] ?? "Free";
 $rawTagIds = $_POST["tag_ids"] ?? [];
 
-$uploadDir = dirname(__DIR__, 4) . '/view/photos/thumbnails/'; // Adjust the path as needed
-$image = handleSpotImageUpload('image', $uploadDir, 'photos/thumbnails', '');
+$uploadDir = dirname(__DIR__, 4) . '/view/photos/thumbnails/'; 
+
+try {
+    $image = handleSpotImageUpload('image', $uploadDir, 'photos/thumbnails', '');
+} catch (Exception $e) {
+    // BOUNCE BACK TO THE ADMIN PANEL WITH THE ERROR
+    header("Location: ../../../../view/admin/spots.php?error=upload&msg=" . urlencode($e->getMessage()));
+    exit();
+}
 
 if (empty($name) || empty($location)) {
     header("Location: ../../../../view/admin/spots.php");
