@@ -1,3 +1,8 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP DATABASE IF EXISTS greenflag;
+CREATE DATABASE greenflag;
+USE greenflag;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -421,3 +426,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
+SET FOREIGN_KEY_CHECKS = 1;
