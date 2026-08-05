@@ -145,7 +145,7 @@ class ReviewModel {
             $sql .= " WHERE r.status = :status ";
         }
 
-        $sql .= " ORDER BY r.created_at DESC";
+        $sql .= " ORDER BY r.id_at ASC";
 
         $stmt = $this->pdo->prepare($sql);
         if ($statusFilter && in_array($statusFilter, ['pending', 'approved', 'rejected', 'removed'])) {
