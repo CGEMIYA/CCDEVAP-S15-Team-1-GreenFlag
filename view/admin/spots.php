@@ -5,7 +5,7 @@
 // 1. Authentication & DB connection
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
-require_once '../../model/process/SpotModel.php';
+require_once '../../model/process/spotmodel.php';
 
 // 2. Set Page Title & Load Headers
 $pageTitle = "Spots";

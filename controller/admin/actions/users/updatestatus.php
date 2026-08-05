@@ -1,6 +1,6 @@
 <?php
 require_once "../../../../view/admin/includes/db.php";
-require_once "../../../../model/process/UserModel.php";
+require_once "../../../../model/process/usermodel.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../../../../view/admin/users.php");
