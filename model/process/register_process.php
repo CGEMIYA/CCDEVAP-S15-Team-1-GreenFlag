@@ -22,7 +22,7 @@ if (
 ) {
     $_SESSION["error"] = "Please fill in all fields.";
 
-    header("Location: ../register.php");
+    header("Location: ../../view/register.php");
 
     exit();
 }
