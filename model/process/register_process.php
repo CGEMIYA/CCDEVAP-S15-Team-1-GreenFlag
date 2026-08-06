@@ -5,7 +5,7 @@ session_start();
 require "../config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: ../register.php");
+    header("Location: ../../view/register.php");
     exit();
 }
 
