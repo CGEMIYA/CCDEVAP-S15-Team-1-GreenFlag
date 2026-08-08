@@ -170,5 +170,10 @@ if (!isset($active_nav)) {
             <a href="../view/coinflip.php" class="<?php echo $active_nav === 'coinflip' ? 'active' : ''; ?>" aria-current="<?php echo $active_nav === 'coinflip' ? 'page' : 'false'; ?>">
                 <i class="fa-solid fa-coins"></i> Coin Flip
             </a>
+
+            <a href="../view/aboutus.php">
+            <i class="fa-solid fa-circle-info"></i>
+            About Us
+        </a>
         </div>
     </aside>
