@@ -898,6 +898,83 @@ body {
 
 .btn-save-account:hover {
     transform: translateY(-2px);
+}
+
+/* Spot carousel & upload styles */
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carousel-main {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    background: var(--bg-elements);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.carousel-main img {
+    max-width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    display: block;
+}
+
+.carousel-nav {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#spot-thumbnails {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    overflow-x: auto;
+}
+
+#spot-thumbnails .thumbnail {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+
+#spot-thumbnails .thumbnail.active-thumb {
+    border-color: var(--accent-green);
+}
+
+.image-upload {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.image-upload .btn {
+    background: var(--accent-green);
+    color: white;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+.image-upload #spot-image-note {
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
     box-shadow: var(--shadow-lg);
     background-color: #16a34a;
 }

@@ -75,12 +75,20 @@
             <div class="spot-detail-main">
 
                 <div class="photo-gallery">
-                    <div class="main-wireframe">✕</div>
-                    <div class="thumbnail-row">
-                        <div class="thumbnail">✕</div>
-                        <div class="thumbnail">✕</div>
-                        <div class="thumbnail">✕</div>
-                        <div class="thumbnail">✕</div>
+                    <div class="carousel" aria-label="Spot images carousel">
+                        <button class="carousel-nav prev" id="spot-prev" aria-label="Previous image">&lt;</button>
+                        <div class="carousel-main">
+                            <img id="spot-main-image" src="" alt="Spot photo" />
+                        </div>
+                        <button class="carousel-nav next" id="spot-next" aria-label="Next image">&gt;</button>
+                    </div>
+                    <div class="thumbnail-row" id="spot-thumbnails" aria-label="Thumbnails"></div>
+
+                    <div class="image-upload">
+                        <label for="spot-image-input" class="btn">Add Images</label>
+                        <input id="spot-image-input" type="file" accept="image/*" multiple style="display:none;" />
+                        <button id="spot-upload-clear" class="btn">Clear Images</button>
+                        <small id="spot-image-note">Up to 10 images per spot. You can select multiple files at once.</small>
                     </div>
                 </div>
                 

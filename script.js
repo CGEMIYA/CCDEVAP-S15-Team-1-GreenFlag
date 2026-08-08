@@ -118,7 +118,13 @@ function loadSpotData() {
 
 window.onload = function() {
     loadSpotData();
-    // Also set up carousel if on index page
+    // Initialize spot-specific carousel when viewing an individual spot
+    const params = new URLSearchParams(window.location.search);
+    const spotName = params.get('spot');
+    if (spotName) {
+        initSpotCarousel(spotName);
+    }
+    // Also set up index carousel if present
     setTimeout(updateCarousel, 100);
 };
 
@@ -177,7 +183,152 @@ function loadSpotData() {
     }
 }
 
-window.onload = loadSpotData;
+// Spot images carousel / upload helpers
+const MAX_SPOT_IMAGES = 10;
+
+function getSpotImagesKey(spotName) {
+    return `spot_images_${spotName}`;
+}
+
+async function readFilesAsDataUrls(files) {
+    const readers = Array.from(files).map(file => new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result);
+        fr.onerror = () => reject(new Error('Failed to read file'));
+        fr.readAsDataURL(file);
+    }));
+    return Promise.all(readers);
+}
+
+function saveImagesForSpot(spotName, imagesArray) {
+    const key = getSpotImagesKey(spotName);
+    // Enforce limit
+    const limited = imagesArray.slice(0, MAX_SPOT_IMAGES);
+    localStorage.setItem(key, JSON.stringify(limited));
+}
+
+function loadImagesForSpot(spotName) {
+    const key = getSpotImagesKey(spotName);
+    try {
+        return JSON.parse(localStorage.getItem(key) || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function renderSpotImagesFor(spotName, startIndex = 0) {
+    const images = loadImagesForSpot(spotName).slice(0, MAX_SPOT_IMAGES);
+    const mainImg = document.getElementById('spot-main-image');
+    const thumbs = document.getElementById('spot-thumbnails');
+    if (!mainImg || !thumbs) return;
+
+    thumbs.innerHTML = '';
+
+    if (images.length === 0) {
+        mainImg.src = '';
+        mainImg.alt = 'No images available';
+        mainImg.classList.add('placeholder');
+        // small placeholder content
+        mainImg.style.background = '#f3f3f3';
+        mainImg.style.minHeight = '180px';
+        return;
+    }
+
+    const idx = Math.min(Math.max(0, startIndex), images.length - 1);
+    mainImg.src = images[idx];
+    mainImg.classList.remove('placeholder');
+    mainImg.style.background = '';
+
+    images.forEach((src, i) => {
+        const t = document.createElement('img');
+        t.src = src;
+        t.className = 'thumbnail';
+        t.alt = `Thumbnail ${i + 1}`;
+        t.dataset.index = i;
+        t.addEventListener('click', () => {
+            mainImg.src = src;
+            // mark active
+            thumbs.querySelectorAll('.thumbnail').forEach(el => el.classList.remove('active-thumb'));
+            t.classList.add('active-thumb');
+        });
+        thumbs.appendChild(t);
+    });
+
+    // Mark active thumb
+    const active = thumbs.querySelector(`[data-index="${idx}"]`);
+    if (active) active.classList.add('active-thumb');
+}
+
+function initSpotCarousel(spotName) {
+    const input = document.getElementById('spot-image-input');
+    const prev = document.getElementById('spot-prev');
+    const next = document.getElementById('spot-next');
+    const clearBtn = document.getElementById('spot-upload-clear');
+
+    // Render existing images
+    renderSpotImagesFor(spotName, 0);
+
+    // Current index state
+    let currentIndex = 0;
+
+    function getImages() { return loadImagesForSpot(spotName).slice(0, MAX_SPOT_IMAGES); }
+
+    function showIndex(i) {
+        const images = getImages();
+        if (images.length === 0) return;
+        currentIndex = ((i % images.length) + images.length) % images.length;
+        const mainImg = document.getElementById('spot-main-image');
+        mainImg.src = images[currentIndex];
+        // highlight thumb
+        const thumbs = document.getElementById('spot-thumbnails');
+        thumbs.querySelectorAll('.thumbnail').forEach(el => el.classList.remove('active-thumb'));
+        const active = thumbs.querySelector(`[data-index="${currentIndex}"]`);
+        if (active) active.classList.add('active-thumb');
+    }
+
+    prev?.addEventListener('click', () => {
+        const images = getImages();
+        if (images.length === 0) return;
+        showIndex(currentIndex - 1);
+    });
+
+    next?.addEventListener('click', () => {
+        const images = getImages();
+        if (images.length === 0) return;
+        showIndex(currentIndex + 1);
+    });
+
+    clearBtn?.addEventListener('click', () => {
+        const key = getSpotImagesKey(spotName);
+        localStorage.removeItem(key);
+        renderSpotImagesFor(spotName, 0);
+    });
+
+    input?.addEventListener('change', async (e) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
+
+        const existing = loadImagesForSpot(spotName);
+        const spaceLeft = Math.max(0, MAX_SPOT_IMAGES - existing.length);
+        if (spaceLeft === 0) {
+            alert(`This spot already has ${MAX_SPOT_IMAGES} images. Clear some images before adding more.`);
+            input.value = '';
+            return;
+        }
+
+        const toAdd = Array.from(files).slice(0, spaceLeft);
+        try {
+            const dataUrls = await readFilesAsDataUrls(toAdd);
+            const merged = existing.concat(dataUrls).slice(0, MAX_SPOT_IMAGES);
+            saveImagesForSpot(spotName, merged);
+            renderSpotImagesFor(spotName, existing.length);
+            input.value = '';
+        } catch (err) {
+            console.error('Error reading images', err);
+            alert('Failed to read one or more images.');
+        }
+    });
+}
 
 // Ratings & Review
 let currRating = null;
